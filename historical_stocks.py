@@ -26,7 +26,11 @@ def get_stock_info(symbol_list):
 
 if __name__ == '__main__':
     cwd = os.getcwd()
-    path = os.path.join(cwd, 'assets')
+    # check if OS is  ('nt') or not
+    if os.name == 'nt':
+        path = os.path.join(cwd, '/assets')
+    else:
+        path = os.path.join(cwd, 'assets')
     if not os.path.exists(path):
         os.mkdir(path)
     get_stock_info(DJI_stocks)
