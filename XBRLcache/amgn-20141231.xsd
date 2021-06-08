@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--XBRL Document Created with Wdesk from Workiva, formerly WebFilings-->
+<!-- -->
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.amgen.com/20141231" xmlns:amgn="http://www.amgen.com/20141231" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:num="http://www.xbrl.org/dtr/type/numeric" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://fasb.org/us-gaap/2014-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2014/elts/us-gaap-2014-01-31.xsd" />
+  <xsd:import namespace="http://fasb.org/us-roles/2014-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2014/elts/us-roles-2014-01-31.xsd" />
+  <xsd:import namespace="http://fasb.org/us-types/2014-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2014/elts/us-types-2014-01-31.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2009/arcrole/fact-explanatoryFact" schemaLocation="http://www.xbrl.org/lrr/arcrole/factExplanatory-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2009/role/negated" schemaLocation="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/2009/role/net" schemaLocation="http://www.xbrl.org/lrr/role/net-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/dtr/type/non-numeric" schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd" />
+  <xsd:import namespace="http://www.xbrl.org/dtr/type/numeric" schemaLocation="http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd" />
+  <xsd:import namespace="http://xbrl.org/2005/xbrldt" schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/country/2013-01-31" schemaLocation="http://xbrl.sec.gov/country/2013/country-2013-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/currency/2014-01-31" schemaLocation="http://xbrl.sec.gov/currency/2014/currency-2014-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/dei/2014-01-31" schemaLocation="http://xbrl.sec.gov/dei/2014/dei-2014-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/exch/2014-01-31" schemaLocation="http://xbrl.sec.gov/exch/2014/exch-2014-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/invest/2013-01-31" schemaLocation="http://xbrl.sec.gov/invest/2013/invest-2013-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/naics/2011-01-31" schemaLocation="http://xbrl.sec.gov/naics/2011/naics-2011-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/sic/2011-01-31" schemaLocation="http://xbrl.sec.gov/sic/2011/sic-2011-01-31.xsd" />
+  <xsd:import namespace="http://xbrl.sec.gov/stpr/2011-01-31" schemaLocation="http://xbrl.sec.gov/stpr/2011/stpr-2011-01-31.xsd" />
+  <xsd:annotation>
+    <xsd:appinfo>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="amgn-20141231_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="amgn-20141231_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="amgn-20141231_lab.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="amgn-20141231_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:type="simple" />
+      <link:roleType id="AccruedLiabilitesDetails" roleURI="http://www.amgen.com/role/AccruedLiabilitesDetails">
+        <link:definition>2415402 - Disclosure - Accrued liabilites (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AccruedLiabilities" roleURI="http://www.amgen.com/role/AccruedLiabilities">
+        <link:definition>2115100 - Disclosure - Accrued liabilities</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AccruedLiabilitiesTables" roleURI="http://www.amgen.com/role/AccruedLiabilitiesTables">
+        <link:definition>2315301 - Disclosure - Accrued liabilities (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestments" roleURI="http://www.amgen.com/role/AvailableForSaleInvestments">
+        <link:definition>2111100 - Disclosure - Available-for-sale investments</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestmentsDetails" roleURI="http://www.amgen.com/role/AvailableForSaleInvestmentsDetails">
+        <link:definition>2411402 - Disclosure - Available-for-sale investments (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestmentsDetails1" roleURI="http://www.amgen.com/role/AvailableForSaleInvestmentsDetails1">
+        <link:definition>2411403 - Disclosure - Available-for-sale investments (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestmentsDetails2" roleURI="http://www.amgen.com/role/AvailableForSaleInvestmentsDetails2">
+        <link:definition>2411404 - Disclosure - Available-for-sale investments (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestmentsDetails3" roleURI="http://www.amgen.com/role/AvailableForSaleInvestmentsDetails3">
+        <link:definition>2411405 - Disclosure - Available-for-sale investments (Details 3)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestmentsDetailsTextual" roleURI="http://www.amgen.com/role/AvailableForSaleInvestmentsDetailsTextual">
+        <link:definition>2411406 - Disclosure - Available-for-sale investments (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AvailableForSaleInvestmentsTables" roleURI="http://www.amgen.com/role/AvailableForSaleInvestmentsTables">
+        <link:definition>2311301 - Disclosure - Available-for-sale investments (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinations" roleURI="http://www.amgen.com/role/BusinessCombinations">
+        <link:definition>2103100 - Disclosure - Business combinations</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsDetails" roleURI="http://www.amgen.com/role/BusinessCombinationsDetails">
+        <link:definition>2403402 - Disclosure - Business combinations (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsDetails1" roleURI="http://www.amgen.com/role/BusinessCombinationsDetails1">
+        <link:definition>2403403 - Disclosure - Business combinations (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsDetails2" roleURI="http://www.amgen.com/role/BusinessCombinationsDetails2">
+        <link:definition>2403404 - Disclosure - Business combinations (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsDetails3" roleURI="http://www.amgen.com/role/BusinessCombinationsDetails3">
+        <link:definition>2403405 - Disclosure - Business combinations (Details 3)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsDetails4" roleURI="http://www.amgen.com/role/BusinessCombinationsDetails4">
+        <link:definition>2403406 - Disclosure - Business combinations (Details 4)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsDetailsTextual" roleURI="http://www.amgen.com/role/BusinessCombinationsDetailsTextual">
+        <link:definition>2403407 - Disclosure - Business combinations (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessCombinationsTables" roleURI="http://www.amgen.com/role/BusinessCombinationsTables">
+        <link:definition>2303301 - Disclosure - Business combinations (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangements" roleURI="http://www.amgen.com/role/CollaborativeArrangements">
+        <link:definition>2107100 - Disclosure - Collaborative arrangements</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangementsTextuals1Details" roleURI="http://www.amgen.com/role/CollaborativeArrangementsTextuals1Details">
+        <link:definition>2407402 - Disclosure - Collaborative arrangements (Textuals 1) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangementsTextuals2Details" roleURI="http://www.amgen.com/role/CollaborativeArrangementsTextuals2Details">
+        <link:definition>2407403 - Disclosure - Collaborative arrangements (Textuals 2) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangementsTextuals3Details" roleURI="http://www.amgen.com/role/CollaborativeArrangementsTextuals3Details">
+        <link:definition>2407404 - Disclosure - Collaborative arrangements (Textuals 3) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangementsTextuals4Details" roleURI="http://www.amgen.com/role/CollaborativeArrangementsTextuals4Details">
+        <link:definition>2407405 - Disclosure - Collaborative arrangements (Textuals 4) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangementsTextuals5Details" roleURI="http://www.amgen.com/role/CollaborativeArrangementsTextuals5Details">
+        <link:definition>2407406 - Disclosure - Collaborative arrangements (Textuals 5) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CollaborativeArrangementsTextualsDetails" roleURI="http://www.amgen.com/role/CollaborativeArrangementsTextualsDetails">
+        <link:definition>2407401 - Disclosure - Collaborative arrangements (Textuals) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedBalanceSheets" roleURI="http://www.amgen.com/role/ConsolidatedBalanceSheets">
+        <link:definition>1004000 - Statement - Consolidated Balance Sheets</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedBalanceSheetsParenthetical" roleURI="http://www.amgen.com/role/ConsolidatedBalanceSheetsParenthetical">
+        <link:definition>1004501 - Statement - Consolidated Balance Sheets (Parenthetical)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsOfCashFlows" roleURI="http://www.amgen.com/role/ConsolidatedStatementsOfCashFlows">
+        <link:definition>1006000 - Statement - Consolidated Statements of Cash Flows</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsOfComprehensiveIncome" roleURI="http://www.amgen.com/role/ConsolidatedStatementsOfComprehensiveIncome">
+        <link:definition>1002000 - Statement - Consolidated Statements of Comprehensive Income</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsOfIncome" roleURI="http://www.amgen.com/role/ConsolidatedStatementsOfIncome">
+        <link:definition>1001000 - Statement - Consolidated Statements of Income</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsOfStockholdersEquity" roleURI="http://www.amgen.com/role/ConsolidatedStatementsOfStockholdersEquity">
+        <link:definition>1005000 - Statement - Consolidated Statements of Stockholders' Equity</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContingenciesAndCommitments" roleURI="http://www.amgen.com/role/ContingenciesAndCommitments">
+        <link:definition>2120100 - Disclosure - Contingencies and commitments</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContingenciesAndCommitmentsDetails" roleURI="http://www.amgen.com/role/ContingenciesAndCommitmentsDetails">
+        <link:definition>2420402 - Disclosure - Contingencies and commitments (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContingenciesAndCommitmentsDetailsTextual" roleURI="http://www.amgen.com/role/ContingenciesAndCommitmentsDetailsTextual">
+        <link:definition>2420403 - Disclosure - Contingencies and commitments (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ContingenciesAndCommitmentsTables" roleURI="http://www.amgen.com/role/ContingenciesAndCommitmentsTables">
+        <link:definition>2320301 - Disclosure - Contingencies and commitments (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstruments" roleURI="http://www.amgen.com/role/DerivativeInstruments">
+        <link:definition>2119100 - Disclosure - Derivative instruments</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsDetails" roleURI="http://www.amgen.com/role/DerivativeInstrumentsDetails">
+        <link:definition>2419402 - Disclosure - Derivative Instruments (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsDetails1" roleURI="http://www.amgen.com/role/DerivativeInstrumentsDetails1">
+        <link:definition>2419403 - Disclosure - Derivative Instruments (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsDetails2" roleURI="http://www.amgen.com/role/DerivativeInstrumentsDetails2">
+        <link:definition>2419404 - Disclosure - Derivative instruments (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsDetails3" roleURI="http://www.amgen.com/role/DerivativeInstrumentsDetails3">
+        <link:definition>2419405 - Disclosure - Derivative instruments (Details 3)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsDetails4" roleURI="http://www.amgen.com/role/DerivativeInstrumentsDetails4">
+        <link:definition>2419406 - Disclosure - Derivative instruments (Details 4)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsDetailsTextual" roleURI="http://www.amgen.com/role/DerivativeInstrumentsDetailsTextual">
+        <link:definition>2419407 - Disclosure - Derivative instruments (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DerivativeInstrumentsTables" roleURI="http://www.amgen.com/role/DerivativeInstrumentsTables">
+        <link:definition>2319301 - Disclosure - Derivative instruments (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DocumentAndEntityInformation" roleURI="http://www.amgen.com/role/DocumentAndEntityInformation">
+        <link:definition>0001000 - Document - Document and Entity Information</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DocumentAndEntityInformationAdditionalInformation" roleURI="http://www.amgen.com/role/DocumentAndEntityInformationAdditionalInformation">
+        <link:definition>0001001 - Document - Document and Entity Information - Additional Information</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShare" roleURI="http://www.amgen.com/role/EarningsPerShare">
+        <link:definition>2106100 - Disclosure - Earnings per share</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareDetails" roleURI="http://www.amgen.com/role/EarningsPerShareDetails">
+        <link:definition>2406402 - Disclosure - Earnings per share (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareDetailsTextual" roleURI="http://www.amgen.com/role/EarningsPerShareDetailsTextual">
+        <link:definition>2406403 - Disclosure - Earnings per share (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareTables" roleURI="http://www.amgen.com/role/EarningsPerShareTables">
+        <link:definition>2306301 - Disclosure - Earnings per share (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueMeasurement" roleURI="http://www.amgen.com/role/FairValueMeasurement">
+        <link:definition>2118100 - Disclosure - Fair value measurement</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueMeasurementDetails" roleURI="http://www.amgen.com/role/FairValueMeasurementDetails">
+        <link:definition>2418402 - Disclosure - Fair value measurement (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueMeasurementDetails1" roleURI="http://www.amgen.com/role/FairValueMeasurementDetails1">
+        <link:definition>2418403 - Disclosure - Fair value measurement (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueMeasurementDetailsTextual" roleURI="http://www.amgen.com/role/FairValueMeasurementDetailsTextual">
+        <link:definition>2418404 - Disclosure - Fair value measurement (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueMeasurementTables" roleURI="http://www.amgen.com/role/FairValueMeasurementTables">
+        <link:definition>2318301 - Disclosure - Fair value measurement (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancingArrangements" roleURI="http://www.amgen.com/role/FinancingArrangements">
+        <link:definition>2116100 - Disclosure - Financing arrangements</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancingArrangementsDetails" roleURI="http://www.amgen.com/role/FinancingArrangementsDetails">
+        <link:definition>2416402 - Disclosure - Financing arrangements (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancingArrangementsDetails1" roleURI="http://www.amgen.com/role/FinancingArrangementsDetails1">
+        <link:definition>2416403 - Disclosure - Financing arrangements (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancingArrangementsDetails2" roleURI="http://www.amgen.com/role/FinancingArrangementsDetails2">
+        <link:definition>2416404 - Disclosure - Financing arrangements (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancingArrangementsDetailsTextual" roleURI="http://www.amgen.com/role/FinancingArrangementsDetailsTextual">
+        <link:definition>2416405 - Disclosure - Financing arrangements (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FinancingArrangementsTables" roleURI="http://www.amgen.com/role/FinancingArrangementsTables">
+        <link:definition>2316301 - Disclosure - Financing arrangements (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillAndIntangibleAssets" roleURI="http://www.amgen.com/role/GoodwillAndIntangibleAssets">
+        <link:definition>2114100 - Disclosure - Goodwill and intangible assets</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillAndIntangibleAssetsDetails" roleURI="http://www.amgen.com/role/GoodwillAndIntangibleAssetsDetails">
+        <link:definition>2414402 - Disclosure - Goodwill and intangible assets (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillAndIntangibleAssetsDetails1" roleURI="http://www.amgen.com/role/GoodwillAndIntangibleAssetsDetails1">
+        <link:definition>2414403 - Disclosure - Goodwill and intangible assets (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillAndIntangibleAssetsDetailsTextual" roleURI="http://www.amgen.com/role/GoodwillAndIntangibleAssetsDetailsTextual">
+        <link:definition>2414404 - Disclosure - Goodwill and intangible assets (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillAndIntangibleAssetsTables" roleURI="http://www.amgen.com/role/GoodwillAndIntangibleAssetsTables">
+        <link:definition>2314301 - Disclosure - Goodwill and intangible assets (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxes" roleURI="http://www.amgen.com/role/IncomeTaxes">
+        <link:definition>2105100 - Disclosure - Income taxes</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesDetails" roleURI="http://www.amgen.com/role/IncomeTaxesDetails">
+        <link:definition>2405402 - Disclosure - Income taxes (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesDetails1" roleURI="http://www.amgen.com/role/IncomeTaxesDetails1">
+        <link:definition>2405403 - Disclosure - Income taxes (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesDetails2" roleURI="http://www.amgen.com/role/IncomeTaxesDetails2">
+        <link:definition>2405404 - Disclosure - Income taxes (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesDetails3" roleURI="http://www.amgen.com/role/IncomeTaxesDetails3">
+        <link:definition>2405405 - Disclosure - Income taxes (Details 3)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesDetailsTextual" roleURI="http://www.amgen.com/role/IncomeTaxesDetailsTextual">
+        <link:definition>2405406 - Disclosure - Income taxes (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesTables" roleURI="http://www.amgen.com/role/IncomeTaxesTables">
+        <link:definition>2305301 - Disclosure - Income taxes (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="Inventories" roleURI="http://www.amgen.com/role/Inventories">
+        <link:definition>2112100 - Disclosure - Inventories</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InventoriesDetails" roleURI="http://www.amgen.com/role/InventoriesDetails">
+        <link:definition>2412402 - Disclosure - Inventories (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InventoriesTables" roleURI="http://www.amgen.com/role/InventoriesTables">
+        <link:definition>2312301 - Disclosure - Inventories (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipment" roleURI="http://www.amgen.com/role/PropertyPlantAndEquipment">
+        <link:definition>2113100 - Disclosure - Property, plant and equipment</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipmentDetails" roleURI="http://www.amgen.com/role/PropertyPlantAndEquipmentDetails">
+        <link:definition>2413402 - Disclosure - Property, plant and equipment (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipmentDetailsTextual" roleURI="http://www.amgen.com/role/PropertyPlantAndEquipmentDetailsTextual">
+        <link:definition>2413403 - Disclosure - Property, plant and equipment (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyPlantAndEquipmentTables" roleURI="http://www.amgen.com/role/PropertyPlantAndEquipmentTables">
+        <link:definition>2313301 - Disclosure - Property, plant and equipment (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="QuarterlyFinancialDataUnaudited" roleURI="http://www.amgen.com/role/QuarterlyFinancialDataUnaudited">
+        <link:definition>2122100 - Disclosure - Quarterly financial data (unaudited)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="QuarterlyFinancialDataUnauditedDetails" roleURI="http://www.amgen.com/role/QuarterlyFinancialDataUnauditedDetails">
+        <link:definition>2422402 - Disclosure - Quarterly financial data (unaudited) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="QuarterlyFinancialDataUnauditedTables" roleURI="http://www.amgen.com/role/QuarterlyFinancialDataUnauditedTables">
+        <link:definition>2322301 - Disclosure - Quarterly financial data (unaudited) (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RelatedPartyTransactions" roleURI="http://www.amgen.com/role/RelatedPartyTransactions">
+        <link:definition>2108100 - Disclosure - Related party transactions</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RelatedPartyTransactionsDetailsTextual" roleURI="http://www.amgen.com/role/RelatedPartyTransactionsDetailsTextual">
+        <link:definition>2408401 - Disclosure - Related party transactions (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringAndOtherCostSavingsInitiatives" roleURI="http://www.amgen.com/role/RestructuringAndOtherCostSavingsInitiatives">
+        <link:definition>2102100 - Disclosure - Restructuring and other cost savings initiatives</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringAndOtherCostSavingsInitiativesDetails" roleURI="http://www.amgen.com/role/RestructuringAndOtherCostSavingsInitiativesDetails">
+        <link:definition>2402403 - Disclosure - Restructuring and other cost savings initiatives (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringAndOtherCostSavingsInitiativesDetails1" roleURI="http://www.amgen.com/role/RestructuringAndOtherCostSavingsInitiativesDetails1">
+        <link:definition>2402404 - Disclosure - Restructuring and other cost savings initiatives (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringAndOtherCostSavingsInitiativesDetailsTextual" roleURI="http://www.amgen.com/role/RestructuringAndOtherCostSavingsInitiativesDetailsTextual">
+        <link:definition>2402402 - Disclosure - Restructuring and other cost savings initiatives (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringAndOtherCostSavingsInitiativesTables" roleURI="http://www.amgen.com/role/RestructuringAndOtherCostSavingsInitiativesTables">
+        <link:definition>2302301 - Disclosure - Restructuring and other cost savings initiatives (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ScheduleIiValuationAndQualifyingAccounts" roleURI="http://www.amgen.com/role/ScheduleIiValuationAndQualifyingAccounts">
+        <link:definition>2123100 - Disclosure - SCHEDULE II - VALUATION AND QUALIFYING ACCOUNTS</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ScheduleIiValuationAndQualifyingAccountsDetails" roleURI="http://www.amgen.com/role/ScheduleIiValuationAndQualifyingAccountsDetails">
+        <link:definition>2423401 - Disclosure - SCHEDULE II - VALUATION AND QUALIFYING ACCOUNTS (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformation" roleURI="http://www.amgen.com/role/SegmentInformation">
+        <link:definition>2121100 - Disclosure - Segment information</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformationDetails" roleURI="http://www.amgen.com/role/SegmentInformationDetails">
+        <link:definition>2421402 - Disclosure - Segment information (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformationDetails1" roleURI="http://www.amgen.com/role/SegmentInformationDetails1">
+        <link:definition>2421403 - Disclosure - Segment information (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformationDetails2" roleURI="http://www.amgen.com/role/SegmentInformationDetails2">
+        <link:definition>2421404 - Disclosure - Segment information (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformationDetails3" roleURI="http://www.amgen.com/role/SegmentInformationDetails3">
+        <link:definition>2421405 - Disclosure - Segment information (Details 3)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformationDetailsTextual" roleURI="http://www.amgen.com/role/SegmentInformationDetailsTextual">
+        <link:definition>2421406 - Disclosure - Segment information (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SegmentInformationSegmentInformationTables" roleURI="http://www.amgen.com/role/SegmentInformationSegmentInformationTables">
+        <link:definition>2321301 - Disclosure - Segment information Segment information (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensation" roleURI="http://www.amgen.com/role/StockBasedCompensation">
+        <link:definition>2104100 - Disclosure - Stock-based compensation</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationDetails" roleURI="http://www.amgen.com/role/StockBasedCompensationDetails">
+        <link:definition>2404402 - Disclosure - Stock-based compensation (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationDetails1" roleURI="http://www.amgen.com/role/StockBasedCompensationDetails1">
+        <link:definition>2404403 - Disclosure - Stock-based compensation (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationDetails2" roleURI="http://www.amgen.com/role/StockBasedCompensationDetails2">
+        <link:definition>2404404 - Disclosure - Stock-based compensation (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationDetails3" roleURI="http://www.amgen.com/role/StockBasedCompensationDetails3">
+        <link:definition>2404405 - Disclosure - Stock-based compensation (Details 3)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationDetails4" roleURI="http://www.amgen.com/role/StockBasedCompensationDetails4">
+        <link:definition>2404406 - Disclosure - Stock-based compensation (Details 4)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationDetailsTextual" roleURI="http://www.amgen.com/role/StockBasedCompensationDetailsTextual">
+        <link:definition>2404407 - Disclosure - Stock-based compensation (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockBasedCompensationTables" roleURI="http://www.amgen.com/role/StockBasedCompensationTables">
+        <link:definition>2304301 - Disclosure - Stock-based compensation (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockholdersEquity" roleURI="http://www.amgen.com/role/StockholdersEquity">
+        <link:definition>2117100 - Disclosure - Stockholders' equity</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockholdersEquityDetails" roleURI="http://www.amgen.com/role/StockholdersEquityDetails">
+        <link:definition>2417402 - Disclosure - Stockholders' equity (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockholdersEquityDetails1" roleURI="http://www.amgen.com/role/StockholdersEquityDetails1">
+        <link:definition>2417403 - Disclosure - Stockholders' equity (Details 1)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockholdersEquityDetails2" roleURI="http://www.amgen.com/role/StockholdersEquityDetails2">
+        <link:definition>2417404 - Disclosure - Stockholders' equity (Details 2)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockholdersEquityDetailsTextual" roleURI="http://www.amgen.com/role/StockholdersEquityDetailsTextual">
+        <link:definition>2417405 - Disclosure - Stockholders' equity (Details Textual)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StockholdersEquityTables" roleURI="http://www.amgen.com/role/StockholdersEquityTables">
+        <link:definition>2317301 - Disclosure - Stockholders' equity (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SummaryOfSignificantAccountingPolicies" roleURI="http://www.amgen.com/role/SummaryOfSignificantAccountingPolicies">
+        <link:definition>2101100 - Disclosure - Summary of significant accounting policies</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SummaryOfSignificantAccountingPoliciesDetails" roleURI="http://www.amgen.com/role/SummaryOfSignificantAccountingPoliciesDetails">
+        <link:definition>2401402 - Disclosure - Summary of significant accounting policies (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SummaryOfSignificantAccountingPoliciesPolicies" roleURI="http://www.amgen.com/role/SummaryOfSignificantAccountingPoliciesPolicies">
+        <link:definition>2201201 - Disclosure - Summary of significant accounting policies (Policies)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element abstract="true" id="amgn_ATLHoldingsMember" name="ATLHoldingsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AccruedLiabilitiesClinicalDevelopmentCosts" name="AccruedLiabilitiesClinicalDevelopmentCosts" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_AccruedLiabilitiesDisclosureTextBlock" name="AccruedLiabilitiesDisclosureTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_AccruedLiabilitiesOtherNonCurrentLiabilitiesMember" name="AccruedLiabilitiesOtherNonCurrentLiabilitiesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AccruedSalesDeductionsCurrent" name="AccruedSalesDeductionsCurrent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_AccruedSalesReturnReserveCurrent" name="AccruedSalesReturnReserveCurrent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_AccumulatedOtherComprehensiveIncomeLossOtherNetOfTax" name="AccumulatedOtherComprehensiveIncomeLossOtherNetOfTax" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_AcquiredResearchAndDevelopmentTechnologyRightsMember" name="AcquiredResearchAndDevelopmentTechnologyRightsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AdjustmentstoAdditionalPaidinCapitalSettlementofConversionValueofConvertibleDebtinExcessofPrincipal" name="AdjustmentstoAdditionalPaidinCapitalSettlementofConversionValueofConvertibleDebtinExcessofPrincipal" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AdjustmentstoAdditionalPaidinCapitalSettlementofWarrants" name="AdjustmentstoAdditionalPaidinCapitalSettlementofWarrants" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_AmendedandRestated2009EquityIncentivePlanMember" name="AmendedandRestated2009EquityIncentivePlanMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AmountByWhichBorrowingCapacityUnderSyndicatedUnsecuredRevolvingCreditAgreementMayBeIncreasedUponOurRequestAtDiscretionOfBanks" name="AmountByWhichBorrowingCapacityUnderSyndicatedUnsecuredRevolvingCreditAgreementMayBeIncreasedUponOurRequestAtDiscretionOfBanks" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AmountOfCommonStockAvailableUnderPlanForFutureGrantsAndOrIssuances" name="AmountOfCommonStockAvailableUnderPlanForFutureGrantsAndOrIssuances" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_AmountThatMayBeIssuedUnderMediumTermNoteProgramEstablishedUnderShelfRegistrationStatement" name="AmountThatMayBeIssuedUnderMediumTermNoteProgramEstablishedUnderShelfRegistrationStatement" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_AranespMember" name="AranespMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_AvailableForSaleSecuritiesTextualAbstract" name="AvailableForSaleSecuritiesTextualAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_AvailableForSalesInvestmentsMember" name="AvailableForSalesInvestmentsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_BLINCYTOMember" name="BLINCYTOMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_BasicAndDilutedEarningPerShareAbstract" name="BasicAndDilutedEarningPerShareAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_BiovexGroupIncMember" name="BiovexGroupIncMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessAcquisitionCostOfAcquiredEntityTableTextBlock" name="BusinessAcquisitionCostOfAcquiredEntityTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessCombinationAdditionalContingentConsiderationUponAchievementofMilestones" name="BusinessCombinationAdditionalContingentConsiderationUponAchievementofMilestones" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_BusinessCombinationConsiderationTransferredIncludingSettlementofPreexistingRelationship" name="BusinessCombinationConsiderationTransferredIncludingSettlementofPreexistingRelationship" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessCombinationContingentConsiderationArrangementsAdditionfromAcquisitions" name="BusinessCombinationContingentConsiderationArrangementsAdditionfromAcquisitions" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessCombinationContingentConsiderationArrangementsNumberofMilestonePayments" name="BusinessCombinationContingentConsiderationArrangementsNumberofMilestonePayments" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_BusinessCombinationContingentConsiderationArrangementsSettlementofContingentConsideration" name="BusinessCombinationContingentConsiderationArrangementsSettlementofContingentConsideration" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessCombinationPaymentsofAcceleratedVestingEquityAwards" name="BusinessCombinationPaymentsofAcceleratedVestingEquityAwards" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentDeferredIncomeTaxes" name="BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentDeferredIncomeTaxes" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_BusinessCombinationRecognizedIdentifiableAssetsAcquiredandLiabilitiesAssumedConvertibleDebt" name="BusinessCombinationRecognizedIdentifiableAssetsAcquiredandLiabilitiesAssumedConvertibleDebt" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_BusinessCombinationRecognizedIdentifiableAssetsAcquiredandLiabilitiesAssumedDeferredTaxNet" name="BusinessCombinationRecognizedIdentifiableAssetsAcquiredandLiabilitiesAssumedDeferredTaxNet" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_BusinessCombinationRecognizedIdentifiableAssetsAcquiredandLiabilitiesAssumedOtherAssetsandLiabilitiesAcquiredNet" name="BusinessCombinationRecognizedIdentifiableAssetsAcquiredandLiabilitiesAssumedOtherAssetsandLiabilitiesAcquiredNet" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_BusinessCombinationSettlementofPreexistingRelationship" name="BusinessCombinationSettlementofPreexistingRelationship" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CashFlowStatementDomain" name="CashFlowStatementDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CashFlowStatementLocationAxis" name="CashFlowStatementLocationAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ChargesPrimarilyRelatedToSeveranceAndExitingLeasedFacilities" name="ChargesPrimarilyRelatedToSeveranceAndExitingLeasedFacilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CollaborativeArrangementEarlyContractTerminationLiability" name="CollaborativeArrangementEarlyContractTerminationLiability" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_CollaborativeArrangementNetIncome" name="CollaborativeArrangementNetIncome" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CollaborativeArrangementProfitShareandRoyaltyExpenseNetofPartnerPortionofSellingandMarketingExpense" name="CollaborativeArrangementProfitShareandRoyaltyExpenseNetofPartnerPortionofSellingandMarketingExpense" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CollaborativeArrangementResearchandDevelopmentExpenseNet" name="CollaborativeArrangementResearchandDevelopmentExpenseNet" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CollaborativeArrangementWithGlaxoGroupLimitedMember" name="CollaborativeArrangementWithGlaxoGroupLimitedMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CollaborativeArrangementWithPfizerIncMember" name="CollaborativeArrangementWithPfizerIncMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CollaborativeArrangementsAbstract" name="CollaborativeArrangementsAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CollaborativeArrangementsWithAstrazenecaPlcMember" name="CollaborativeArrangementsWithAstrazenecaPlcMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CollaborativeArrangementsWithTakedaPharmaceuticalCompanyLimitedMember" name="CollaborativeArrangementsWithTakedaPharmaceuticalCompanyLimitedMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CollaborativeArrangementsWithUcbMember" name="CollaborativeArrangementsWithUcbMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CollaborativeArrangementswithBayerHealthCarePharmaceuticalsInc.Member" name="CollaborativeArrangementswithBayerHealthCarePharmaceuticalsInc.Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CommercialMilestonePaymentsReceivableUnderCollaborativeArrangements" name="CommercialMilestonePaymentsReceivableUnderCollaborativeArrangements" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CommercialMilestonesReceivedUnderCollaborativeArrangements" name="CommercialMilestonesReceivedUnderCollaborativeArrangements" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CommonStockFairValue" name="CommonStockFairValue" nillable="true" substitutionGroup="xbrli:item" type="num:perShareItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CommonStockholdersMember" name="CommonStockholdersMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ComponentOfOtherOperatingCostAndExpenseGeneralAxisAxis" name="ComponentOfOtherOperatingCostAndExpenseGeneralAxisAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ComponentOfOtherOperatingCostAndExpenseGeneralAxisDomain" name="ComponentOfOtherOperatingCostAndExpenseGeneralAxisDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ComponentsOfStockBasedCompensationExpenseTableTextBlock" name="ComponentsOfStockBasedCompensationExpenseTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CondensedConsolidatedStatementsOfIncomeAndAmountOfGainRecognizedInIncomeForDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAbstract" name="CondensedConsolidatedStatementsOfIncomeAndAmountOfGainRecognizedInIncomeForDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CorporateDebtSecuritiesFinancialMember" name="CorporateDebtSecuritiesFinancialMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CorporateDebtSecuritiesIndustrialMember" name="CorporateDebtSecuritiesIndustrialMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CorporateDebtSecuritiesOtherMember" name="CorporateDebtSecuritiesOtherMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_CrossCurrencySwapContractsMember" name="CrossCurrencySwapContractsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CustomerOneMember" name="CustomerOneMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CustomerThreeMember" name="CustomerThreeMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_CustomerTwoMember" name="CustomerTwoMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DeCodeGeneticsMember" name="DeCodeGeneticsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DebtConversionFeatureAxis" name="DebtConversionFeatureAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DebtConversionFeatureDomain" name="DebtConversionFeatureDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_DeferredTaxAssetsTaxAcquiredNetOperatingLossAndCreditCarryForwards" name="DeferredTaxAssetsTaxAcquiredNetOperatingLossAndCreditCarryForwards" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_DerivativeAssetsFairValueDisclosureAbstract" name="DerivativeAssetsFairValueDisclosureAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DerivativeFinancialInstrumentsLiabilitiesFairValueDisclosureAbstract" name="DerivativeFinancialInstrumentsLiabilitiesFairValueDisclosureAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DerivativeInstrumentsTextualAbstract" name="DerivativeInstrumentsTextualAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DocumentAndEntityInformationAbstract" name="DocumentAndEntityInformationAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_DuetoFilingofBLAintheUSMember" name="DuetoFilingofBLAintheUSMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_EnbrelMember" name="EnbrelMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_EpogenMember" name="EpogenMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_EquityAwardHoldersAxis" name="EquityAwardHoldersAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_EquityAwardHoldersDomain" name="EquityAwardHoldersDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_EquityAwardHoldersforServicesRenderedPriortoDateofAcquisitionMember" name="EquityAwardHoldersforServicesRenderedPriortoDateofAcquisitionMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ExcessConversionValueMember" name="ExcessConversionValueMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ExciseTaxPercent" name="ExciseTaxPercent" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ExciseTaxRateAbstract" name="ExciseTaxRateAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ExciseTaxRateForTwoThousandThirteen" name="ExciseTaxRateForTwoThousandThirteen" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ExciseTaxRateForTwoThousandTwelve" name="ExciseTaxRateForTwoThousandTwelve" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FairValueMeasurementTextualAbstract" name="FairValueMeasurementTextualAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FairValuesOfAvailableForSaleInvestmentsByClassificationInConsolidatedBalanceSheetsAbstract" name="FairValuesOfAvailableForSaleInvestmentsByClassificationInConsolidatedBalanceSheetsAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_FairValuesOfAvailableForSaleInvestmentsByClassificationInConsolidatedBalanceSheetsTableTextBlock" name="FairValuesOfAvailableForSaleInvestmentsByClassificationInConsolidatedBalanceSheetsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FairValuesOfAvailableForSaleInvestmentsByContractualMaturityAbstract" name="FairValuesOfAvailableForSaleInvestmentsByContractualMaturityAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FairValuesOfAvailableForSaleInvestmentsByTypeOfSecurityAbstract" name="FairValuesOfAvailableForSaleInvestmentsByTypeOfSecurityAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FairValuesOfBothDerivativesDesignatedAsHedgingInstrumentsAndNotDesignatedAsHedgingInstrumentsIncludedInCondensedConsolidatedBalanceSheetsAbstract" name="FairValuesOfBothDerivativesDesignatedAsHedgingInstrumentsAndNotDesignatedAsHedgingInstrumentsIncludedInCondensedConsolidatedBalanceSheetsAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FederalDerivativeLigiationMember" name="FederalDerivativeLigiationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FilgrastimandPegfilgrastimRightsMember" name="FilgrastimandPegfilgrastimRightsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FinancingArrangementsTextualAbstract" name="FinancingArrangementsTextualAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointEightFivePercentNotesDue2017Member" name="FivePointEightFivePercentNotesDue2017Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointFiveZeroPercentPoundSterlingNotesDue2026Member" name="FivePointFiveZeroPercentPoundSterlingNotesDue2026Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointOneFivePercentNotesDue2041Member" name="FivePointOneFivePercentNotesDue2041Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointSevenFivePercentNotesDue2040Member" name="FivePointSevenFivePercentNotesDue2040Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointSevenZeroPercentNotesDue2019Member" name="FivePointSevenZeroPercentNotesDue2019Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointSixFivePercentNotesDue2042Member" name="FivePointSixFivePercentNotesDue2042Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FivePointThreeSevenFivePercentNotesDue2043Member" name="FivePointThreeSevenFivePercentNotesDue2043Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FloatingRateNotesDue2017Member" name="FloatingRateNotesDue2017Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FloatingRateNotesDue2019Member" name="FloatingRateNotesDue2019Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ForeignCurrencyAndCrossCurrencySwapsMember" name="ForeignCurrencyAndCrossCurrencySwapsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FourPercentPoundSterlingNotesDue2029Member" name="FourPercentPoundSterlingNotesDue2029Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FourPointEightFivePercentNotesDue2014Member" name="FourPointEightFivePercentNotesDue2014Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FourPointFiveZeroPercentNotesDue2020Member" name="FourPointFiveZeroPercentNotesDue2020Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FourPointNineFivePercentNotesDue2041Member" name="FourPointNineFivePercentNotesDue2041Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FourPointOneZeroPercentNotesDue2021Member" name="FourPointOneZeroPercentNotesDue2021Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_FourPointThreeSevenFivePercentEuroNotesDue2018Member" name="FourPointThreeSevenFivePercentEuroNotesDue2018Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_FutureRentalCommitmentsForAbandonedLeases" name="FutureRentalCommitmentsForAbandonedLeases" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_GainContingencyPendingClaimsNumber" name="GainContingencyPendingClaimsNumber" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_GainOnDiscontinuationOfInterestRateFairValueHedge" name="GainOnDiscontinuationOfInterestRateFairValueHedge" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_GeographicalInformationWithRespectToRevenuesAbstract" name="GeographicalInformationWithRespectToRevenuesAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_GlaxoGroupLimitedMember" name="GlaxoGroupLimitedMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_GrantedOnAndAfterAprilTwentySixTwoThousandTenMember" name="GrantedOnAndAfterAprilTwentySixTwoThousandTenMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_GrantedOnAprilTwentyFiveTwoThousandElevenThroughAprilTwentySixTwoThousandTwelveMember" name="GrantedOnAprilTwentyFiveTwoThousandElevenThroughAprilTwentySixTwoThousandTwelveMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_GrantedPriorToAprilTwentyFiveTwoThousandElevenMember" name="GrantedPriorToAprilTwentyFiveTwoThousandElevenMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_GrantedPriorToAprilTwentySixTwoThousandTenMember" name="GrantedPriorToAprilTwentySixTwoThousandTenMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_HarrisEtAlVAmgenIncMember" name="HarrisEtAlVAmgenIncMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_IdentifiableIntangibleAssetsAccumulatedAmortization" name="IdentifiableIntangibleAssetsAccumulatedAmortization" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_IdentifiableIntangibleAssetsGross" name="IdentifiableIntangibleAssetsGross" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_InReAmgenIncSecuritiesLitigationMember" name="InReAmgenIncSecuritiesLitigationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_IncomeTaxesTextualAbstract" name="IncomeTaxesTextualAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_IncreaseDecreaseInAccumulatedOtherComprehensiveIncomeRollForward" name="IncreaseDecreaseInAccumulatedOtherComprehensiveIncomeRollForward" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_IncreaseDecreaseInLitigationReserve" name="IncreaseDecreaseInLitigationReserve" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_IndefiniteLivedIntangibleAssetsExcludingGoodwillReclassifiedtoFiniteLivedIntangibleAssets" name="IndefiniteLivedIntangibleAssetsExcludingGoodwillReclassifiedtoFiniteLivedIntangibleAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_InterestAndOtherIncomeMember" name="InterestAndOtherIncomeMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_InterestRateSwap2013Member" name="InterestRateSwap2013Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_InterestRateSwap2014Member" name="InterestRateSwap2014Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_InvestmentMaturityPeriod" name="InvestmentMaturityPeriod" nillable="true" substitutionGroup="xbrli:item" type="xbrli:durationItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_JapaneseMarketProductsMember" name="JapaneseMarketProductsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_KaiPharmaceuticalsMember" name="KaiPharmaceuticalsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_KyprolisMember" name="KyprolisMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LaboratoryEquipment" name="LaboratoryEquipment" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_LaboratoryEquipmentMember" name="LaboratoryEquipmentMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_LarsonVSharerEtAlMember" name="LarsonVSharerEtAlMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LineOfCreditFacilityExtensionOfCommitmentTerm" name="LineOfCreditFacilityExtensionOfCommitmentTerm" nillable="true" substitutionGroup="xbrli:item" type="xbrli:durationItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LineOfCreditFacilityInitialCommitmentTerm" name="LineOfCreditFacilityInitialCommitmentTerm" nillable="true" substitutionGroup="xbrli:item" type="xbrli:durationItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LineOfCreditFacilityNumberOfExtensions" name="LineOfCreditFacilityNumberOfExtensions" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_LongLivedAssetsAbstract" name="LongLivedAssetsAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LongTermDebtMaturitiesRepaymentsOfPrincipalNet" name="LongTermDebtMaturitiesRepaymentsOfPrincipalNet" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_LossContingencyLengthStayOnCaseSubsequentToRelatedAction" name="LossContingencyLengthStayOnCaseSubsequentToRelatedAction" nillable="true" substitutionGroup="xbrli:item" type="xbrli:durationItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LossContingencyNumberOfAdditionalPlaintiffs" name="LossContingencyNumberOfAdditionalPlaintiffs" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LossContingencyNumberOfNewDefendants" name="LossContingencyNumberOfNewDefendants" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_LossContingencyNumberOfStockholderComplaintsConsolidated" name="LossContingencyNumberOfStockholderComplaintsConsolidated" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ManufacturingEquipmentMember" name="ManufacturingEquipmentMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ManufacturingOperationsOptimizationMember" name="ManufacturingOperationsOptimizationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_MasterRepurchaseAgreementObligationDue2018Member" name="MasterRepurchaseAgreementObligationDue2018Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_MaturingAfterOneYearThroughThreeYears" name="MaturingAfterOneYearThroughThreeYears" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_MaturingAfterThreeYearsThroughFiveYears" name="MaturingAfterThreeYearsThroughFiveYears" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_MaximumAnnualNetSalesPayableUnderCollaborativeArrangementsPercentage" name="MaximumAnnualNetSalesPayableUnderCollaborativeArrangementsPercentage" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_MaximumBorrowingCapacityUnderCommercialPaper" name="MaximumBorrowingCapacityUnderCommercialPaper" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_MicrometIncMember" name="MicrometIncMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_MilestonePaymentAxis" name="MilestonePaymentAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_MilestonePaymentDomain" name="MilestonePaymentDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_MinimumAnnualNetSalesPayableUnderCollaborativeArrangementsPercentage" name="MinimumAnnualNetSalesPayableUnderCollaborativeArrangementsPercentage" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_MnMember" name="MnMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_MustafaNevzatPharmaceuticalsMember" name="MustafaNevzatPharmaceuticalsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_NEUPOGENMember" name="NEUPOGENMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NatureOfOperationsPolicyTextBlock" name="NatureOfOperationsPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_NetCashProvidedByOperatingActivitiesMember" name="NetCashProvidedByOperatingActivitiesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NeulastaMember" name="NeulastaMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_NexavarMember" name="NexavarMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NonCashInterestExpense" name="NonCashInterestExpense" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_NotesDuein2097Member" name="NotesDuein2097Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NplateMember" name="NplateMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberOfCommonSharesIssuedForEachPerformanceUnitEarned" name="NumberOfCommonSharesIssuedForEachPerformanceUnitEarned" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberOfCommonSharesToBeReducedForEachStockOptionGranted" name="NumberOfCommonSharesToBeReducedForEachStockOptionGranted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberOfCommonSharesToBeReducedForOtherTypesOfAwardsGranted" name="NumberOfCommonSharesToBeReducedForOtherTypesOfAwardsGranted" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberOfCustomersAccountingForMoreThanTenPercentOfGrossTradeReceivables" name="NumberOfCustomersAccountingForMoreThanTenPercentOfGrossTradeReceivables" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberOfCustomersAccountingForMoreThanTenPercentOfRevenue" name="NumberOfCustomersAccountingForMoreThanTenPercentOfRevenue" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberOfMoleculesDevelopedAndCommercializedAsPerCollaborations" name="NumberOfMoleculesDevelopedAndCommercializedAsPerCollaborations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberofCountriesProductisMarketedandSold" name="NumberofCountriesProductisMarketedandSold" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberofMarketsHoldingAcquiredLicenses" name="NumberofMarketsHoldingAcquiredLicenses" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_NumberofPartneredOncologyAssets" name="NumberofPartneredOncologyAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:integerItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_NumberofSharesAddedBackforTaxWithholdingonFullValueAwards" name="NumberofSharesAddedBackforTaxWithholdingonFullValueAwards" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OnePointEightSevenFivePercentNotesDue2014Member" name="OnePointEightSevenFivePercentNotesDue2014Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OnePointTwoFivePercentNotesDue2017Member" name="OnePointTwoFivePercentNotesDue2017Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OnyxPharmaceuticalsInc.Member" name="OnyxPharmaceuticalsInc.Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherComprehensiveIncomeLossOtherGainsLossesNetOfTaxPortionAttributableToParent" name="OtherComprehensiveIncomeLossOtherGainsLossesNetOfTaxPortionAttributableToParent" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherComprehensiveIncomeOther" name="OtherComprehensiveIncomeOther" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherComprehensiveIncomeOtherPeriodIncreaseDecrease" name="OtherComprehensiveIncomeOtherPeriodIncreaseDecrease" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherComprehensiveIncomeOtherTax" name="OtherComprehensiveIncomeOtherTax" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherComprehensiveIncomeReclassificationAdjustmentToIncomeBeforeTax" name="OtherComprehensiveIncomeReclassificationAdjustmentToIncomeBeforeTax" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherComprehensiveIncomeUnrealizedArisingDuringPeriodBeforeReclassificationsAndTaxOthers" name="OtherComprehensiveIncomeUnrealizedArisingDuringPeriodBeforeReclassificationsAndTaxOthers" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherCostSavingsInitiativeMember" name="OtherCostSavingsInitiativeMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherCountriesMember" name="OtherCountriesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OtherCurrentNoncurrentAssetsMember" name="OtherCurrentNoncurrentAssetsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OtherGovernmentRelatedAndCorporateDebtSecuritiesMember" name="OtherGovernmentRelatedAndCorporateDebtSecuritiesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherNotes" name="OtherNotes" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_OtherOperatingExpenseMemberMember" name="OtherOperatingExpenseMemberMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OtherRevenuesMember" name="OtherRevenuesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_OtherRevenuesPolicyTextBlock" name="OtherRevenuesPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OtherShortTermInterestBearingSecuritiesMember" name="OtherShortTermInterestBearingSecuritiesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_OthernotesMember" name="OthernotesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PaymentstoAcquireBusinessesandAcceleratedEquityAwards" name="PaymentstoAcquireBusinessesandAcceleratedEquityAwards" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageOfCombinedGrossProductSalesFromMajorCustomers" name="PercentageOfCombinedGrossProductSalesFromMajorCustomers" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageOfCombinedNetTradeReceivablesFromMajorCustomers" name="PercentageOfCombinedNetTradeReceivablesFromMajorCustomers" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_PercentageOfCombinedWorldwideGrossRevenuesFromMajorCustomers" name="PercentageOfCombinedWorldwideGrossRevenuesFromMajorCustomers" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageOfGrossDomesticProductSales" name="PercentageOfGrossDomesticProductSales" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageOfGrossRevenues" name="PercentageOfGrossRevenues" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageOfNetAmountDueFromCustomersLocatedOutsideDomesticLocation" name="PercentageOfNetAmountDueFromCustomersLocatedOutsideDomesticLocation" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_PercentageOfPrincipalAmountOfNotesThatMayBePaidUponOccurrenceOfChangeInControlTriggeringEvent" name="PercentageOfPrincipalAmountOfNotesThatMayBePaidUponOccurrenceOfChangeInControlTriggeringEvent" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageOfRelatedDevelopmentCosts" name="PercentageOfRelatedDevelopmentCosts" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageofDevelopmentCostsFundedbyCompany" name="PercentageofDevelopmentCostsFundedbyCompany" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PercentageofNetProfitsAfterDeductingCertainPartnerRelatedCosts" name="PercentageofNetProfitsAfterDeductingCertainPartnerRelatedCosts" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PerformanceUnitsMember" name="PerformanceUnitsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PeriodRequiredToPayPercentageOfNetSales" name="PeriodRequiredToPayPercentageOfNetSales" nillable="true" substitutionGroup="xbrli:item" type="xbrli:durationItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_PointThreeSevenFivePercentConvertibleNotesDue2013Member" name="PointThreeSevenFivePercentConvertibleNotesDue2013Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ProliaMember" name="ProliaMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_PropertyPlantAndEquipmentExcludingDepreciationAndAmortizationChargesAbstract" name="PropertyPlantAndEquipmentExcludingDepreciationAndAmortizationChargesAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_PropertyPlantAndEquipmentTableTextBlock" name="PropertyPlantAndEquipmentTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ROWMember" name="ROWMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_RamosVAmgenIncEtAlMember" name="RamosVAmgenIncEtAlMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_RateAdjustmentToLiborOnInterestRateSwapAgreementsMember" name="RateAdjustmentToLiborOnInterestRateSwapAgreementsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ReclassificationsAxis" name="ReclassificationsAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ReclassificationsDomain" name="ReclassificationsDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ReconciliationOfUnrecognizedTaxBenefitsExcludingAmountsPertainingToExaminedTaxReturnsTableTextBlock" name="ReconciliationOfUnrecognizedTaxBenefitsExcludingAmountsPertainingToExaminedTaxReturnsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RelatedPartyTransactionCostRecoveriesFromTransactionsWithRelatedParty" name="RelatedPartyTransactionCostRecoveriesFromTransactionsWithRelatedParty" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RentalExpenseOnOperatingLeases" name="RentalExpenseOnOperatingLeases" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RestrictedInterestReceivable" name="RestrictedInterestReceivable" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_RestrictedInvestmentsMember" name="RestrictedInvestmentsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RestrictedInvestmentsPolicyTextBlock" name="RestrictedInvestmentsPolicyTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RestructuringandRelatedCostExpectedCostAcceleratedDepreciationandAssetImpairmentChargesandOtherCosts" name="RestructuringandRelatedCostExpectedCostAcceleratedDepreciationandAssetImpairmentChargesandOtherCosts" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RestructuringandRelatedCostExpectedCostSeparationCosts" name="RestructuringandRelatedCostExpectedCostSeparationCosts" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_RevenuesEarnedFromMajorCustomersAbstract" name="RevenuesEarnedFromMajorCustomersAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_RoyaltiesReceivedOnSales" name="RoyaltiesReceivedOnSales" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_SaleOfVectibixMember" name="SaleOfVectibixMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SandozFilgrastimLitigationMember" name="SandozFilgrastimLitigationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SanofiRegeneronPatentLitigationMember" name="SanofiRegeneronPatentLitigationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ScheduleOfIntangibleAssetsTableTextBlock" name="ScheduleOfIntangibleAssetsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ScheduleOfNotionalAmountsAndInterestRatesForCrossCurrencySwapsTableTextBlock" name="ScheduleOfNotionalAmountsAndInterestRatesForCrossCurrencySwapsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_SensiparMimparaMember" name="SensiparMimparaMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_SeparationCosts" name="SeparationCosts" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ShareBasedCompensationArrangementByShareBasedPaymentAwardByGrantDateTypeAxis" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardByGrantDateTypeAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ShareBasedCompensationArrangementByShareBasedPaymentAwardByGrantDateTypeDomain" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardByGrantDateTypeDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ShareBasedCompensationArrangementByShareBasedPaymentAwardPerformanceUnitsFairValueAssumptionsTableTextBlock" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardPerformanceUnitsFairValueAssumptionsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_SharesCommonStockExcludedFromPublicFloatCalculation" name="SharesCommonStockExcludedFromPublicFloatCalculation" nillable="true" substitutionGroup="xbrli:item" type="xbrli:sharesItemType" xbrli:periodType="instant" />
+  <xsd:element abstract="true" id="amgn_ShelfRegistrationStatementAxisAxis" name="ShelfRegistrationStatementAxisAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ShelfRegistrationStatementAxisDomain" name="ShelfRegistrationStatementAxisDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ShelfRegistrationStatementMember" name="ShelfRegistrationStatementMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SixPointFourZeroPercentNotesDue2039Member" name="SixPointFourZeroPercentNotesDue2039Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SixPointNineZeroPercentNotesDue2038Member" name="SixPointNineZeroPercentNotesDue2038Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SixPointOneFivePercentNotesDue2018Member" name="SixPointOneFivePercentNotesDue2018Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SixPointThreeSevenFivePercentNotesDue2037Member" name="SixPointThreeSevenFivePercentNotesDue2037Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StatementsOfIncomeAndAmountOfGainRecognizedInIncomeForDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsTableTextBlock" name="StatementsOfIncomeAndAmountOfGainRecognizedInIncomeForDerivativeInstrumentsNotDesignatedAsHedgingInstrumentsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_StatementsOfIncomeAndEffectivePortionOfGainLossReclassifiedFromAccumulatedOtherComprehensiveIncomeIntoIncomeForOurCashFlowHedgeContractsAbstract" name="StatementsOfIncomeAndEffectivePortionOfGainLossReclassifiedFromAccumulatedOtherComprehensiveIncomeIntoIncomeForOurCashFlowHedgeContractsAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StatementsOfIncomeAndEffectivePortionOfGainLossReclassifiedFromAccumulatedOtherComprehensiveIncomeIntoIncomeForOurCashFlowHedgeContractsTableTextBlock" name="StatementsOfIncomeAndEffectivePortionOfGainLossReclassifiedFromAccumulatedOtherComprehensiveIncomeIntoIncomeForOurCashFlowHedgeContractsTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StockBasedCompensationExpenseNetOfTax" name="StockBasedCompensationExpenseNetOfTax" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StockOptionAndRestrictedStockUnitsMember" name="StockOptionAndRestrictedStockUnitsMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_StockRepurchaseProgramAbstract" name="StockRepurchaseProgramAbstract" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StockRepurchaseProgramMember" name="StockRepurchaseProgramMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_StockRepurchaseProgramTable" name="StockRepurchaseProgramTable" nillable="true" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StockRepurchaseProgramTableTextBlock" name="StockRepurchaseProgramTableTextBlock" nillable="true" substitutionGroup="xbrli:item" type="nonnum:textBlockItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_StockRepurchasedDuringPeriodUnderStockRepurchaseProgramValue" name="StockRepurchasedDuringPeriodUnderStockRepurchaseProgramValue" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_SuperiorCourtStateofCaliforniaMember" name="SuperiorCourtStateofCaliforniaMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_TaxBenefitsRecognizedfromRecentlyEnactedLegislation" name="TaxBenefitsRecognizedfromRecentlyEnactedLegislation" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_TermLoanDue2018Member" name="TermLoanDue2018Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ThreeMonthLondonInterbankOfferedRateLIBORMember" name="ThreeMonthLondonInterbankOfferedRateLIBORMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ThreePointEightSevenFivePercentNotesDue2021Member" name="ThreePointEightSevenFivePercentNotesDue2021Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ThreePointFourFivePercentNotesDue2020Member" name="ThreePointFourFivePercentNotesDue2020Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ThreePointSixTwoFivePercentNotesDue2022Member" name="ThreePointSixTwoFivePercentNotesDue2022Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_ThreePointSixTwoFivePercentNotesDue2024Member" name="ThreePointSixTwoFivePercentNotesDue2024Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ThresholdForDisclosureOfAmountsDueFromMajorCustomers" name="ThresholdForDisclosureOfAmountsDueFromMajorCustomers" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_ThresholdForDisclosureOfProductSalesToMajorCustomers" name="ThresholdForDisclosureOfProductSalesToMajorCustomers" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_TwoPointFiveZeroPercentNotesDue2016Member" name="TwoPointFiveZeroPercentNotesDue2016Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_TwoPointOneTwoFivePercentEuroNotesDue2019Member" name="TwoPointOneTwoFivePercentEuroNotesDue2019Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_TwoPointOneTwoFivePercentNotesDue2017Member" name="TwoPointOneTwoFivePercentNotesDue2017Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_TwoPointThreeZeroPercentNotesDue2016Member" name="TwoPointThreeZeroPercentNotesDue2016Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_TwoPointTwoZeroPercentNotesDue2019Member" name="TwoPointTwoZeroPercentNotesDue2019Member" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_U.S.FederalGovernmentStockpilesMember" name="U.S.FederalGovernmentStockpilesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_UndistributedEarningsOfForeignOperationsOnWhichDomesticIncomeTaxNotProvided" name="UndistributedEarningsOfForeignOperationsOnWhichDomesticIncomeTaxNotProvided" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="instant" />
+  <xsd:element id="amgn_UnrealizedLossesGainsBeforeReclassifications" name="UnrealizedLossesGainsBeforeReclassifications" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_UponAchievementofAgreedLevelofWorldwideSalesMember" name="UponAchievementofAgreedLevelofWorldwideSalesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_UponAchievementofCertainOtherRegulatoryandSalesrelatedMilestonesMember" name="UponAchievementofCertainOtherRegulatoryandSalesrelatedMilestonesMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element abstract="true" id="amgn_UponFirstCommercialSaleintheUSMember" name="UponFirstCommercialSaleintheUSMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_VectibixMember" name="VectibixMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+  <xsd:element id="amgn_WeightedAverageGrantDateFairValueOfUnitsOutstanding" name="WeightedAverageGrantDateFairValueOfUnitsOutstanding" nillable="true" substitutionGroup="xbrli:item" type="num:perShareItemType" xbrli:periodType="instant" />
+  <xsd:element id="amgn_XgevaMember" name="XgevaMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+</xsd:schema>
