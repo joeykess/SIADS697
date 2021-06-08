@@ -135,3 +135,8 @@ dmypy.json
 .csv
 .json
 .xml
+/test/
+/share/
+/etc/
+/XBRLcache/
+/share/
