@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Prepared by IBM Cognos Disclosure Management XBRL Version: 10.2.3 Using Fujitsu -->
+<!-- Validation status: Passed -->
+<schema targetNamespace="http://americanexpress.com/20141231" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:axp="http://americanexpress.com/20141231" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:num="http://www.xbrl.org/dtr/type/numeric">
+    <annotation>
+        <appinfo>
+            <link:linkbaseRef xlink:type="simple" xlink:href="axp-20141231_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" />
+            <link:linkbaseRef xlink:type="simple" xlink:href="axp-20141231_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" />
+            <link:linkbaseRef xlink:type="simple" xlink:href="axp-20141231_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" />
+            <link:linkbaseRef xlink:type="simple" xlink:href="axp-20141231_lab.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" />
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecuritiesDetailsTextuals" id="ELRID_InvestmentSecuritiesDetailsTextuals">
+                <link:definition>040505 - Disclosure - Investment Securities (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AssetSecuritizationsDetailsTextuals" id="ELRID_AssetSecuritizationsDetailsTextuals">
+                <link:definition>040600 - Disclosure - Asset Securitizations (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AcquisitionsAndDivestituresTextualDetails" id="ELRID_AcquisitionsAndDivestituresTextualDetails">
+                <link:definition>040215 - Disclosure - Acquisitions and Divestitures Textual ( Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AcquisitionsAndDivestitures" id="ELRID_AcquisitionsAndDivestitures">
+                <link:definition>011020 - Disclosure - Acquisitions and Divestitures</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureReportableOperatingSegmentsAndGeographicOperationsDetails" id="ELRID_ReportableOperatingSegmentsAndGeographicOperationsDetails">
+                <link:definition>042500 - Disclosure - Reportable Operating Segments and Geographic Operations (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureReportableOperatingSegmentTables" id="ELRID_ReportableOperatingSegmentTables">
+                <link:definition>030250 - Disclosure - Reportable Operating Segment (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureReportableOperatingSegment" id="ELRID_ReportableOperatingSegment">
+                <link:definition>011250 - Disclosure - Reportable Operating Segment</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxesDetailsTextuals" id="ELRID_IncomeTaxesDetailsTextuals">
+                <link:definition>042105 - Disclosure - Income Taxes (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails4" id="ELRID_AccountsReceivableAndLoansDetails4">
+                <link:definition>040304 - Disclosure - Accounts Receivable and Loans (Details 4)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails3" id="ELRID_AccountsReceivableAndLoansDetails3">
+                <link:definition>040303 - Disclosure - Accounts Receivable and Loans (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLossesDetails2" id="ELRID_ReservesForLossesDetails2">
+                <link:definition>040402 - Disclosure - Reserves for Losses (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLossesDetails" id="ELRID_ReservesForLossesDetails">
+                <link:definition>040400 - Disclosure - Reserves for Losses (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLossesTables" id="ELRID_ReservesForLossesTables">
+                <link:definition>030040 - Disclosure - Reserves For Losses (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLosses" id="ELRID_ReservesForLosses">
+                <link:definition>011040 - Disclosure - Reserves for Losses</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails2" id="ELRID_AccountsReceivableAndLoansDetails2">
+                <link:definition>040302 - Disclosure - Accounts Receivable and Loans (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails1" id="ELRID_AccountsReceivableAndLoansDetails1">
+                <link:definition>040301 - Disclosure - Accounts Receivable and Loans (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails" id="ELRID_AccountsReceivableAndLoansDetails">
+                <link:definition>040300 - Disclosure - Accounts Receivable and Loans (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansTables" id="ELRID_AccountsReceivableAndLoansTables">
+                <link:definition>030030 - Disclosure - Accounts Receivable and Loans (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RestructuringChargesTables" id="ELRID_RestructuringChargesTables">
+                <link:definition>030200 - Disclosure - Restructuring Charges (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/NonInterestRevenueAndExpenseDetailDetails3" id="ELRID_NonInterestRevenueAndExpenseDetailDetails3">
+                <link:definition>041903 - Disclosure - Non-Interest Revenue and Expense Detail (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/NonInterestRevenueAndExpenseDetailDetails2" id="ELRID_NonInterestRevenueAndExpenseDetailDetails2">
+                <link:definition>041902 - Disclosure - Non-Interest Revenue and Expense Detail (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/NonInterestRevenueAndExpenseDetailDetails1" id="ELRID_NonInterestRevenueAndExpenseDetailDetails1">
+                <link:definition>041901 - Disclosure - Non-Interest Revenue and Expense Detail (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivitiesDetailsTextuals" id="ELRID_DerivativesAndHedgingActivitiesDetailsTextuals">
+                <link:definition>041404 - Disclosure - Derivatives and Hedging Activities (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivitiesDetails3" id="ELRID_DerivativesAndHedgingActivitiesDetails3">
+                <link:definition>041403 - Disclosure - Derivatives and Hedging Activities (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivitiesDetails2" id="ELRID_DerivativesAndHedgingActivitiesDetails2">
+                <link:definition>041402 - Disclosure - Derivatives and Hedging Activities (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivitiesDetails1" id="ELRID_DerivativesAndHedgingActivitiesDetails1">
+                <link:definition>041401 - Disclosure - Derivatives and Hedging Activities (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/FairValuesDetails2" id="ELRID_FairValuesDetails2">
+                <link:definition>041502 - Disclosure - Fair Values (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CustomerDepositsDetails3" id="ELRID_CustomerDepositsDetails3">
+                <link:definition>040803 - Disclosure - Customer Deposits (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CustomerDepositsDetails2" id="ELRID_CustomerDepositsDetails2">
+                <link:definition>040802 - Disclosure - Customer Deposits (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CustomerDepositsDetails1" id="ELRID_CustomerDepositsDetails1">
+                <link:definition>040801 - Disclosure - Customer Deposits (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecuritiesDetails3" id="ELRID_InvestmentSecuritiesDetails3">
+                <link:definition>040504 - Disclosure - Investment Securities (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecuritiesDetails1" id="ELRID_InvestmentSecuritiesDetails1">
+                <link:definition>040501 - Disclosure - Investment Securities (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/NonInterestRevenueAndExpenseDetailDetails" id="ELRID_NonInterestRevenueAndExpenseDetailDetails">
+                <link:definition>041900 - Disclosure - Non-Interest Revenue and Expense Detail (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/NonInterestRevenueAndExpenseDetailTables" id="ELRID_NonInterestRevenueAndExpenseDetailTables">
+                <link:definition>030190 - Disclosure - Non-Interest Revenue and Expense Detail (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/NonInterestRevenueAndExpenseDetail" id="ELRID_NonInterestRevenueAndExpenseDetail">
+                <link:definition>011190 - Disclosure - Non-Interest Revenue and Expense Detail</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxesDetails1" id="ELRID_IncomeTaxesDetails1">
+                <link:definition>042101 - Disclosure - Income Taxes (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxesTables" id="ELRID_IncomeTaxesTables">
+                <link:definition>030210 - Disclosure - Income Taxes (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxes" id="ELRID_IncomeTaxes">
+                <link:definition>011210 - Disclosure - Income Taxes</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureSignificantAccountingPoliciesPolicies" id="ELRID_SignificantAccountingPoliciesPolicies">
+                <link:definition>020000 - Disclosure - Significant Accounting Policies (Policies)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivitiesTables" id="ELRID_DerivativesAndHedgingActivitiesTables">
+                <link:definition>030125 - Disclosure - Derivatives and Hedging Activities (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/GuaranteesTables" id="ELRID_GuaranteesTables">
+                <link:definition>030160 - Disclosure - Guarantees (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/GuaranteesDetails" id="ELRID_GuaranteesDetails">
+                <link:definition>041600 - Disclosure - Guarantees (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivitiesDetails" id="ELRID_DerivativesAndHedgingActivitiesDetails">
+                <link:definition>041400 - Disclosure - Derivatives and Hedging Activities (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CustomerDepositsDetails" id="ELRID_CustomerDepositsDetails">
+                <link:definition>040800 - Disclosure - Customer Deposits (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CustomerDepositsTables" id="ELRID_CustomerDepositsTables">
+                <link:definition>030080 - Disclosure - Customer Deposits (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/Guarantees" id="ELRID_Guarantees">
+                <link:definition>011160 - Disclosure - Guarantees</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DerivativesAndHedgingActivities" id="ELRID_DerivativesAndHedgingActivities">
+                <link:definition>011140 - Disclosure - Derivatives and Hedging Activities</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CustomerDeposits" id="ELRID_CustomerDeposits">
+                <link:definition>011080 - Disclosure - Customer Deposits</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecurities" id="ELRID_InvestmentSecurities">
+                <link:definition>011050 - Disclosure - Investment Securities</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/FairValuesDetails" id="ELRID_FairValuesDetails">
+                <link:definition>041500 - Disclosure - Fair Values (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/FairValuesTables" id="ELRID_FairValuesTables">
+                <link:definition>030150 - Disclosure - Fair Values (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/FairValues" id="ELRID_FairValues">
+                <link:definition>011150 - Disclosure - Fair Values</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedStatementsOfIncomeParenthetical" id="ELRID_ConsolidatedStatementsOfIncomeParenthetical">
+                <link:definition>010030 - Statement - Consolidated Statements of Income (Parenthetical)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommitmentsAndContingencies" id="ELRID_CommitmentsAndContingencies">
+                <link:definition>011130 - Disclosure - Commitments and Contingencies</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/EarningsPerCommonShareEPSDetails" id="ELRID_EarningsPerCommonShareEPSDetails">
+                <link:definition>042200 - Disclosure - Earnings Per Common Share (EPS) (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/EarningsPerCommonShareEPSTables" id="ELRID_EarningsPerCommonShareEPSTables">
+                <link:definition>030220 - Disclosure - Earnings Per Common Share (EPS) (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/EarningsPerCommonShareEPS" id="ELRID_EarningsPerCommonShareEPS">
+                <link:definition>011220 - Disclosure - Earnings Per Common Share (EPS)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedStatementsOfCashFlows" id="ELRID_ConsolidatedStatementsOfCashFlows">
+                <link:definition>010060 - Statement - Consolidated Statements of Cash Flows</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedBalanceSheetsParenthetical" id="ELRID_ConsolidatedBalanceSheetsParenthetical">
+                <link:definition>010050 - Statement - Consolidated Balance Sheets (Parenthetical)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedBalanceSheets" id="ELRID_ConsolidatedBalanceSheets">
+                <link:definition>010040 - Statement - Consolidated Balance Sheets</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedStatementsOfIncome" id="ELRID_ConsolidatedStatementsOfIncome">
+                <link:definition>010020 - Statement - Consolidated Statements of Income</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DocumentDocumentAndEntityInformation" id="ELRID_DocumentAndEntityInformation">
+                <link:definition>010010 - Document - Document and Entity Information</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecuritiesTables" id="ELRID_InvestmentSecuritiesTables">
+                <link:definition>030050 - Disclosure - Investment Securities (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecuritiesDetails" id="ELRID_InvestmentSecuritiesDetails">
+                <link:definition>040500 - Disclosure - Investment Securities (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ChangesInAccumulatedOtherComprehensiveLossIncome" id="ELRID_ChangesInAccumulatedOtherComprehensiveLossIncome">
+                <link:definition>011180 - Disclosure - Changes in Accumulated Other Comprehensive (Loss) Income</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ChangesInAccumulatedOtherComprehensiveLossIncomeTables" id="ELRID_ChangesInAccumulatedOtherComprehensiveLossIncomeTables">
+                <link:definition>030180 - Disclosure - Changes in Accumulated Other Comprehensive (Loss) Income (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ChangesInAccumulatedOtherComprehensiveIncomeDetails" id="ELRID_ChangesInAccumulatedOtherComprehensiveIncomeDetails">
+                <link:definition>041800 - Disclosure - Changes in Accumulated Other Comprehensive Income (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureSummaryOfSignificantAccountingPolicies" id="ELRID_SummaryOfSignificantAccountingPolicies">
+                <link:definition>011010 - Disclosure - Summary of Significant Accounting Policies</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommitmentsAndContingenciesDetailsTextuals" id="ELRID_CommitmentsAndContingenciesDetailsTextuals">
+                <link:definition>041301 - Disclosure - Commitments and Contingencies (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/InvestmentSecuritiesDetails2" id="ELRID_InvestmentSecuritiesDetails2">
+                <link:definition>040502 - Disclosure - Investment Securities (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLossesDetails1" id="ELRID_ReservesForLossesDetails1">
+                <link:definition>040401 - Disclosure - Reserves for Losses (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLossesDetails3" id="ELRID_ReservesForLossesDetails3">
+                <link:definition>040403 - Disclosure - Reserves For Losses (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureSummaryOfSignificantAccountingPoliciesDetailsTextuals" id="ELRID_SummaryOfSignificantAccountingPoliciesDetailsTextuals">
+                <link:definition>040100 - Disclosure - Summary of Significant Accounting Policies (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedStatementsOfCashFlowsParenthetical" id="ELRID_ConsolidatedStatementsOfCashFlowsParenthetical">
+                <link:definition>010070 - Statement - Consolidated Statements of Cash Flows (Parenthetical)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AssetSecuritizations" id="ELRID_AssetSecuritizations">
+                <link:definition>011060 - Disclosure - Asset Securitizations</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/FairValuesDetailsTextuals" id="ELRID_FairValuesDetailsTextuals">
+                <link:definition>041503 - Disclosure - Fair Values (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/FairValuesDetails1" id="ELRID_FairValuesDetails1">
+                <link:definition>041501 - Disclosure - Fair Values (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails5" id="ELRID_AccountsReceivableAndLoansDetails5">
+                <link:definition>040305 - Disclosure - Accounts Receivable and Loans (Details 5)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoansDetails6" id="ELRID_AccountsReceivableAndLoansDetails6">
+                <link:definition>040306 - Disclosure - Accounts Receivable and Loans (Details 6)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/Debt" id="ELRID_Debt">
+                <link:definition>011090 - Disclosure - Debt</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommonAndPreferredSharesAndWarrants" id="ELRID_CommonAndPreferredSharesAndWarrants">
+                <link:definition>011170 - Disclosure - Common and Preferred Shares and Warrants</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DebtTables" id="ELRID_DebtTables">
+                <link:definition>030090 - Disclosure - Debt (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommonAndPreferredSharesAndWarrantsTables" id="ELRID_CommonAndPreferredSharesAndWarrantsTables">
+                <link:definition>030170 - Disclosure - Common and Preferred Shares and Warrants (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlansTables" id="ELRID_StockPlansTables">
+                <link:definition>030110 - Disclosure - Stock Plans (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherLiabilities" id="ELRID_OtherLiabilities">
+                <link:definition>011100 - Disclosure - Other Liabilities</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RegulatoryMattersAndCapitalAdequacy" id="ELRID_RegulatoryMattersAndCapitalAdequacy">
+                <link:definition>011230 - Disclosure - Regulatory Matters and Capital Adequacy</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherLiabilitiesTables" id="ELRID_OtherLiabilitiesTables">
+                <link:definition>030100 - Disclosure - Other Liabilities (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssets" id="ELRID_OtherAssets">
+                <link:definition>011070 - Disclosure - Other Assets</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherLiabilitiesDetails" id="ELRID_OtherLiabilitiesDetails">
+                <link:definition>041000 - Disclosure - Other Liabilities (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureRegulatoryMattersAndCapitalAdequacyTables" id="ELRID_RegulatoryMattersAndCapitalAdequacyTables">
+                <link:definition>030230 - Disclosure - Regulatory Matters and Capital Adequacy (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssetsTables" id="ELRID_OtherAssetsTables">
+                <link:definition>030070 - Disclosure - Other Assets (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/SignificantCreditConcentrationsTables" id="ELRID_SignificantCreditConcentrationsTables">
+                <link:definition>030240 - Disclosure - Significant Credit Concentrations (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommitmentsAndContigenciesTables" id="ELRID_CommitmentsAndContigenciesTables">
+                <link:definition>030120 - Disclosure - Commitments and Contigencies (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureParentCompanyTables" id="ELRID_ParentCompanyTables">
+                <link:definition>030260 - Disclosure - Parent Company (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureQuarterlyFinancialDataunauditedTables" id="ELRID_QuarterlyFinancialDataunauditedTables">
+                <link:definition>030270 - Disclosure - Quarterly Financial Data (unaudited) (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ConsolidatedStatementsOfShareholdersEquity" id="ELRID_ConsolidatedStatementsOfShareholdersEquity">
+                <link:definition>010080 - Statement - Consolidated Statements of Shareholders' Equity</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureQuarterlyFinancialDataUnauditedDetails" id="ELRID_QuarterlyFinancialDataUnauditedDetails">
+                <link:definition>042700 - Disclosure - Quarterly Financial Data (Unaudited) (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureRegulatoryMattersAndCapitalAdequacyDetails" id="ELRID_RegulatoryMattersAndCapitalAdequacyDetails">
+                <link:definition>042300 - Disclosure - Regulatory Matters and Capital Adequacy (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlansDetails" id="ELRID_StockPlansDetails">
+                <link:definition>041100 - Disclosure - Stock Plans (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssetsDetails" id="ELRID_OtherAssetsDetails">
+                <link:definition>040700 - Disclosure - Other Assets (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssetsDetails1" id="ELRID_OtherAssetsDetails1">
+                <link:definition>040701 - Disclosure - Other Assets (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssetsDetails2" id="ELRID_OtherAssetsDetails2">
+                <link:definition>040702 - Disclosure - Other Assets (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssetsDetails3" id="ELRID_OtherAssetsDetails3">
+                <link:definition>040703 - Disclosure - Other Assets (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/OtherAssetsDetailsTextuals" id="ELRID_OtherAssetsDetailsTextuals">
+                <link:definition>040704 - Disclosure - Other Assets (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RetirementPlansDetailsTextuals" id="ELRID_RetirementPlansDetailsTextuals">
+                <link:definition>041200 - Disclosure - Retirement Plans (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlansDetails1" id="ELRID_StockPlansDetails1">
+                <link:definition>041101 - Disclosure - Stock Plans (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlansDetails2" id="ELRID_StockPlansDetails2">
+                <link:definition>041102 - Disclosure - Stock Plans (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlansDetails3" id="ELRID_StockPlansDetails3">
+                <link:definition>041103 - Disclosure - Stock Plans (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlansDetailsTextuals" id="ELRID_StockPlansDetailsTextuals">
+                <link:definition>041104 - Disclosure - Stock Plans (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RegulatoryMattersAndCapitalAdequacyDetailsTextuals" id="ELRID_RegulatoryMattersAndCapitalAdequacyDetailsTextuals">
+                <link:definition>042301 - Disclosure - Regulatory Matters and Capital Adequacy (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DebtDetails" id="ELRID_DebtDetails">
+                <link:definition>040900 - Disclosure - Debt (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DebtDetails1" id="ELRID_DebtDetails1">
+                <link:definition>040901 - Disclosure - Debt (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureParentCompany" id="ELRID_ParentCompany">
+                <link:definition>011260 - Disclosure - Parent Company</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DebtDetails2" id="ELRID_DebtDetails2">
+                <link:definition>040902 - Disclosure - Debt (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DebtDetailsTextuals" id="ELRID_DebtDetailsTextuals">
+                <link:definition>040903 - Disclosure - Debt (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureParentCompanyDetails" id="ELRID_DisclosureParentCompanyDetails">
+                <link:definition>042600 - Disclosure - Parent Company (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxesDetails" id="ELRID_IncomeTaxesDetails">
+                <link:definition>042100 - Disclosure - Income Taxes (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxesDetails2" id="ELRID_IncomeTaxesDetails2">
+                <link:definition>042103 - Disclosure - Income Taxes (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/IncomeTaxesDetails3" id="ELRID_IncomeTaxesDetails3">
+                <link:definition>042104 - Disclosure - Income Taxes (Details 3)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommonAndPreferredSharesAndWarrantsDetails" id="ELRID_CommonAndPreferredSharesAndWarrantsDetails">
+                <link:definition>041700 - Disclosure - Common and Preferred Shares and Warrants (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommonAndPreferredSharesAndWarrantsDetailsTextuals" id="ELRID_CommonAndPreferredSharesAndWarrantsDetailsTextuals">
+                <link:definition>041701 - Disclosure - Common and Preferred Shares and Warrants (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/SignificantCreditConcentrationsDetails" id="ELRID_SignificantCreditConcentrationsDetails">
+                <link:definition>042400 - Disclosure - Significant Credit Concentrations (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/SignificantCreditConcentrationsDetails1" id="ELRID_SignificantCreditConcentrationsDetails1">
+                <link:definition>042401 - Disclosure - Significant Credit Concentrations (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RestructuringChargesDetails" id="ELRID_RestructuringChargesDetails">
+                <link:definition>042000 - Disclosure - Restructuring Charges (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RestructuringChargesDetails1" id="ELRID_RestructuringChargesDetails1">
+                <link:definition>042001 - Disclosure - Restructuring Charges (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RestructuringChargesDetailsTextuals" id="ELRID_RestructuringChargesDetailsTextuals">
+                <link:definition>042002 - Disclosure - Restructuring Charges (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/CommitmentsAndContingenciesDetails" id="ELRID_CommitmentsAndContingenciesDetails">
+                <link:definition>041300 - Disclosure - Commitments and Contingencies (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReportableOperatingSegementsAndGeographicOperationsDetails1" id="ELRID_ReportableOperatingSegementsAndGeographicOperationsDetails1">
+                <link:definition>042501 - Disclosure - Reportable Operating Segements and Geographic Operations (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ParentCompanyDetails1" id="ELRID_ParentCompanyDetails1">
+                <link:definition>042601 - Disclosure - Parent Company (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ParentCompanyDetails2" id="ELRID_ParentCompanyDetails2">
+                <link:definition>042602 - Disclosure - Parent Company (Details 2)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ParentCompanyDetailsTextuals" id="ELRID_ParentCompanyDetailsTextuals">
+                <link:definition>042603 - Disclosure - Parent Company (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ConsolidatedStatementsOfShareholdersEquityParenthetical" id="ELRID_ConsolidatedStatementsOfShareholdersEquityParenthetical">
+                <link:definition>010090 - Statement - Consolidated Statements of Shareholders' Equity (Parenthetical)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StockPlans" id="ELRID_StockPlans">
+                <link:definition>011110 - Disclosure - Stock Plans</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/RetirementPlans" id="ELRID_RetirementPlans">
+                <link:definition>011120 - Disclosure - Retirement Plans</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/SignificantCreditConcentrations" id="ELRID_SignificantCreditConcentrations">
+                <link:definition>011240 - Disclosure - Significant Credit Concentrations</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/DisclosureQuarterlyFinancialDataUnaudited" id="ELRID_QuarterlyFinancialDataUnaudited">
+                <link:definition>011270 - Disclosure - Quarterly Financial Data (Unaudited)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/Restructuring" id="ELRID_Restructuring">
+                <link:definition>011200 - Disclosure - Restructuring</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AccountsReceivableAndLoans" id="ELRID_AccountsReceivableAndLoans">
+                <link:definition>011030 - Disclosure - Accounts Receivable and Loans</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/StatementConsolidatedStatementsOfComprehensiveIncome" id="ELRID_ConsolidatedStatementsOfComprehensiveIncome">
+                <link:definition>010035 - Statement - Consolidated Statements of Comprehensive Income</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ReservesForLossesDetailsTextuals" id="ELRID_ReservesForLossesDetailsTextuals">
+                <link:definition>040404 - Disclosure - Reserves For Losses (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/QuarterlyFinancialDataDetailsTextuals" id="ELRID_QuarterlyFinancialDataDetailsTextuals">
+                <link:definition>042701 - Disclosure - Quarterly Financial Data (Details Textuals)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/ChangesInAccumulatedOtherComprehensiveIncomeDetails1" id="ELRID_ChangesInAccumulatedOtherComprehensiveIncomeDetails1">
+                <link:definition>041801 - Disclosure - Changes in Accumulated Other Comprehensive Income (Details 1)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AssetSecuritizationsTables" id="ELRID_AssetSecuritizationsTables">
+                <link:definition>030060 - Disclosure - Asset Securitizations (Tables)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+            <link:roleType roleURI="http://americanexpress.com/role/AssetSecuritizationsDetails" id="ELRID_AssetSecuritizationsDetails">
+                <link:definition>040510 - Disclosure - Asset Securitizations (Details)</link:definition>
+                <link:usedOn>link:presentationLink</link:usedOn>
+                <link:usedOn>link:calculationLink</link:usedOn>
+                <link:usedOn>link:definitionLink</link:usedOn>
+            </link:roleType>
+        </appinfo>
+    </annotation>
+    <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+    <import namespace="http://xbrl.org/2005/xbrldt" schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd" />
+    <import namespace="http://www.xbrl.org/2009/role/negated" schemaLocation="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd" />
+    <import namespace="http://www.xbrl.org/dtr/type/numeric" schemaLocation="http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd" />
+    <import namespace="http://www.xbrl.org/dtr/type/non-numeric" schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd" />
+    <import namespace="http://fasb.org/us-gaap/2014-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2014/elts/us-gaap-2014-01-31.xsd" />
+    <import namespace="http://xbrl.sec.gov/dei/2014-01-31" schemaLocation="http://xbrl.sec.gov/dei/2014/dei-2014-01-31.xsd" />
+    <element name="InvestmentSecuritiesDetailsAbstract" id="axp_InvestmentSecuritiesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DocumentAndEntityInformationAbstract" id="axp_DocumentAndEntityInformationAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AssetSecuritizationsDetailsAbstract" id="axp_AssetSecuritizationsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="TotalRevenuesNetOfInterestExpense" id="axp_TotalRevenuesNetOfInterestExpense" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="MarketingPromotionRewardsAndCardMemberServices" id="axp_MarketingPromotionRewardsAndCardMemberServices" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="TotalRevenuesNetOfInterestExpenseAfterProvisionsForLosses" id="axp_TotalRevenuesNetOfInterestExpenseAfterProvisionsForLosses" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="TravelCommissionsAndFees" id="axp_TravelCommissionsAndFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="TravelersChequesOutstanding" id="axp_TravelersChequesOutstanding" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="OtherReceivablesReserves" id="axp_OtherReceivablesReserves" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="EarningsPerCommonShareEpsDetailsAbstract" id="axp_EarningsPerCommonShareEpsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NetIncomeAttributableToCommonShareholdersAbstract" id="axp_NetIncomeAttributableToCommonShareholdersAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="EarningsPerCommonShareEpsTextualsAbstract" id="axp_EarningsPerCommonShareEpsTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="USCardServicesMember" id="axp_USCardServicesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="InternationalCardServicesMember" id="axp_InternationalCardServicesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="GlobalCommercialServicesMember" id="axp_GlobalCommercialServicesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="GlobalNetworkAndMerchantServicesMember" id="axp_GlobalNetworkAndMerchantServicesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue" id="axp_FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="AvailableForSaleSecuritiesRatioOfFairValueToAmortizedCostTextBlock" id="axp_AvailableForSaleSecuritiesRatioOfFairValueToAmortizedCostTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="FairValuesDetailsAbstract" id="axp_FairValuesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FairValuesTextualsAbstract" id="axp_FairValuesTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CustomerDepositsDetailsAbstract" id="axp_CustomerDepositsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DerivativesAndHedgingActivitiesDetailsAbstract" id="axp_DerivativesAndHedgingActivitiesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="GuaranteesDetailsAbstract" id="axp_GuaranteesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DepositsByComponentAlternativeTextBlock" id="axp_DepositsByComponentAlternativeTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DepositsByTypeTextBlock" id="axp_DepositsByTypeTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="TimeDepositsByMaturityTextBlock" id="axp_TimeDepositsByMaturityTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ReturnAndMerchantProtectionMember" id="axp_ReturnAndMerchantProtectionMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="GuaranteeObligationsLineItemsAbstract" id="axp_GuaranteeObligationsLineItemsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="TypeOfGuaranteeAbstract" id="axp_TypeOfGuaranteeAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="EffectOfFairValueHedgesOnResultsOfOperationsTextBlock" id="axp_EffectOfFairValueHedgesOnResultsOfOperationsTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DerivativeInstrumentsGainLossRecognizedInIncomeTextBlock" id="axp_DerivativeInstrumentsGainLossRecognizedInIncomeTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DerivativesAndHedgingActivitiesTextualsAbstract" id="axp_DerivativesAndHedgingActivitiesTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncomeTaxesDetailsAbstract" id="axp_IncomeTaxesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncomeTaxesTextualsAbstract" id="axp_IncomeTaxesTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NetIncomeAttributableToCommonShareholders" id="axp_NetIncomeAttributableToCommonShareholders" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="TypeOfDebtAxis" id="axp_TypeOfDebtAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="TypeOfDebtDomain" id="axp_TypeOfDebtDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="MarketingPromotionRewardsAndCardMemberServicesTextBlock" id="axp_MarketingPromotionRewardsAndCardMemberServicesTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherNetExpenseTextBlock" id="axp_OtherNetExpenseTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DetailsOfCertainStatementsOfIncomeLinesDetailsAbstract" id="axp_DetailsOfCertainStatementsOfIncomeLinesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ErrorCorrectionAndPriorPeriodAdjustmentsRestatementByRestatementPeriodAndAmountAxis" id="axp_ErrorCorrectionAndPriorPeriodAdjustmentsRestatementByRestatementPeriodAndAmountAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherCommissionsAndFeesTextBlock" id="axp_OtherCommissionsAndFeesTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherRevenuesTextBlock" id="axp_OtherRevenuesTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="AvailabeForSaleSecuritiesOtherMember" id="axp_AvailabeForSaleSecuritiesOtherMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NetReductionToInterestExpenseLongTermDebtAndOtherRelatedToNetSettlementsOnFairValueHedges" id="axp_NetReductionToInterestExpenseLongTermDebtAndOtherRelatedToNetSettlementsOnFairValueHedges" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="ErrorCorrectionPeriodAndPriorPeriodAdjustmentsPeriodAndAmountDomain" id="axp_ErrorCorrectionPeriodAndPriorPeriodAdjustmentsPeriodAndAmountDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ImpairedLoansByModificationTypeLineItems" id="axp_ImpairedLoansByModificationTypeLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CreditQualityIndicatorForLoansAndReceivablesAbstract" id="axp_CreditQualityIndicatorForLoansAndReceivablesAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ThirtyDaysPastDueAsPercentageOfTotal" id="axp_ThirtyDaysPastDueAsPercentageOfTotal" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="NetLossRatioAsPercentageOfChargeVolume" id="axp_NetLossRatioAsPercentageOfChargeVolume" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="AccountsReceivableAndLoansDetailsAbstract" id="axp_AccountsReceivableAndLoansDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LoansAndLeasesReceivablesDisclosureAbstract" id="axp_LoansAndLeasesReceivablesDisclosureAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ReservesForLossesDetailsAbstract" id="axp_ReservesForLossesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AccountsReceivableAndLoansTextualsAbstract" id="axp_AccountsReceivableAndLoansTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ReportableOperatingSegmentsAndGeographicOperationsDetailsAbstract" id="axp_ReportableOperatingSegmentsAndGeographicOperationsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansReservesRollforwardTextBlock" id="axp_CardMemberLoansReservesRollforwardTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="AccountsReceivableSegmentAbstract" id="axp_AccountsReceivableSegmentAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AmericanExpressTravelRelatedServicesCompanyIncMember" id="axp_AmericanExpressTravelRelatedServicesCompanyIncMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AmericanExpressChargeTrustMember" id="axp_AmericanExpressChargeTrustMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AmericanExpressLendingTrustMember" id="axp_AmericanExpressLendingTrustMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ThirdPartyCertificatesOfDeposit" id="axp_ThirdPartyCertificatesOfDeposit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="ThirdPartySweepAccounts" id="axp_ThirdPartySweepAccounts" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="SubordinatedSecuritiesOwned" id="axp_SubordinatedSecuritiesOwned" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="GrossLoansAvailableToSettleObligationsOfConsolidatedVariableInterestEntity" id="axp_GrossLoansAvailableToSettleObligationsOfConsolidatedVariableInterestEntity" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="GrossReceivablesAvailableToSettleObligationsOfConsolidatedVariableInterestEntity" id="axp_GrossReceivablesAvailableToSettleObligationsOfConsolidatedVariableInterestEntity" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="SecuritizedTrustsTable" id="axp_SecuritizedTrustsTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="SecuritizedTrustsLineItems" id="axp_SecuritizedTrustsLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CertificateOfDepositsByLocationTable" id="axp_CertificateOfDepositsByLocationTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CertificateOfDepositsByLocationLineItems" id="axp_CertificateOfDepositsByLocationLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansEvaluatedSeparatelyForImpairment" id="axp_CardMemberLoansEvaluatedSeparatelyForImpairment" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="ReservesOnCardMemberLoansEvaluatedSeparatelyForImpairment" id="axp_ReservesOnCardMemberLoansEvaluatedSeparatelyForImpairment" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="AccumulatedOtherComprehensiveIncomeLossAvailableForSaleSecuritiesTax" id="axp_AccumulatedOtherComprehensiveIncomeLossAvailableForSaleSecuritiesTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentTax" id="axp_AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="AccumulatedOtherComprehensiveIncomeLossDefinedBenefitPlansTax" id="axp_AccumulatedOtherComprehensiveIncomeLossDefinedBenefitPlansTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleEquity" id="axp_SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleEquity" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="CardMemberLoansEvaluatedCollectivelyForImpairment" id="axp_CardMemberLoansEvaluatedCollectivelyForImpairment" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="ReservesOnCardMemberLoansEvaluatedCollectivelyForImpairment" id="axp_ReservesOnCardMemberLoansEvaluatedCollectivelyForImpairment" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="ProvisionsForLossesChargeCardAdditionsOther" id="axp_ProvisionsForLossesChargeCardAdditionsOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="ProvisionsForLossesDeductionsChargeCardNetWriteOffsOther" id="axp_ProvisionsForLossesDeductionsChargeCardNetWriteOffsOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="ProvisionsForLoansAndLeaseLossesDeductionsNetWriteOffsPrincipal" id="axp_ProvisionsForLoansAndLeaseLossesDeductionsNetWriteOffsPrincipal" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="ProvisionsForLoansAndLeaseLossesDeductionsNetWriteOffsInterestAndFees" id="axp_ProvisionsForLoansAndLeaseLossesDeductionsNetWriteOffsInterestAndFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="ProvisionsForLoansAndLeaseLossesDeductionsNetWriteOffsOther" id="axp_ProvisionsForLoansAndLeaseLossesDeductionsNetWriteOffsOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="RatioOfFairValueToAmortizedCostAxis" id="axp_RatioOfFairValueToAmortizedCostAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RatioOfFairValueToAmortizedCostDomain" id="axp_RatioOfFairValueToAmortizedCostDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RatioOfFairValueToAmortizedCostBetweenNinetyAndOneHundredPercentMember" id="axp_RatioOfFairValueToAmortizedCostBetweenNinetyAndOneHundredPercentMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RatioOfFairValueToAmortizedCostLessThanNinetyPercentMember" id="axp_RatioOfFairValueToAmortizedCostLessThanNinetyPercentMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberReceivablesAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentTextBlock" id="axp_CardMemberReceivablesAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentTextBlock" id="axp_CardMemberLoansAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberReceivablesAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentAbstract" id="axp_CardMemberReceivablesAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentAbstract" id="axp_CardMemberLoansAndRelatedReservesEvaluatedSeparatelyAndCollectivelyForImpairmentAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LoyaltyPartnerAcquisitionMember" id="axp_LoyaltyPartnerAcquisitionMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AccumulatedOtherComprehensiveIncomeLossDerivativesQualifyingAsHedgesTax" id="axp_AccumulatedOtherComprehensiveIncomeLossDerivativesQualifyingAsHedgesTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="ProvisionsForLossesDeductionsChargeCardNetWriteOffsPrincipalAndFees" id="axp_ProvisionsForLossesDeductionsChargeCardNetWriteOffsPrincipalAndFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="ProvisionsForLossesForLoanAndLeaseLossesAdditionsPrincipalInterestAndFees" id="axp_ProvisionsForLossesForLoanAndLeaseLossesAdditionsPrincipalInterestAndFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleQuantifyImpactNotPossible" id="axp_SignificantChangeInUnrecognizedTaxBenefitsIsReasonablyPossibleQuantifyImpactNotPossible" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="UnitedStatesMember" id="axp_UnitedStatesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NonUnitedStatesMember" id="axp_NonUnitedStatesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansMember" id="axp_CardMemberLoansMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberReceivablesMember" id="axp_CardMemberReceivablesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LoansAndLeasesReceivableImpairedUnpaidPrincipalBalance" id="axp_LoansAndLeasesReceivableImpairedUnpaidPrincipalBalance" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="NinetyDaysPastBillingAsPercentageOfReceivables" id="axp_NinetyDaysPastBillingAsPercentageOfReceivables" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="AcquisitionTextualsAbstract" id="axp_AcquisitionTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LoansAndReceivablesImpairedTroubledDebtRestructuringAmountNonAccrualStatus" id="axp_LoansAndReceivablesImpairedTroubledDebtRestructuringAmountNonAccrualStatus" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="LoansAndReceivablesImpairedTroubledDebtRestructuringAmountOverNinetyDaysAccrualOfInterest" id="axp_LoansAndReceivablesImpairedTroubledDebtRestructuringAmountOverNinetyDaysAccrualOfInterest" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="AcquisitionsDetailsAbstract" id="axp_AcquisitionsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DeferredTaxesAndOther" id="axp_DeferredTaxesAndOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="CurrentAndPastDueFinancingReceivablesTableTextBlock" id="axp_CurrentAndPastDueFinancingReceivablesTableTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfLoansAndFinancingReceivableTableTextBlock" id="axp_ScheduleOfLoansAndFinancingReceivableTableTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="LoansNet" id="axp_LoansNet" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="FinancingReceivableRecordedInvestmentCurrentAndPastDue" id="axp_FinancingReceivableRecordedInvestmentCurrentAndPastDue" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="TaxAdjustmentsSettlementsAndUnusualProvisionsFromDiscontinuedOperations" id="axp_TaxAdjustmentsSettlementsAndUnusualProvisionsFromDiscontinuedOperations" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="NetWriteOffRatePrincipal" id="axp_NetWriteOffRatePrincipal" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="NetWriteOffRatePrincipalInterestFees" id="axp_NetWriteOffRatePrincipalInterestFees" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="TroubledDebtRestructuringsOnFinancingReceivablesWithSubsequentDefaultTableTextBlock" id="axp_TroubledDebtRestructuringsOnFinancingReceivablesWithSubsequentDefaultTableTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="AverageInterestRateReductionByClassOfCardMemberLoan" id="axp_AverageInterestRateReductionByClassOfCardMemberLoan" type="xbrli:integerItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="AveragePaymentTermExtension" id="axp_AveragePaymentTermExtension" type="xbrli:integerItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="FinancingReceivableRecordedInvestmentsCurrent" id="axp_FinancingReceivableRecordedInvestmentsCurrent" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="WeightedAverageNumberOfSharesOutstandingBasicAndDilutedAbstract" id="axp_WeightedAverageNumberOfSharesOutstandingBasicAndDilutedAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="TimeDeposits250000OrMoreTextBlock" id="axp_TimeDeposits250000OrMoreTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CashCollateralNetting" id="axp_CashCollateralNetting" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="LoansAndLeasesReceivableSegmentAbstract" id="axp_LoansAndLeasesReceivableSegmentAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AvailableForSaleSecuritiesDebtSecuritiesAndOther" id="axp_AvailableForSaleSecuritiesDebtSecuritiesAndOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="AccountsReceivableReserveRollForwardAbstract" id="axp_AccountsReceivableReserveRollForwardAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonAndPreferredSharesAndWarrantsTextBlock" id="axp_CommonAndPreferredSharesAndWarrantsTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="LongTermDebtByMaturityTableTextBlock" id="axp_LongTermDebtByMaturityTableTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DescriptionOfNewAccountingPronouncementsAdoptedTextBlock" id="axp_DescriptionOfNewAccountingPronouncementsAdoptedTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="UseOfEstimatesTextBlock" id="axp_UseOfEstimatesTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="InternalUseSoftwarePolicyTextBlock" id="axp_InternalUseSoftwarePolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ReservesForLossesPolicyTextBlock" id="axp_ReservesForLossesPolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="IncomeTaxUncertaintiesPolicyTextBlock" id="axp_IncomeTaxUncertaintiesPolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="MembershipRewardsPolicyTextBlock" id="axp_MembershipRewardsPolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="SegmentReportingPolicyTextBlock" id="axp_SegmentReportingPolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="AccumulatedOtherComprehensiveLossIncomeTaxEffectDisclosureTextBlock" id="axp_AccumulatedOtherComprehensiveLossIncomeTaxEffectDisclosureTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="WeightedAverageRemainingAndContractualLifeAndAggregateIntrinsicValueTextBlock" id="axp_WeightedAverageRemainingAndContractualLifeAndAggregateIntrinsicValueTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsTextBlock" id="axp_ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="StockBasedCompensationExpenseTextBlock" id="axp_StockBasedCompensationExpenseTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DeferredChargeCardFeesTextBlock" id="axp_DeferredChargeCardFeesTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfComplianceWithRegulatoryCapitalRequirementsUnderBankingRegulationsAbstract" id="axp_ScheduleOfComplianceWithRegulatoryCapitalRequirementsUnderBankingRegulationsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherLiabilitiesDetailsAbstract" id="axp_OtherLiabilitiesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="MembershipRewardsLiabilities" id="axp_MembershipRewardsLiabilities" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="RebateAccruals" id="axp_RebateAccruals" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="ConcentrationRiskCreditRiskFinancialInstrumentsTextBlock" id="axp_ConcentrationRiskCreditRiskFinancialInstrumentsTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ConcentrationRiskCreditRiskCardMemberLoansAndReceivablesByRegionTextBlock" id="axp_ConcentrationRiskCreditRiskCardMemberLoansAndReceivablesByRegionTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfGeographicOperationsByGeographicRegionTextBlock" id="axp_ScheduleOfGeographicOperationsByGeographicRegionTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfCondensedFinancialStatementsIncomeStatementTextBlock" id="axp_ScheduleOfCondensedFinancialStatementsIncomeStatementTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfCondensedFinancialStatementsBalanceSheetTextBlock" id="axp_ScheduleOfCondensedFinancialStatementsBalanceSheetTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfCondensedFinancialStatementsCashFlowStatementTextBlock" id="axp_ScheduleOfCondensedFinancialStatementsCashFlowStatementTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="QuartertlyFinancialDataAbstract" id="axp_QuartertlyFinancialDataAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PaymentsForMaturitiesOfCardMemberLoanSecuritizations" id="axp_PaymentsForMaturitiesOfCardMemberLoanSecuritizations" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="SummaryOfSignificantAccountingPoliciesDetailsAbstract" id="axp_SummaryOfSignificantAccountingPoliciesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DeferredChargeCardFeesAbstract" id="axp_DeferredChargeCardFeesAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DeferredChargeCardAndOtherFees" id="axp_DeferredChargeCardAndOtherFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="DeferredDirectAcquisitionCosts" id="axp_DeferredDirectAcquisitionCosts" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="ReservesForMembershipCancellations" id="axp_ReservesForMembershipCancellations" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="DeferredCardAndOtherFeesNet" id="axp_DeferredCardAndOtherFeesNet" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="OtherAssetsDetailTextBlock" id="axp_OtherAssetsDetailTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="QuarterlyFinancialDataDetailsAbstract" id="axp_QuarterlyFinancialDataDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DisclosureofquarterlyFinancialDataAbstract" id="axp_DisclosureofquarterlyFinancialDataAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RetirementPlansDetailsAbstract" id="axp_RetirementPlansDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonSharePriceAbstract" id="axp_CommonSharePriceAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonShareClosingPriceHighDuringPeriod" id="axp_CommonShareClosingPriceHighDuringPeriod" type="xbrli:decimalItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonShareClosingPriceLowDuringPeriod" id="axp_CommonShareClosingPriceLowDuringPeriod" type="xbrli:decimalItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DomesticMember" id="axp_DomesticMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="InternationalMember" id="axp_InternationalMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DownsizingAndReorganizingOperationsMember" id="axp_DownsizingAndReorganizingOperationsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RetirementPlansTextualsAbstract" id="axp_RetirementPlansTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="StockPlansDetailsAbstract" id="axp_StockPlansDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsAndRestrictedStockAwardsActivityAbstract" id="axp_ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsAndRestrictedStockAwardsActivityAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="WeightedAverageRemainingAndContractualLifeAndAggregateIntrinsicValueAbstract" id="axp_WeightedAverageRemainingAndContractualLifeAndAggregateIntrinsicValueAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AmericanExpressCenturionBankMember" id="axp_AmericanExpressCenturionBankMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RegulatoryMattersAndCapitalAdequacyAbstract" id="axp_RegulatoryMattersAndCapitalAdequacyAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsAbstract" id="axp_ShareBasedCompensationArrangementByShareBasedPaymentAwardFairValueAssumptionsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RestrictedStockAwardsMember" id="axp_RestrictedStockAwardsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LiabilityBasedAwardsMember" id="axp_LiabilityBasedAwardsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PerformanceAndMarketBasedStockOptionsMember" id="axp_PerformanceAndMarketBasedStockOptionsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="StockBasedCompensationExpenseAbstract" id="axp_StockBasedCompensationExpenseAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="StockPlansTextualsAbstract" id="axp_StockPlansTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriodGrantDateAggregateFairValue" id="axp_ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsGrantsInPeriodGrantDateAggregateFairValue" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="RegulatoryMattersAndCapitalAdequacyDetailsAbstract" id="axp_RegulatoryMattersAndCapitalAdequacyDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RetainedEarningsAvailableForPaymentOfDividends" id="axp_RetainedEarningsAvailableForPaymentOfDividends" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="DebtDetailsAbstract" id="axp_DebtDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherShortTermBorrowingsMember" id="axp_OtherShortTermBorrowingsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="YearEndEffectiveInterestRateWithSwaps" id="axp_YearEndEffectiveInterestRateWithSwaps" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="FixedRateSeniorNotesAmountMember" id="axp_FixedRateSeniorNotesAmountMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FloatingRateSeniorNotesAmountMember" id="axp_FloatingRateSeniorNotesAmountMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FloatingRateSubordinatedNotesAmountMember" id="axp_FloatingRateSubordinatedNotesAmountMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FixedRateSubordinatedNotesAmountMember" id="axp_FixedRateSubordinatedNotesAmountMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FixedRateInstrumentsMember" id="axp_FixedRateInstrumentsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AmericanExpressCreditCorporationMember" id="axp_AmericanExpressCreditCorporationMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AmericanExpressFederalSavingsBankMember" id="axp_AmericanExpressFederalSavingsBankMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherSubsidiariesMember" id="axp_OtherSubsidiariesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ReceivablesFinancingCorporationVLlcMember" id="axp_ReceivablesFinancingCorporationVLlcMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="SaleLeaseBackTransactionNameMember" id="axp_SaleLeaseBackTransactionNameMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LongTermImpactDebtDueToFairValueHedgeAccounting" id="axp_LongTermImpactDebtDueToFairValueHedgeAccounting" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="AggregateAnnualMaturitiesLongTermDebtTable" id="axp_AggregateAnnualMaturitiesLongTermDebtTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AggregateAnnualMaturitiesLongTermDebtLineItems" id="axp_AggregateAnnualMaturitiesLongTermDebtLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DebtTextualsAbstract" id="axp_DebtTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ConvertibleSubordinatedDebenturesRedeemablePercentageOfPrincipal" id="axp_ConvertibleSubordinatedDebenturesRedeemablePercentageOfPrincipal" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="PercentageDeclineInTangibleCommonEquity" id="axp_PercentageDeclineInTangibleCommonEquity" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="NumberOfMonthsPriorToTriggerDeterminationDateDeclineInTangibleCommonEquity" id="axp_NumberOfMonthsPriorToTriggerDeterminationDateDeclineInTangibleCommonEquity" type="xbrli:integerItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="LineOfCreditFacilityRemainingBorrowingCapacitySupportingCommercialPaperBorrowings" id="axp_LineOfCreditFacilityRemainingBorrowingCapacitySupportingCommercialPaperBorrowings" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="CombinedEarningsAndFixedChargesToFixedChargesRatioRequired" id="axp_CombinedEarningsAndFixedChargesToFixedChargesRatioRequired" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="LineOfCreditFacilityExpiringAmount" id="axp_LineOfCreditFacilityExpiringAmount" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="FaceAmountOfEligibleNotesIssued" id="axp_FaceAmountOfEligibleNotesIssued" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="FaceAmountOfEligibleNotesDrawDowns" id="axp_FaceAmountOfEligibleNotesDrawDowns" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="SpecifiedDateFaceAmountOfEligibleNotesIssued" id="axp_SpecifiedDateFaceAmountOfEligibleNotesIssued" type="xbrli:dateItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DateInterestRateAutomaticallyExtendedConvertibleSubordinatedDebt" id="axp_DateInterestRateAutomaticallyExtendedConvertibleSubordinatedDebt" type="xbrli:dateItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfCondensedFinancialStatementsIncomeStatementAbstract" id="axp_ScheduleOfCondensedFinancialStatementsIncomeStatementAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncomeTaxExpenseBenefitDiscontinuedOperations" id="axp_IncomeTaxExpenseBenefitDiscontinuedOperations" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="EffectiveIncomeTaxRateContinuingOperationsIncreaseDecreaseInTaxRateAbstract" id="axp_EffectiveIncomeTaxRateContinuingOperationsIncreaseDecreaseInTaxRateAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseInUnrecognizedTaxBenefitsExcludingAmountsPertainingToExaminedTaxReturnsAbstract" id="axp_IncreaseInUnrecognizedTaxBenefitsExcludingAmountsPertainingToExaminedTaxReturnsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DecreaseInUnrecognizedTaxbenefitsExcludingAmountsPertainingToExaminedTaxReturnsAbstract" id="axp_DecreaseInUnrecognizedTaxbenefitsExcludingAmountsPertainingToExaminedTaxReturnsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncomeTaxesOfNonUsSubsidiariesTable" id="axp_IncomeTaxesOfNonUsSubsidiariesTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncomeTaxesOfNonUsSubsidiariesLineItems" id="axp_IncomeTaxesOfNonUsSubsidiariesLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AccumulatedEarningsToBePermanentlyReinvestedOutsideUnitedStates" id="axp_AccumulatedEarningsToBePermanentlyReinvestedOutsideUnitedStates" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="PrepaidMilesAndRewardPointsDomain" id="axp_PrepaidMilesAndRewardPointsDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PrepaidMilesAndRewardPointsMember" id="axp_PrepaidMilesAndRewardPointsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PrepaidMilesAndRewardPointsAxis" id="axp_PrepaidMilesAndRewardPointsAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherComprehensiveIncomeReclassificationForRealizedGainsLossesIntoEarningsNetOfTax" id="axp_OtherComprehensiveIncomeReclassificationForRealizedGainsLossesIntoEarningsNetOfTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="OtherComprehensiveIncomeNetGainsLossesRelatedToHedgesOfInvestmentInForeignOperationsNetOfTax" id="axp_OtherComprehensiveIncomeNetGainsLossesRelatedToHedgesOfInvestmentInForeignOperationsNetOfTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="OtherComprehensiveIncomeNetChangeNetOfTax" id="axp_OtherComprehensiveIncomeNetChangeNetOfTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="AccumulatedOtherComprehensiveLossIncomeTaxImpactChangeDisclosureAbstract" id="axp_AccumulatedOtherComprehensiveLossIncomeTaxImpactChangeDisclosureAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherComprehensiveIncomeNetInvestmentHedgesTaxEffect" id="axp_OtherComprehensiveIncomeNetInvestmentHedgesTaxEffect" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="ScheduleOfStockByClassAbstract" id="axp_ScheduleOfStockByClassAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IssuanceRepurchasesOfCommonShares" id="axp_IssuanceRepurchasesOfCommonShares" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonStockSharesOther" id="axp_CommonStockSharesOther" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonAndPreferredSharesAndWarrantsDetailsAbstract" id="axp_CommonAndPreferredSharesAndWarrantsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonAndPreferredSharesAndWarrantsTextualsAbstract" id="axp_CommonAndPreferredSharesAndWarrantsTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PreferredStockParOrStatedValuePerShareAuthorized" id="axp_PreferredStockParOrStatedValuePerShareAuthorized" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="RemainingOtherAssets" id="axp_RemainingOtherAssets" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="OtherAssetsDetailsAbstract" id="axp_OtherAssetsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherContractsMember" id="axp_OtherContractsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IntangibleAssetsDisclosureAbstract" id="axp_IntangibleAssetsDisclosureAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherAssetsTable" id="axp_OtherAssetsTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherAssetsLineItems" id="axp_OtherAssetsLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherAssetsTextualsAbstract" id="axp_OtherAssetsTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AffordableHousingPartnershipInterests" id="axp_AffordableHousingPartnershipInterests" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="SignificantCreditConcentrationsDetailsAbstract" id="axp_SignificantCreditConcentrationsDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IndividualsMember" id="axp_IndividualsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="FinancialInstitutionsMember" id="axp_FinancialInstitutionsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="UnitedStatesGovernmentAndAgenciesMember" id="axp_UnitedStatesGovernmentAndAgenciesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherConcentrationMember" id="axp_OtherConcentrationMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ConcentrationRiskCreditRiskFinancialInstrumentsAbstract" id="axp_ConcentrationRiskCreditRiskFinancialInstrumentsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansAndReceivablesTable" id="axp_CardMemberLoansAndReceivablesTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberLoansAndReceivablesLineItems" id="axp_CardMemberLoansAndReceivablesLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RestructuringChargesDetailsAbstract" id="axp_RestructuringChargesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherTerminationsMember" id="axp_OtherTerminationsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RestructuringChargesNetOfAdjustmentsByReportableSegmentAndCumulativeAmountsRelatingToRestructuringProgramsAbstract" id="axp_RestructuringChargesNetOfAdjustmentsByReportableSegmentAndCumulativeAmountsRelatingToRestructuringProgramsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="SeveranceAndOtherCharges" id="axp_SeveranceAndOtherCharges" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="SmallerCorporateInitiativesMember" id="axp_SmallerCorporateInitiativesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RestructuringChargesTextualsAbstract" id="axp_RestructuringChargesTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NetRestructuringAndRelatedCostNumberOfPositionsToBeEliminated" id="axp_NetRestructuringAndRelatedCostNumberOfPositionsToBeEliminated" type="xbrli:integerItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="CommitmentsAndContingenciesDetailsAbstract" id="axp_CommitmentsAndContingenciesDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LeaseTerminationPenaltiesMember" id="axp_LeaseTerminationPenaltiesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CommitmentsAndContingenciesTextualsAbstract" id="axp_CommitmentsAndContingenciesTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ContingentObligationsCoBrandPartners" id="axp_ContingentObligationsCoBrandPartners" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="SegmentRevenuesAndPretaxIncomeLossByGeographicLocationTable" id="axp_SegmentRevenuesAndPretaxIncomeLossByGeographicLocationTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="UnitedStatesGeographicRegionMember" id="axp_UnitedStatesGeographicRegionMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="EmeaGeographicRegionMember" id="axp_EmeaGeographicRegionMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="JapaGeographicRegionMember" id="axp_JapaGeographicRegionMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LaccGeographicRegionMember" id="axp_LaccGeographicRegionMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherUnallocatedMember" id="axp_OtherUnallocatedMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="SegmentRevenuesAndPretaxIncomeLossByGeographicLocationLineItems" id="axp_SegmentRevenuesAndPretaxIncomeLossByGeographicLocationLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ParentCompanyDetailsAbstract" id="axp_ParentCompanyDetailsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfCondensedFinancialStatementsBalanceSheetAbstract" id="axp_ScheduleOfCondensedFinancialStatementsBalanceSheetAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AccountsPayableAndOtherLiabilities" id="axp_AccountsPayableAndOtherLiabilities" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="ParentCompanyDetailsTextualsAbstract" id="axp_ParentCompanyDetailsTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ScheduleOfCondensedFinancialStatementsCashFlowStatementAbstract" id="axp_ScheduleOfCondensedFinancialStatementsCashFlowStatementAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseLoansToAffiliates" id="axp_IncreaseDecreaseLoansToAffiliates" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="InvestmentsInSubsidiariesAndAffiliates" id="axp_InvestmentsInSubsidiariesAndAffiliates" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseLongTermAffiliateDebt" id="axp_IncreaseDecreaseLongTermAffiliateDebt" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="LinesOfCreditGuaranteed" id="axp_LinesOfCreditGuaranteed" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="LinesOfCreditUtilized" id="axp_LinesOfCreditUtilized" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="OriginalMaturitiesOfCashAndCashEquivalents" id="axp_OriginalMaturitiesOfCashAndCashEquivalents" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="LiabilitiesOther" id="axp_LiabilitiesOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="IncreaseDecreaseInTravelersChequesOutstanding" id="axp_IncreaseDecreaseInTravelersChequesOutstanding" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="OtherChangesDuringPeriodPrimarilyEmployeePlansAndOther" id="axp_OtherChangesDuringPeriodPrimarilyEmployeePlansAndOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="PercentageOfDeclineInTangibleCommonEquity" id="axp_PercentageOfDeclineInTangibleCommonEquity" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DerivativeAssetAndLiabilityNetting" id="axp_DerivativeAssetAndLiabilityNetting" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="IcbcMember" id="axp_IcbcMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="VisaMember" id="axp_VisaMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="MastercardMember" id="axp_MastercardMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LitigationSettlementAfterTax" id="axp_LitigationSettlementAfterTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="NetIncomeLossBeforeEquityInNetIncomeOfSubsidiariesAndAffiliates" id="axp_NetIncomeLossBeforeEquityInNetIncomeOfSubsidiariesAndAffiliates" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="OtherComprehensiveIncomeForeignCurrencyTranslationAdjustmentNetOfTaxPeriodIncreaseDecrease" id="axp_OtherComprehensiveIncomeForeignCurrencyTranslationAdjustmentNetOfTaxPeriodIncreaseDecrease" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="LongTermDebtGross" id="axp_LongTermDebtGross" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="OtherComprehensiveIncomeNetUnrealizedGainsLossesNetOfTax" id="axp_OtherComprehensiveIncomeNetUnrealizedGainsLossesNetOfTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="DebtInstrumentDescriptionOfVariableRate" id="axp_DebtInstrumentDescriptionOfVariableRate" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="FloatingRateBorrowingsMember" id="axp_FloatingRateBorrowingsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseShortTermAffiliateDebt" id="axp_IncreaseDecreaseShortTermAffiliateDebt" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="AirlineMember" id="axp_AirlineMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CounterpartyNameDomain" id="axp_CounterpartyNameDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DeltaMember" id="axp_DeltaMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="SharesHeldInEquityInvestmentSold" id="axp_SharesHeldInEquityInvestmentSold" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="EffectiveTranslationAdjustmentForHedgeIncreasedDecreasedNetOfTax" id="axp_EffectiveTranslationAdjustmentForHedgeIncreasedDecreasedNetOfTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="UnauthorizedtransactionsmemberMember" id="axp_UnauthorizedtransactionsmemberMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ForeignCurrencyTranslationAdjustmentsMember" id="axp_ForeignCurrencyTranslationAdjustmentsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberBankruptcyReservesMember" id="axp_CardMemberBankruptcyReservesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OtherItemsMember" id="axp_OtherItemsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PropertyPlantAndEquipmentUsefulLifeAxis" id="axp_PropertyPlantAndEquipmentUsefulLifeAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PropertyPlantAndEquipmentUsefulLifeDomain" id="axp_PropertyPlantAndEquipmentUsefulLifeDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="QuarterlyFinancialDataTextualsAbstract" id="axp_QuarterlyFinancialDataTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="MembershipRewardsExpense" id="axp_MembershipRewardsExpense" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="MembershipRewardsExpenseAfterTax" id="axp_MembershipRewardsExpenseAfterTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="CommonShareRepurchasesAuthorized" id="axp_CommonShareRepurchasesAuthorized" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="LongTermDebtImpactDueToDebtExchange" id="axp_LongTermDebtImpactDueToDebtExchange" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="FinancialInstrumentsAssetsWhichCarryingValuesEqualOrApproximateFairValueAbstract" id="axp_FinancialInstrumentsAssetsWhichCarryingValuesEqualOrApproximateFairValueAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AssetsCarriedAtOtherThanFairValueAbstract" id="axp_AssetsCarriedAtOtherThanFairValueAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LiabilitiesCarriedAtOtherThanFairValueAbstract" id="axp_LiabilitiesCarriedAtOtherThanFairValueAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CouponMember" id="axp_CouponMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ShortTermDebtOtherTypeAxis" id="axp_ShortTermDebtOtherTypeAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ShortTermDebtOtherTypeDomain" id="axp_ShortTermDebtOtherTypeDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="RestrictedCashAndCashEquivalentsDomain" id="axp_RestrictedCashAndCashEquivalentsDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CreditValuationAdjustmentMember" id="axp_CreditValuationAdjustmentMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="StockholdersEquityNoteTextualsAbstract" id="axp_StockholdersEquityNoteTextualsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OpenTaxYearsAxis" id="axp_OpenTaxYearsAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="OpenTaxYearsDomain" id="axp_OpenTaxYearsDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="EarliestYearMember" id="axp_EarliestYearMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LatestYearMember" id="axp_LatestYearMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberReimbursements" id="axp_CardMemberReimbursements" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="CardMemberReimbursementsAfterTax" id="axp_CardMemberReimbursementsAfterTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="CurrentYearErrorsMember" id="axp_CurrentYearErrorsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PriorPeriodReductionErrorsMember" id="axp_PriorPeriodReductionErrorsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AssetSecuritizationsTextBlock" id="axp_AssetSecuritizationsTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseInDebtExchange" id="axp_IncreaseDecreaseInDebtExchange" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="NotSoldOrRepledgedMember" id="axp_NotSoldOrRepledgedMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ImpactOfDebtExchangeOnLongTermDebtDomain" id="axp_ImpactOfDebtExchangeOnLongTermDebtDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NonCashMember" id="axp_NonCashMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LongTermDebtMaturityDates" id="axp_LongTermDebtMaturityDates" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseInDebtExchangeLineItems" id="axp_IncreaseDecreaseInDebtExchangeLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseInDebtExchangeTable" id="axp_IncreaseDecreaseInDebtExchangeTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="IncreaseDecreaseInDebtExchangeAxis" id="axp_IncreaseDecreaseInDebtExchangeAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ForeignCurrencyGainLoss" id="axp_ForeignCurrencyGainLoss" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="DelinquencyFees" id="axp_DelinquencyFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="ServiceFees" id="axp_ServiceFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="OtherCommissionsAndFees" id="axp_OtherCommissionsAndFees" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="GlobalNetworkServicesPartnerRevenues" id="axp_GlobalNetworkServicesPartnerRevenues" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="OtherRevenues" id="axp_OtherRevenues" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="MarketingAndPromotion" id="axp_MarketingAndPromotion" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="CardMemberRewards" id="axp_CardMemberRewards" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="CardMemberServices" id="axp_CardMemberServices" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="ProfessionalServices" id="axp_ProfessionalServices" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="MasterCardAndVisaSettlements" id="axp_MasterCardAndVisaSettlements" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="OtherNetExpenses" id="axp_OtherNetExpenses" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="CardMemberCreditBalancesTable" id="axp_CardMemberCreditBalancesTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CreditBalancesAxis" id="axp_CreditBalancesAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberCreditBalancesDomain" id="axp_CardMemberCreditBalancesDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardMemberCreditBalancesMember" id="axp_CardMemberCreditBalancesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CustomerDepositsByTypeLineItems" id="axp_CustomerDepositsByTypeLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DomesticAndForeignCardMemberCreditBalances" id="axp_DomesticAndForeignCardMemberCreditBalances" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="RiskExposureLowMember" id="axp_RiskExposureLowMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="SignificantCounterpartiesMember" id="axp_SignificantCounterpartiesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DerivativeFairValueOfDerivativeAssetAmountNotOffsetAgainstCollateral1" id="axp_DerivativeFairValueOfDerivativeAssetAmountNotOffsetAgainstCollateral1" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="DerivativeFairValueOfDerivativeLiabilityAmountNotOffsetAgainstCollateral1" id="axp_DerivativeFairValueOfDerivativeLiabilityAmountNotOffsetAgainstCollateral1" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="CommissionsPaid" id="axp_CommissionsPaid" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="ComponentOfOtherOperatingCostAndExpense1Table" id="axp_ComponentOfOtherOperatingCostAndExpense1Table" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ComponentOfOtherOperatingCostAndExpenseGeneral1Axis" id="axp_ComponentOfOtherOperatingCostAndExpenseGeneral1Axis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ComponentOfOtherOperatingCostAndExpenseName1Domain" id="axp_ComponentOfOtherOperatingCostAndExpenseName1Domain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="ConcentrationRiskCreditRiskFinancialInstrumentCardMemberReceivablesAndLoansExposure" id="axp_ConcentrationRiskCreditRiskFinancialInstrumentCardMemberReceivablesAndLoansExposure" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="NoninterestIncomeOtherOperatingIncomeTax" id="axp_NoninterestIncomeOtherOperatingIncomeTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="NoninterestIncomeOtherOperatingIncomeNet" id="axp_NoninterestIncomeOtherOperatingIncomeNet" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="MarginOnInterestRateSwapNotNetted" id="axp_MarginOnInterestRateSwapNotNetted" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="NetOfTaxAxis" id="axp_NetOfTaxAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="NetOfTaxDomain" id="axp_NetOfTaxDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="PreTaxMember" id="axp_PreTaxMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="AfterTaxMember" id="axp_AfterTaxMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="LitigationSettlementAnnualGross" id="axp_LitigationSettlementAnnualGross" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="DeferredTaxLiabilitiesAssetSecurities" id="axp_DeferredTaxLiabilitiesAssetSecurities" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="NonControllingInterestCashPayment" id="axp_NonControllingInterestCashPayment" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="NonControllingInterestLiabilityIncurred" id="axp_NonControllingInterestLiabilityIncurred" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="BusinessAcquisitionCostOfAcquiredEntityPurchasePrice1" id="axp_BusinessAcquisitionCostOfAcquiredEntityPurchasePrice1" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="EquityMethodInvestmentOwnershipPercentageOfThirdParty" id="axp_EquityMethodInvestmentOwnershipPercentageOfThirdParty" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="FinancingReceivableModificationsDifferencePreAndPostModificationRecordedInvestment" id="axp_FinancingReceivableModificationsDifferencePreAndPostModificationRecordedInvestment" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="AllowanceForReceivablesRecoveriesOfBadDebtsTDR" id="axp_AllowanceForReceivablesRecoveriesOfBadDebtsTDR" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="AllowanceForLoansRecoveriesOfBadDebtsTDR" id="axp_AllowanceForLoansRecoveriesOfBadDebtsTDR" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="OffBalanceSheetRentExpenseSubleaseRentals" id="axp_OffBalanceSheetRentExpenseSubleaseRentals" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="DebtPaidRelatedCommitmentFeesAndDebtIssuanceCosts" id="axp_DebtPaidRelatedCommitmentFeesAndDebtIssuanceCosts" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="OtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentTaxEffect" id="axp_OtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentTaxEffect" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="LoyaltyPartner" id="axp_LoyaltyPartner" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="CashInvestedByThirdPartyInJointVenture" id="axp_CashInvestedByThirdPartyInJointVenture" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="EquityMethodInvestmentOwnershipHeldByThirdParty" id="axp_EquityMethodInvestmentOwnershipHeldByThirdParty" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="DeconsolidationGainOrLossAmountBeforeTax" id="axp_DeconsolidationGainOrLossAmountBeforeTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="DeconsolidationGainOrLossAmountAfterTax" id="axp_DeconsolidationGainOrLossAmountAfterTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="CostOfCardMemberServicesMember" id="axp_CostOfCardMemberServicesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CardRelatedFraudLosses" id="axp_CardRelatedFraudLosses" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="WeightedAverageDebtMaturitiesDueWithinOneYearRate" id="axp_WeightedAverageDebtMaturitiesDueWithinOneYearRate" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="WeightedAverageYieldsAbstract" id="axp_WeightedAverageYieldsAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="WeightedAverageDebtMaturitiesDueAfterOneYearButWithinFiveYearsRate" id="axp_WeightedAverageDebtMaturitiesDueAfterOneYearButWithinFiveYearsRate" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="WeightedAverageDebtMaturitiesDueAfterFineYearButWithinTenYearsRate" id="axp_WeightedAverageDebtMaturitiesDueAfterFineYearButWithinTenYearsRate" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="WeightedAverageDebtMaturitiesDueAfterTenYearsRate" id="axp_WeightedAverageDebtMaturitiesDueAfterTenYearsRate" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="TimeDeposits250000OrMoreAbstract" id="axp_TimeDeposits250000OrMoreAbstract" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DefinedContributionPlanCostMember" id="axp_DefinedContributionPlanCostMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="CommonEquityTier1Capital" id="axp_CommonEquityTier1Capital" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="CommonEquityTier1CapitalRatio" id="axp_CommonEquityTier1CapitalRatio" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="Interestexpenselongtermdebttax" id="axp_Interestexpenselongtermdebttax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="InterestExpenseLongTermDebtNet" id="axp_InterestExpenseLongTermDebtNet" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="OtherNonInterestExpenseTax" id="axp_OtherNonInterestExpenseTax" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="OtherNonInterestExpenseNet" id="axp_OtherNonInterestExpenseNet" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="duration" />
+    <element name="OtherComprehensiveIncomeReclassification" id="axp_OtherComprehensiveIncomeReclassification" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="duration" />
+    <element name="CommonEquityTier1MinimumCapitalRequired" id="axp_CommonEquityTier1MinimumCapitalRequired" type="num:percentItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="GbtJvMember" id="axp_GbtJvMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DeferredTaxAssetsOtherNet" id="axp_DeferredTaxAssetsOtherNet" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="RestrictedCashHeldByTrustsMember" id="axp_RestrictedCashHeldByTrustsMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+    <element name="DepositarySharesIssued" id="axp_DepositarySharesIssued" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="DepositarySharesInterestInSeriesBPreferredShares" id="axp_DepositarySharesInterestInSeriesBPreferredShares" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+    <element name="DepositarySharesRedemptionAmount" id="axp_DepositarySharesRedemptionAmount" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="FairValueOfDerivativeAssets" id="axp_FairValueOfDerivativeAssets" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="debit" xbrli:periodType="instant" />
+    <element name="FairValueOfDerivativeLiabilities" id="axp_FairValueOfDerivativeLiabilities" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="CardMemberLoansReservesForLossesOther" id="axp_CardMemberLoansReservesForLossesOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="FaceAmountofEligibleNotesChargeTrust" id="axp_FaceAmountofEligibleNotesChargeTrust" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="SharesHeldInEquityInvestment" id="axp_SharesHeldInEquityInvestment" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="instant" />
+    <element name="ForeignDeferredTaxLiabilitiesOther" id="axp_ForeignDeferredTaxLiabilitiesOther" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:balance="credit" xbrli:periodType="instant" />
+    <element name="RegulatoryMattersAndCapitalAdequacyPolicyTextBlock" id="axp_RegulatoryMattersAndCapitalAdequacyPolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" abstract="false" nillable="true" xbrli:periodType="duration" />
+</schema>
