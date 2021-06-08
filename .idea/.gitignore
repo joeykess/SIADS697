@@ -18,7 +18,9 @@ __pycache__/
 .Python
 Scripts/
 build/
+etc/
 assets/
+XBRLcache/
 develop-eggs/
 .idea/
 dist/

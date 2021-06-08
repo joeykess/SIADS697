@@ -7,14 +7,6 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/Scripts" />
       <excludeFolder url="file://$MODULE_DIR$/assets" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      <excludeFolder url="file://$MODULE_DIR$/test" />
->>>>>>> parent of 4867345 (Delete .idea directory)
-=======
-      <excludeFolder url="file://$MODULE_DIR$/test" />
->>>>>>> parent of 4867345 (Delete .idea directory)
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (SIADS697)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
