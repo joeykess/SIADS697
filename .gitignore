@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 Scripts/
+test/
 build/
 assets/
 develop-eggs/
@@ -135,8 +136,3 @@ dmypy.json
 .csv
 .json
 .xml
-/test/
-/share/
-/etc/
-/XBRLcache/
-/share/
