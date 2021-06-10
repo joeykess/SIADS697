@@ -1,17 +1,15 @@
 import os
 import time
-
+import pandas as pd
 import yfinance as yf
 
-DJI_stocks = ['AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'INTC', 'JNJ', 'KO', 'JPM',
-              'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'CRM', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
 
-
-def get_stock_info(symbol_list):
+def get_stock_info():
     """
     This function outputs all csv files to /assets/ directory as individual CSV files per stocks
     :param symbol_list: list of stock symbols to get historical data on
     """
+    symbol_list = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]['Symbol'].tolist()
     for ticker in symbol_list:
         stock = yf.Ticker(ticker)
         hist = stock.history(period='max')
@@ -33,4 +31,5 @@ if __name__ == '__main__':
         path = os.path.join(cwd, 'assets')
     if not os.path.exists(path):
         os.mkdir(path)
-    get_stock_info(DJI_stocks)
+    get_stock_info()
+
