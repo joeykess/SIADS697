@@ -11,14 +11,18 @@ def get_stock_info():
     """
     symbol_list = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]['Symbol'].tolist()
     for ticker in symbol_list:
-        stock = yf.Ticker(ticker)
-        hist = stock.history(period='max')
-        hist['sector'] = stock.info['sector']
-        hist['ticker'] = ticker
-        csv_name = 'assets/' + ticker + '.csv'
-        hist.to_csv(csv_name)
-        print("Saved file for ", ticker)
-        time.sleep(5)
+        try:
+            stock = yf.Ticker(ticker)
+            hist = stock.history(period='max')
+            hist['sector'] = stock.info['sector']
+            hist['ticker'] = ticker
+            csv_name = 'assets/' + ticker + '.csv'
+            hist.to_csv(csv_name)
+            print("Saved file for ", ticker)
+            time.sleep(2.5)
+        except KeyError:
+            print('Failed on file ', ticker)
+            continue
     print("Done!")
 
 
