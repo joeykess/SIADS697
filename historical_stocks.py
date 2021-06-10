@@ -9,7 +9,7 @@ def get_stock_info():
     This function outputs all csv files to /assets/ directory as individual CSV files per stocks
     :param symbol_list: list of stock symbols to get historical data on
     """
-    symbol_list = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]['Symbol'].tolist()
+    symbol_list = pd.read_csv('symbols.csv')['Symbols'].tolist()
     for ticker in symbol_list:
         try:
             stock = yf.Ticker(ticker)
