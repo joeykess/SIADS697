@@ -9,7 +9,8 @@ __pycache__/
 # Distribution / packaging
 .Python
 /venv/
-/etc/
+/etc
+/.idea
 Scripts/
 test/
 build/
@@ -139,3 +140,4 @@ dmypy.json
 .cfg
 .json
 .xml
+/etc/
