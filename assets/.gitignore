@@ -6,4 +6,4 @@
 /etc/
 
 # Omitting historical stocks
-/venv/
+/historical-symbols/
