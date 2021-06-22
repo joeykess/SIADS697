@@ -4,3 +4,6 @@
 .json
 .xml
 /etc/
+
+# Omitting historical stocks
+/historical-symbols/
