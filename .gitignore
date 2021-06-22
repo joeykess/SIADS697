@@ -14,7 +14,6 @@ __pycache__/
 Scripts/
 test/
 build/
-assets/
 develop-eggs/
 .idea/
 dist/
