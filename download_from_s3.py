@@ -1,4 +1,4 @@
-import boto3
+import boto3, os
 
 
 def download_files():
@@ -9,7 +9,14 @@ def download_files():
     s3 = boto3.client('s3')
     results = s3.list_objects_v2(Bucket=bucket)
     results = [item['Key'] for item in results['Contents']]
-    print(results)
+    path = os.path.join(os.getcwd(), '/assets')
+    if not os.path.exists(os.path.dirname(path)):
+        os.makedirs(os.path.dirname(path))
+    if not os.path.exists(os.path.dirname(path+'/historical-symbols')):
+        os.makedirs(os.path.dirname(path+'/historical-symbols'))
+    for folder in results:
+        dest_path = path + '/' + folder
+        s3.download_file(bucket, folder, dest_path)
 
 
 if __name__ == '__main__':
