@@ -18,13 +18,19 @@ class portfolio:
         :param purchase_order:{ticker:amount}
         :param date: mm/dd/yyyy
         """
-        for p_ticker, p_price in purchase_order:
+        for p_ticker, p_price, p_order in purchase_order:
             df = pd.read_csv('assets/historical-symbols/{}.csv'.format(p_ticker))
+            df['Date'] = pd.to_datetime(df['Date'])
+            self.tickers[p_ticker] += p_order
+            self.cash -= p_price * p_order
 
     def sell(self, sell_order, date):
         """
         :param sell_order: {ticker:amount}
         :param date: mm/dd/yyyy
         """
-        for s_ticker, s_price in sell_order:
+        for s_ticker, s_price, s_order in sell_order:
             df = pd.read_csv('assets/historical-symbols/{}.csv'.format(s_ticker))
+            df['Date'] = pd.to_datetime(df['Date'])
+            self.tickers[s_ticker] -= s_order
+            self.cash -= s_price * s_order
