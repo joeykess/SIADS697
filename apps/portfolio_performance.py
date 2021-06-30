@@ -54,8 +54,8 @@ layout = html.Div([
                         # Adding drop down to filter by ticker
                         html.A('Pick How You Want to  Analyze Data:'),
                         dcc.Dropdown(id='ticker_filter',
-                            options=[{'label': i, 'value': i} for i in ['Stocks','Sector']],
-                            value='Stocks'), # the default is code_module AAA
+                            options=[{'label': i, 'value': i} for i in ['Ticker','Sector']],
+                            value='Ticker'), # the default is code_module AAA
 
                         # dcc.Dropdown(id='industry_ticker',
                         #     options=[{'label': i, 'value': i} for i in list(stock_df['sector'].unique())],
@@ -87,7 +87,7 @@ layout = html.Div([
                     # Line three: other info, notyet defined
                     html.Div([
                         html.H2('Other Portfolio Statistics',style=portfolio_style),
-                        html.H2('News Info',style=chart_style),
+                        html.H2('Stock in Sector P/Es?',style=chart_style),
                         ])
                     ])
 
@@ -141,7 +141,7 @@ def update_news(ticker):
     dash.dependencies.Output('data_filter', 'options'),
     [dash.dependencies.Input('ticker_filter', 'value')])
 def update_dropdown(filter_option):
-    if filter_option == 'Stocks':
+    if filter_option == 'Ticker':
         col_labels = [{'label' :k, 'value' :k} for k in list(stock_df['ticker'].unique())]
         return col_labels
     elif filter_option == 'Sector':
