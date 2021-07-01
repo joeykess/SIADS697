@@ -79,7 +79,7 @@ layout = html.Div([
                     # Line two: portoflio and ticker info
                     html.Div([
                         html.H2('Portfolio Performance',style=portfolio_style),
-                        dcc.Graph(id='price_chart',style=chart_style),
+                        dcc.Graph(id='chart-1',style=chart_style),
                         html.Div(id='news_list',style=news_style_b)
                         # html.Div(id='news_list',children=news_info,style=news_style_b)
                         ]),
@@ -92,7 +92,7 @@ layout = html.Div([
                     ])
 
 # Callback to connect input(s) to output(s) for Tab 1
-@app.callback(dash.dependencies.Output('price_chart','figure'),
+@app.callback(dash.dependencies.Output('chart-1','figure'),
     [dash.dependencies.Input('data_filter','value')])
 
 # Step 3: Define the graph with plotly express
@@ -100,15 +100,57 @@ def update_ticker(ticker):
 
     fig = go.Figure()
 
-    fig.add_trace(go.Scatter(x=stock_df[stock_df['ticker']==ticker]['Date'],
-                             y=stock_df[stock_df['ticker']==ticker]['Close'],
-                            line={"color": "#228B22"},
-                            mode="lines"))
+    df = stock_df[stock_df['ticker']==ticker]
+    df = df.set_index('Date')
+
+    data = [go.Scatter(x=df.index,
+                         y=df['Close'],
+                        line={"color": "#228B22"},
+                        mode="lines")]
+
+    layout = dict(
+    xaxis=dict(
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1,
+                     label="1m",
+                     step="month",
+                     stepmode="backward"),
+                dict(count=6,
+                     label="6m",
+                     step="month",
+                     stepmode="backward"),
+                dict(count=1,
+                     label="YTD",
+                     step="year",
+                     stepmode="todate"),
+                dict(count=1,
+                     label="1y",
+                     step="year",
+                     stepmode="backward"),
+                dict(step="all")
+            ])
+        ),
+        rangeslider=dict(
+            visible=True
+            ),
+            type="date"
+        )
+    )
+
+    fig = go.FigureWidget(data=data, layout=layout)
 
     fig.update_layout(title_text=f'{ticker} Closing Price',title_x=0.5,
                          template="ggplot2",font=dict(size=10,color='white'),xaxis_showgrid=False,
                          paper_bgcolor='rgba(0,0,0,0)',
                          yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10})
+
+    # This doesn't work, and may not have a plotly solution
+    def zoom(layout, xrange):
+        in_view = df.loc[fig.layout.xaxis.range[0]:fig.layout.xaxis.range[1]]
+        fig.layout.yaxis.range = [in_view.High.min() - 5, in_view.High.max() + 5]
+
+    fig.layout.on_change(zoom, 'xaxis.range')
 
     return fig
 
