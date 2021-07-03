@@ -23,8 +23,8 @@ def candle_charts(ticker, start, end):
         "high": df['High'],
         "open": df['Open'],
         "close": df['Close'],
-        "decreasing": {"line": {"color": "#7F7F7F"}},
-        "increasing": {"line": {"color": "#17BECF"}}
+        "decreasing": {"line": {"color": "#40d397"}},
+        "increasing": {"line": {"color": "#fa9078"}}
     }
     moving_avg = {
         "line": {"width": 3},
@@ -62,17 +62,16 @@ def candle_charts(ticker, start, end):
     }
     layout = go.Layout(
         plot_bgcolor="rgba(0,0,0,0)",
-        xaxis={"visible": False, "showticklabels": False, "showgrid": False,
-               "rangebreaks": [
-                   dict(bounds=["sat", "mon"]),  # hide weekends
-                   # https://plotly.com/python/time-series/#hiding-weekends-and-holidays
-               ]},
-        yaxis={"visible": False, "showticklabels": False, "showgrid": False}
+        yaxis={"visible": False, "showticklabels": False, "showgrid": False},
+        showlegend=False,
+        xaxis={"rangebreaks": [
+            dict(bounds=["sat", "mon"]),
+        ],
+            "visible": False, "showticklabels": False, "showgrid": False, }
     )
     fig = go.Figure(data=[candle, moving_avg, bband_up, bband_down], layout=layout)
-    fig.update_layout(showlegend=False)
     fig.show()
 
 
 if __name__ == '__main__':
-    candle_charts('BA', '2015-01-01', '2015-01-15')
+    candle_charts('BA', '2015-01-01', '2015-01-22')
