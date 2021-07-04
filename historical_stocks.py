@@ -35,3 +35,5 @@ if __name__ == '__main__':
     if not os.path.exists(path):
         os.mkdir(path)
     get_stock_info()
+
+
