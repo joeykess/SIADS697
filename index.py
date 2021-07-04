@@ -60,7 +60,8 @@ tab_style = {
     'fontWeight': 'bold',
     'backgroundColor': '#4e5d6c',
     'color':'white',
-    'lineHeight':2
+    'lineHeight':2,
+    'fontSize':10
 }
 
 tab_selected_style = {
@@ -70,7 +71,8 @@ tab_selected_style = {
     'color': 'white',
     'padding': '6px',
     'fontWeight': 'bold',
-    'lineHeight':2
+    'lineHeight':2,
+    'fontSize':10
 }
 
 app.layout = html.Div([

@@ -68,11 +68,22 @@ layout = html.Div([
                         dcc.Dropdown(id='data_filter',
                             options=[{'label': '', 'value': ''}],
                             value='CSCO'), # the default is code_module AAA
-                            ],style={'margin':'5px','width':'30%','border':'thin lightgrey solid','display':'inline-block'})
-                        # dcc.Dropdown(id='industry_ticker',
-                        #     options=[{'label': i, 'value': i} for i in list(stock_df['sector'].unique())],
-                        #     value='Technology',style={'margin':'5px','display':'inline-block'}) # the default is code_module AAA
-                            ],style={'margin':'5px','width':'99%','border':'thin lightgrey solid'}),
+                            ],style={'margin':'5px','width':'30%','border':'thin lightgrey solid','display':'inline-block'}),
+
+                    # Adding date filter buttons for charts
+                    html.Div([
+
+                        # HTM Div for Buttons
+                        html.Div([
+                            html.Button('7 Days', id='btn-nclicks-1',n_clicks=0,style={'width':'23.7%','margin':'2px'}),
+                            html.Button('30 Days', id='btn-nclicks-2',n_clicks=0,style={'width':'23.7%','margin':'2px'}),
+                            html.Button('1 Year', id='btn-nclicks-3',n_clicks=0,style={'width':'23.7%','margin':'2px'}),
+                            html.Button('All', id='btn-nclicks-4',n_clicks=0,style={'width':'23.7%','margin':'2px'})]),
+                            html.Div([dcc.Dropdown(id='MA_filter',
+                                        options=[{'label': i, 'value': i} for i in ['60 Day MA','200 Day MA']],
+                                        multi=True)])
+                            ],style={'margin':'5px','width':'35%','border':'thin lightgrey solid','display':'inline-block','float':'right'})
+                        ],style={'margin':'5px','width':'99%','border':'thin lightgrey solid'}),
 
                     # Add dropdown for category (stock name, industry, etc) and do conditional formatting for second dropdown
 
@@ -87,70 +98,79 @@ layout = html.Div([
                     # Line three: other info, notyet defined
                     html.Div([
                         html.H2('Other Portfolio Statistics',style=portfolio_style),
-                        html.H2('Stock in Sector P/Es?',style=chart_style),
+                        dcc.Graph(id='chart-2',style=chart_style),
                         ])
                     ])
 
 # Callback to connect input(s) to output(s) for Tab 1
 @app.callback(dash.dependencies.Output('chart-1','figure'),
-    [dash.dependencies.Input('data_filter','value')])
+    [dash.dependencies.Input('data_filter','value'),
+    dash.dependencies.Input('btn-nclicks-1', 'n_clicks'),
+    dash.dependencies.Input('btn-nclicks-2', 'n_clicks'),
+    dash.dependencies.Input('btn-nclicks-3', 'n_clicks'),
+    dash.dependencies.Input('btn-nclicks-4', 'n_clicks'),
+    dash.dependencies.Input('MA_filter', 'value')])
 
 # Step 3: Define the graph with plotly express
-def update_ticker(ticker):
+def update_ticker(ticker,btn1,btn2,btn3,btn4,ma_filters):
+
+    from datetime import datetime, timedelta
 
     fig = go.Figure()
 
     df = stock_df[stock_df['ticker']==ticker]
     df = df.set_index('Date')
 
-    data = [go.Scatter(x=df.index,
-                         y=df['Close'],
+    # Adding 60 Day Moving Average
+    df['60 Day MA'] = df.Close.rolling(window=60).mean()
+    df['200 Day MA'] = df.Close.rolling(window=200).mean()
+
+    changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
+
+    if 'btn-nclicks-1' in changed_id:
+        tick_df = df[df.index >= df.index.max()-timedelta(days=7)]
+    elif 'btn-nclicks-2' in changed_id:
+        tick_df = df[df.index >= df.index.max()-timedelta(days=30)]
+    elif 'btn-nclicks-3' in changed_id:
+        tick_df = df[df.index >= df.index.max()-timedelta(days=365)]
+    elif 'btn-nclicks-4' in changed_id:
+        tick_df = df
+    else:
+        tick_df = df
+
+    fig.add_trace(go.Scatter(x=tick_df.index,
+                         y=tick_df['Close'],
                         line={"color": "#228B22"},
-                        mode="lines")]
-
-    layout = dict(
-    xaxis=dict(
-        rangeselector=dict(
-            buttons=list([
-                dict(count=1,
-                     label="1m",
-                     step="month",
-                     stepmode="backward"),
-                dict(count=6,
-                     label="6m",
-                     step="month",
-                     stepmode="backward"),
-                dict(count=1,
-                     label="YTD",
-                     step="year",
-                     stepmode="todate"),
-                dict(count=1,
-                     label="1y",
-                     step="year",
-                     stepmode="backward"),
-                dict(step="all")
-            ])
-        ),
-        rangeslider=dict(
-            visible=True
-            ),
-            type="date"
-        )
-    )
-
-    fig = go.FigureWidget(data=data, layout=layout)
+                        mode="lines",
+                        name='Closing Price'))
 
     fig.update_layout(title_text=f'{ticker} Closing Price',title_x=0.5,
                          template="ggplot2",font=dict(size=10,color='white'),xaxis_showgrid=False,
                          paper_bgcolor='rgba(0,0,0,0)',
-                         yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10})
+                         yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10},
+                         showlegend=False)
 
-    # This doesn't work, and may not have a plotly solution
-    def zoom(layout, xrange):
-        in_view = df.loc[fig.layout.xaxis.range[0]:fig.layout.xaxis.range[1]]
-        fig.layout.yaxis.range = [in_view.High.min() - 5, in_view.High.max() + 5]
+    try:
+        if '60 Day MA' in ma_filters:
+            fig.add_trace(go.Scatter(x=tick_df.index,
+                                 y=tick_df['60 Day MA'],
+                                line={"color": "gray","width":1},
+                                mode="lines",
+                                name='60 Day Moving Avg'))
+    except:
+        pass
 
-    fig.layout.on_change(zoom, 'xaxis.range')
+    try:
+        if '200 Day MA' in ma_filters:
+            fig.add_trace(go.Scatter(x=tick_df.index,
+                                 y=tick_df['200 Day MA'],
+                                line={"color": "black","width":1},
+                                mode="lines",
+                                name='200 Day Moving Avg'))
+    except:
+        pass
+
+    fig.update_layout(hovermode="x unified")
 
     return fig
 
@@ -189,3 +209,49 @@ def update_dropdown(filter_option):
     elif filter_option == 'Sector':
         col_labels = [{'label' :k, 'value' :k} for k in list(stock_df['sector'].unique())]
         return col_labels
+
+
+# Callback to connect input(s) to output(s) for Tab 1
+@app.callback(dash.dependencies.Output('chart-2','figure'),
+    [dash.dependencies.Input('data_filter','value'),
+    dash.dependencies.Input('btn-nclicks-1', 'n_clicks'),
+    dash.dependencies.Input('btn-nclicks-2', 'n_clicks'),
+    dash.dependencies.Input('btn-nclicks-3', 'n_clicks'),
+    dash.dependencies.Input('btn-nclicks-4', 'n_clicks')])
+
+# Step 3: Define the graph with plotly express
+def update_ticker(ticker,btn1,btn2,btn3,btn4):
+
+    from datetime import datetime, timedelta
+
+    fig = go.Figure()
+
+    df = stock_df[stock_df['ticker']==ticker]
+    df = df.set_index('Date')
+
+    changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
+
+    if 'btn-nclicks-1' in changed_id:
+        tick_df = df[df.index >= df.index.max()-timedelta(days=7)]
+    elif 'btn-nclicks-2' in changed_id:
+        tick_df = df[df.index >= df.index.max()-timedelta(days=30)]
+    elif 'btn-nclicks-3' in changed_id:
+        tick_df = df[df.index >= df.index.max()-timedelta(days=365)]
+    elif 'btn-nclicks-4' in changed_id:
+        tick_df = df
+    else:
+        tick_df = df
+
+    fig.add_trace(go.Candlestick(x=tick_df.index,
+                    open=tick_df['Open'],
+                    high=tick_df['High'],
+                    low=tick_df['Low'],
+                    close=tick_df['Close']))
+
+    fig.update_layout(title_text=f'{ticker} Candlestick Chart',title_x=0.5,
+                         template="ggplot2",font=dict(size=10,color='white'),xaxis_showgrid=False,
+                         paper_bgcolor='rgba(0,0,0,0)',
+                         yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10},
+                         xaxis_rangeslider_visible=False)
+
+    return fig
