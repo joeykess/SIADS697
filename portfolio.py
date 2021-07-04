@@ -8,7 +8,6 @@
 import pandas as pd
 from datetime import datetime
 
-
 class portfolio:
     def __init__(self, value):
         self.tickers = {}
