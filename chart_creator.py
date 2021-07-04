@@ -70,11 +70,11 @@ def make_charts(ticker, num_days):
 
 if __name__ == '__main__':
     # testing candle_charts functionality
-    # candle_charts('BA', '2015-01-01', '2015-01-22')
-    symbols_list = pd.read_csv('symbols.csv')['Symbols'].tolist()
-    for symbol in tqdm(symbols_list):
-        try:
-            make_charts(symbol, 10)
-        except Exception as e:
-            print(e)
-        break
+    candle_charts('BA', '2015-01-01', '2015-01-22')
+    # symbols_list = pd.read_csv('symbols.csv')['Symbols'].tolist()
+    # for symbol in tqdm(symbols_list):
+    #     try:
+    #         make_charts(symbol, 10)
+    #     except Exception as e:
+    #         print(e)
+    #     break
