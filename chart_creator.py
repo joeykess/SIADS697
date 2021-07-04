@@ -52,7 +52,7 @@ def make_charts(ticker, num_days):
     for start in range(0, data.shape[0], num_days):
         df_subset = data.iloc[start:start + num_days].copy()
         curr_max = df_subset['Close'].max()
-        next_max = data.iloc[start + num_days:start + 2 * num_days]['Close'].max()
+        next_max = data.iloc[start + num_days:start + num_days + 5]['Close'].max()
         beg = df_subset['Date'].iloc[0]
         end = df_subset['Date'].iloc[-1]
         if curr_max == next_max:
