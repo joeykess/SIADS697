@@ -1,18 +1,45 @@
-#!/usr/bin/env python
-# coding: utf-8
+import os
+import time
 import pandas as pd
-import re
+import numpy as np
+import datetime as dt
+import glob
 
+def daily_features():
+    
+    path = r'assets/historical-symbols' # use your path
+    all_files = glob.glob(path + "/*.csv")
 
-def main():
+    # Creating list to append all ticker dfs to
+    li = []
 
-    df = pd.read_csv('fundamentals_spy.csv', index_col=0)
-    inst_ric = df['Instrument'].unique()
-    inst_ric = {k:k.split('.')[0] for k in inst_ric}
-    inst_ric['BRKb.N'] = 'BRK-B'
-    inst_ric['BFb.N'] = 'BF-B'
-    df['Instrument'] = df.replace({"Instrument": inst_ric})
+    for filename in all_files:
+        df = pd.read_csv(filename, index_col=None, header=0)
+        li.append(df)
 
+    # Concat all ticker dfs
+    stock_df = pd.concat(li, axis=0, ignore_index=True,sort=True)
 
-if __name__ == '__main__':
-    main()
+    stock_df['Date'] = pd.to_datetime(stock_df['Date'])
+
+    # Creating Moving Average Technical Indicator
+    # Using this aritcle https://towardsdatascience.com/building-a-comprehensive-set-of-technical-indicators-in-python-for quantitative-trading-8d98751b5fb
+    stock_df['SMA_5'] = stock_df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window = 5).mean())
+    stock_df['SMA_15'] = stock_df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window = 15).mean())
+    stock_df['SMA_ratio'] = stock_df['SMA_15'] / stock_df['SMA_5']
+
+    # Bollinger bands
+    stock_df['SD'] = stock_df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window=15).std())
+    stock_df['upperband'] = stock_df['SMA_15'] + 2*stock_df['SD']
+    stock_df['lowerband'] = stock_df['SMA_15'] - 2*stock_df['SD']
+    
+    stock_df['Date'] = pd.to_datetime(stock_df['Date'])
+    stock_df.index = stock_df['Date']
+    stock_df.drop('Date',axis='columns',inplace=True)
+    
+    return stock_df
+
+def quarterly_features():
+    
+    
+    return None
