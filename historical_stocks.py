@@ -3,7 +3,6 @@ import time
 import pandas as pd
 import yfinance as yf
 
-
 def get_stock_info():
     """
     This function outputs all csv files to /assets/historical-symbols/ directory as individual CSV files per stocks
