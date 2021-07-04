@@ -60,7 +60,8 @@ tab_style = {
     'fontWeight': 'bold',
     'backgroundColor': '#4e5d6c',
     'color':'white',
-    'lineHeight':2
+    'lineHeight':2,
+    'fontSize':10
 }
 
 tab_selected_style = {
@@ -70,7 +71,8 @@ tab_selected_style = {
     'color': 'white',
     'padding': '6px',
     'fontWeight': 'bold',
-    'lineHeight':2
+    'lineHeight':2,
+    'fontSize':10
 }
 
 app.layout = html.Div([
@@ -79,8 +81,10 @@ app.layout = html.Div([
         html.H1('Dashboard Title',style=title_style),
         html.Div([dbc.Button('Dashboard Info Link',id="open", n_clicks=0),
                   dbc.Modal([
-                    dbc.ModalHeader("Header",style={"color":'black'}),
-                    dbc.ModalBody("This is the content of the modal"),
+                    dbc.ModalHeader("Legal Disclaimer",style={"color":'black'}),
+                    dbc.ModalBody("""The content of this site is for informational purposes only.
+                    There is risk in trading in securities of any kind, and we will not be held responsible for any losses that occur.
+                    """,style={'color':'white'}),
                     dbc.ModalFooter(
                         dbc.Button("Close", id="close", className="ml-auto", n_clicks=0))
                   ],id="modal",centered=True,is_open=False)
