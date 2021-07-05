@@ -31,9 +31,11 @@ def daily_features():
 
     # Bollinger bands
     stock_df['SD'] = stock_df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window=15).std())
-    stock_df['upperband'] = stock_df['SMA_15'] + 2 * stock_df['SD']
-    stock_df['lowerband'] = stock_df['SMA_15'] - 2 * stock_df['SD']
 
+    stock_df['upperband'] = stock_df['SMA_15'] + 2*stock_df['SD']
+    stock_df['lowerband'] = stock_df['SMA_15'] - 2*stock_df['SD']
+    
+    # Creating datetime date and making index
     stock_df['Date'] = pd.to_datetime(stock_df['Date'])
     stock_df.index = stock_df['Date']
     stock_df.drop('Date', axis='columns', inplace=True)

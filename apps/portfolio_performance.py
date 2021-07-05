@@ -210,7 +210,6 @@ def update_dropdown(filter_option):
         col_labels = [{'label' :k, 'value' :k} for k in list(stock_df['sector'].unique())]
         return col_labels
 
-
 # Callback to connect input(s) to output(s) for Tab 1
 @app.callback(dash.dependencies.Output('chart-2','figure'),
     [dash.dependencies.Input('data_filter','value'),
