@@ -13,11 +13,9 @@ def get_stock_info():
             stock = yf.Ticker(ticker)
             hist = stock.history(period='max')
             download_df = yf.download(ticker, period='max', progress=False)
-            # rename everything ex: Open from download is now aOpen
+            # rename everything ex: Open from download is now Open_adj
             download_df = download_df[['Open', 'High', 'Low', 'Close', 'Adj Close']]
-            download_df = download_df.rename(columns={'Open': 'aOpen', 'High': 'aHigh',
-                                                      'Low': 'aLow', 'Close': 'aClose'})
-            hist = hist.join(download_df, how='outer')
+            hist = hist.merge(download_df, left_index=True, right_index=True,  how='outer', suffixes=('', '_adj'))
             hist['sector'] = stock.info['sector']
             hist['ticker'] = ticker
             csv_name = 'assets/historical-symbols/' + ticker + '.csv'
