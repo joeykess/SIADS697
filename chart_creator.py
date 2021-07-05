@@ -61,7 +61,7 @@ def make_charts(ticker, num_days):
             val = 1
         else:
             val = -1
-        dict_of_results['{}_{}.png'.format(beg, end)] = val
+        dict_of_results['{}_{}.png'.format(beg, end)] = (val, next_max - curr_max)
         candle_charts(ticker, beg, end)
     a_file = open("{}.json".format(ticker), 'w')
     json.dump(dict_of_results, a_file)
