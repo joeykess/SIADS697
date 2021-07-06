@@ -48,7 +48,7 @@ def candle_charts(ticker, start, end):
 def make_charts(ticker, num_days):
     dict_of_results = {}
     data2 = pd.read_csv('assets/historical-symbols/{}.csv'.format(ticker))
-    data = data2.loc[(data2['Date'] <= '2020-01-01') & (data2['Date'] >= '2010-01-01')].copy()
+    data = data2.loc[(data2['Date'] <= '2020-01-01') & (data2['Date'] >= '2015-01-01')].copy()
     for start in range(0, data.shape[0], num_days):
         df_subset = data.iloc[start:start + num_days].copy()
         curr_max = df_subset['Close'].max()
@@ -63,7 +63,7 @@ def make_charts(ticker, num_days):
             val = -1
         dict_of_results['{}_{}.png'.format(beg, end)] = (val, next_max - curr_max)
         candle_charts(ticker, beg, end)
-    a_file = open("{}.json".format(ticker), 'w')
+    a_file = open("assets/cnn_images/{}.json".format(ticker), 'w')
     json.dump(dict_of_results, a_file)
     a_file.close()
 
