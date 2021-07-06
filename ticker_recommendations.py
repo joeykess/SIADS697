@@ -9,7 +9,7 @@ def get_recommendation_info():
     """
     
     symbol_list = pd.read_csv('assets/symbols.csv')['Symbols'].tolist()
-    rec_df = pd.DataFrame(columns=['Firm','To Grade','Action','ticker'])
+    rec_df = pd.DataFrame(columns=['Date','Firm','To Grade','Action','ticker'])
     failed_ticker_list = []
     
     for ticker in symbol_list:
