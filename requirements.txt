@@ -22,3 +22,6 @@ cufflinks~=0.17.3
 boto3~=1.17.98
 mplfinance~=0.12.7a17
 yahoo-fin~=0.8.9
+
+tqdm==4.60.0
+scikit-learn == 0.24.2
