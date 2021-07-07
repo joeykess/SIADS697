@@ -48,11 +48,11 @@ def candle_charts(ticker, start, end):
 def make_charts(ticker, num_days):
     dict_of_results = {}
     data2 = pd.read_csv('assets/historical-symbols/{}.csv'.format(ticker))
-    data = data2.loc[(data2['Date'] <= '2020-01-01') & (data2['Date'] >= '2010-01-01')].copy()
+    data = data2.loc[(data2['Date'] <= '2020-01-01') & (data2['Date'] >= '2015-01-01')].copy()
     for start in range(0, data.shape[0], num_days):
         df_subset = data.iloc[start:start + num_days].copy()
         curr_max = df_subset['Close'].max()
-        next_max = data.iloc[start + num_days:start + 2 * num_days]['Close'].max()
+        next_max = data.iloc[start + num_days:start + num_days + 5]['Close'].max()
         beg = df_subset['Date'].iloc[0]
         end = df_subset['Date'].iloc[-1]
         if curr_max == next_max:
@@ -61,9 +61,9 @@ def make_charts(ticker, num_days):
             val = 1
         else:
             val = -1
-        dict_of_results['{}_{}.png'.format(beg, end)] = val
+        dict_of_results['{}_{}.png'.format(beg, end)] = (val, next_max - curr_max)
         candle_charts(ticker, beg, end)
-    a_file = open("{}.json".format(ticker), 'w')
+    a_file = open("assets/cnn_images/{}.json".format(ticker), 'w')
     json.dump(dict_of_results, a_file)
     a_file.close()
 
@@ -77,4 +77,3 @@ if __name__ == '__main__':
             make_charts(symbol, 10)
         except Exception as e:
             print(e)
-        break
