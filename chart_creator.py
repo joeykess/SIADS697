@@ -5,7 +5,7 @@ import os
 from tqdm import tqdm
 
 
-def candle_charts(ticker, start, end):
+def candle_charts(ticker, start, end, val):
     """
     Takes in ticker, start, and end dates and generates candle charts with EMA15 and upper and lower Bollinger Bands,
     then saves file at assets/cnn_files/{ticker}{start}_{end}.png
@@ -38,7 +38,7 @@ def candle_charts(ticker, start, end):
     ax.set_yticks([])
     ax.set_ylabel("")
     ax.axis('off')
-    plt.savefig('assets/cnn_images/{}_{}_{}.png'.format(ticker, start, end), dpi=50, bbox_inches='tight')
+    plt.savefig('assets/cnn_images/{}/{}_{}_{}.png'.format(val, ticker, start, end), dpi=50, bbox_inches='tight')
     plt.close('all')
 
 
@@ -52,14 +52,15 @@ def make_charts(ticker, num_days):
         next_max = data.iloc[start + num_days:start + num_days + 5]['Close'].max()
         beg = df_subset['Date'].iloc[0]
         end = df_subset['Date'].iloc[-1]
-        if curr_max == next_max:
-            val = 0
+        if abs(curr_max - next_max) <= 0.05:
+            val = 'same'
         elif curr_max < next_max:
-            val = 1
+            val = 'increase'
         else:
-            val = -1
-        dict_of_results['{}_{}_{}.png'.format(ticker, beg, end)] = (ticker, val, (next_max - curr_max) / curr_max)
-        candle_charts(ticker, beg, end)
+            val = 'decrease'
+        dict_of_results['{}/{}_{}_{}.png'.format(val, ticker, beg, end)] = (ticker, val,
+                                                                            (next_max - curr_max) / curr_max)
+        candle_charts(ticker, beg, end, val)
     results = pd.DataFrame.from_dict(dict_of_results, orient='index', columns=['ticker', 'value', 'future_percent'])
     return results
 
@@ -74,4 +75,4 @@ if __name__ == '__main__':
             df = df.append(make_charts(symbol, 10))
         except Exception as e:
             print(e)
-    df.to_csv('assets/cnn_images/results.csv')
+    df.to_csv('assets/cnn_images_results.csv')
