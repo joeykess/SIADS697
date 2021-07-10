@@ -3,10 +3,9 @@ import mplfinance as mpf
 import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
-import json
 
 
-def candle_charts(ticker, start, end):
+def candle_charts(ticker, start, end, val):
     """
     Takes in ticker, start, and end dates and generates candle charts with EMA15 and upper and lower Bollinger Bands,
     then saves file at assets/cnn_files/{ticker}{start}_{end}.png
@@ -29,19 +28,17 @@ def candle_charts(ticker, start, end):
     df['Date'] = pd.to_datetime(df['Date'], format="%Y/%m/%d")
     df = df.set_index(['Date'])
     df.index = df.index.to_pydatetime()
-    fig, ax = plt.subplots(figsize=(18, 9))
+    fig, ax = plt.subplots(figsize=(5, 5))
     mpf.plot(df, type='candlestick', style='charles', ax=ax)
-    df.reset_index().plot(kind='line', y='upper_bb', color='blue', lw=3, ax=ax, legend=None)
-    df.reset_index().plot(kind='line', y='lower_bb', color='orange', lw=3, ax=ax, legend=None)
-    df.reset_index().plot(kind='line', y='ema15', color='black', lw=3, ax=ax, legend=None)
+    df.reset_index().plot(kind='line', y='upper_bb', color='blue', lw=3, alpha=0.75, ax=ax, legend=None)
+    df.reset_index().plot(kind='line', y='lower_bb', color='orange', lw=3, alpha=0.75, ax=ax, legend=None)
+    df.reset_index().plot(kind='line', y='ema15', color='black', lw=3, alpha=0.75, ax=ax, legend=None)
     ax.set_facecolor('white')
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_ylabel("")
     ax.axis('off')
-    if not os.path.exists('assets/cnn_images/{}'.format(ticker)):
-        os.makedirs('assets/cnn_images/{}'.format(ticker))
-    plt.savefig('assets/cnn_images/{}/{}_{}.png'.format(ticker, start, end), dpi=300, pad_inches=0.05)
+    plt.savefig('assets/cnn_images/{}/{}_{}_{}.png'.format(val, ticker, start, end), dpi=50, bbox_inches='tight')
     plt.close('all')
 
 
@@ -55,25 +52,27 @@ def make_charts(ticker, num_days):
         next_max = data.iloc[start + num_days:start + num_days + 5]['Close'].max()
         beg = df_subset['Date'].iloc[0]
         end = df_subset['Date'].iloc[-1]
-        if curr_max == next_max:
-            val = 0
+        if abs(curr_max - next_max) <= 0.05:
+            val = 'same'
         elif curr_max < next_max:
-            val = 1
+            val = 'increase'
         else:
-            val = -1
-        dict_of_results['{}_{}.png'.format(beg, end)] = (val, next_max - curr_max)
-        candle_charts(ticker, beg, end)
-    a_file = open("assets/cnn_images/{}.json".format(ticker), 'w')
-    json.dump(dict_of_results, a_file)
-    a_file.close()
+            val = 'decrease'
+        dict_of_results['{}/{}_{}_{}.png'.format(val, ticker, beg, end)] = (ticker, val,
+                                                                            (next_max - curr_max) / curr_max)
+        candle_charts(ticker, beg, end, val)
+    results = pd.DataFrame.from_dict(dict_of_results, orient='index', columns=['ticker', 'value', 'future_percent'])
+    return results
 
 
 if __name__ == '__main__':
-    # testing candle_charts functionality
-    # candle_charts('BA', '2015-01-01', '2015-01-22')
     symbols_list = pd.read_csv('symbols.csv')['Symbols'].tolist()
+    df = pd.DataFrame(columns=['ticker', 'value', 'future_percent'])
+    if not os.path.exists('assets/cnn_images'):
+        os.makedirs('assets/cnn_images')
     for symbol in tqdm(symbols_list):
         try:
-            make_charts(symbol, 10)
+            df = df.append(make_charts(symbol, 10))
         except Exception as e:
             print(e)
+    df.to_csv('assets/cnn_images_results.csv')

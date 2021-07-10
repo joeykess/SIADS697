@@ -1,22 +1,39 @@
-# add class for the whole portfolio
-# basically can track whole portfolio performance
-# convert everything into shares (round numbers)
-# portfolio will have list of stocks (passed in)
-# based off price and weights we're using, trading bot will do whatever it wants to do
-
-# dump and re-balance every x_months
 import pandas as pd
 from datetime import datetime
+import pandas as pd
+from datetime import datetime
+import os
+import re
+from tqdm import tqdm
+
+
+def create_running_df():
+    path_to_files = 'assets/historical-symbols'
+    df = pd.DataFrame()
+    for file in tqdm(os.listdir(path_to_files)):
+        try:
+            if file.endswith('.csv'):
+                symbol = re.findall(r'(.*).csv', file)[0]
+                temp_df = pd.read_csv(path_to_files + '/' + file).set_index(['Date'])
+                temp_df[symbol] = temp_df['Close']
+                if df.shape[0] == 0:
+                    df = temp_df[symbol].to_frame(name=symbol)
+                else:
+                    df = df.join(temp_df[symbol].to_frame(name=symbol))
+        except Exception as e:
+            print(e)
+    return df
 
 
 class portfolio:
-    def __init__(self, value):
-        self.current_positions = {}
+    def __init__(self, start_date, value):
+        self.open_positions_dict = {}
+        self.start_date = start_date
         self.init_cash = value
         self.portfolio_value = value
         self.current_cash = value
-        self.hist_trades = {}
-        # hist_trades is in the form of [buy/sell, ticker, quantity, price, and remaining cash]
+        self.open_positions_df = pd.DataFrame()
+        self.tracking_df = create_running_df()
 
     def _reset_account(self):
         self.cash = self.init_cash
@@ -38,11 +55,11 @@ class portfolio:
         for p_ticker, p_order in purchase_order:
             p_price = self.get_price(date=date, ticker=p_ticker)
             if self.current_cash > p_price * p_order:
-                self.current_positions[p_ticker] += p_order
+                self.open_positions_dict[p_ticker] += p_order
                 self.current_cash -= p_price * p_order
-                self.hist_trades[date] = ['buy', p_ticker, p_order, p_price, p_order*p_price, self.current_cash]
+                self.hist_trades[date] = ['buy', p_ticker, p_order, p_price, p_order * p_price, self.current_cash]
             else:
-                return 'Cannot purchase - low funds'
+                return "Cannot purchase - low funds"
         return
 
     def sell(self, sell_order, date):
@@ -52,7 +69,7 @@ class portfolio:
         """
         for s_ticker, s_order in sell_order:
             s_price = self.get_price(s_ticker, date)
-            self.current_positions[s_ticker] -= s_order
+            self.open_positions_dict[s_ticker] -= s_order
             self.current_cash += s_price * s_order
 
     def view_portfolio_history(self):
