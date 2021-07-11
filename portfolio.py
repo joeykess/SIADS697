@@ -12,13 +12,14 @@ def create_running_df():
             if file.endswith('.csv'):
                 symbol = re.findall(r'(.*).csv', file)[0]
                 temp_df = pd.read_csv(path_to_files + '/' + file).set_index(['Date'])
-                temp_df[symbol] = temp_df['Close']
+                temp_df[symbol] = temp_df[['Close', 'Open', 'High', 'Low']].mean(axis=1)
+                # since we're trading in the 'middle' of the day so we can't assume pricing is Open or Close
                 if df.shape[0] == 0:
                     df = temp_df[symbol].to_frame(name=symbol)
                 else:
                     df = df.join(temp_df[symbol].to_frame(name=symbol))
         except Exception as e:
-            print(e)
+            print(e, file)
     return df
 
 
@@ -30,7 +31,7 @@ class portfolio:
         self.portfolio_value = value
         self.current_cash = value
         self.open_positions_df = pd.DataFrame()
-        # self.tracking_df = create_running_df()
+        self.tracking_df = create_running_df()
         self.hist_trades_dict = {}
         self.hist_trades_df = pd.DataFrame(columns=[
             'Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'
@@ -108,4 +109,4 @@ if __name__ == '__main__':
     ptflio = portfolio(start_date='2015-01-01', value=1000000)
     ptflio.buy(purchase_order={'MSFT': 100, 'AAPL': 100}, date='2015-10-05')
     ptflio.sell(sell_order={'MSFT': 10, 'AAPL': 10}, date='2015-10-06')
-    print(ptflio.view_trade_history())
+    print(create_running_df())
