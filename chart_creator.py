@@ -70,6 +70,9 @@ if __name__ == '__main__':
     df = pd.DataFrame(columns=['ticker', 'value', 'future_percent'])
     if not os.path.exists('assets/cnn_images'):
         os.makedirs('assets/cnn_images')
+        os.makedirs('assets/cnn_images/increase')
+        os.makedirs('assets/cnn_images/same')
+        os.makedirs('assets/cnn_images/decrease')
     for symbol in tqdm(symbols_list):
         try:
             df = df.append(make_charts(symbol, 10))
