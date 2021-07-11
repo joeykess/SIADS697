@@ -85,7 +85,7 @@ def mom_calc():
         vx_dat['90 days'] = vx_dat['Price'].pct_change()
         vx_dat['1_yr'] = vx_dat['Price'].pct_change(4)
         vx_dat = vx_dat.dropna()
-        vx_dat['fwd_ret'] = vx_dat['90 days'].shift(periods = -1, fill_value = 'xxx')
+        vx_dat['fwd_ret'] = vx_dat['90 days'].shift(periods = -8, fill_value = 'xxx')
         prod = vx_dat[vx_dat['fwd_ret']=='xxx']
         valmo = vx_dat[vx_dat['fwd_ret']!='xxx']
         production_df = pd.concat([production_df, prod])
@@ -188,7 +188,7 @@ def mod_1_output(clf, t):
     df = pd.read_csv("assets/fundamentals/clean_raw_production.csv")
     df['BUY_SELL'] = adj_score
     df['Probability'] = y_pred
-    df = df.filter(["Instrument", "GICS Sector", "BUY_SELL", "Probability"])
+    df = df.filter(["Date","Instrument", "GICS Sector", "BUY_SELL", "Probability"])
     df.to_csv('assets/fundamentals/Production_output.csv')
     return
 

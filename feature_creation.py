@@ -219,3 +219,11 @@ def get_sectors():
     sectors = sectors.rename(columns={'Symbol': 'Instrument'})
     sectors.to_csv("assets/fundamentals/sectors.csv")
     return
+def get_macro_data():
+    """Imports a number of Macroeconomic data sets used to create a leading indicator do not run w/o a subscription
+    to Datastream web services"""
+    raw = ds.get_data(
+        tickers='USLIAWHMP, USUNINSCE, USCNORCGD, USNAPMNO, USNOEXCHD, USBPPRVTO, S&PCOMP, USBCILCIQ, FRTCM10, FRFEDFD, USAVGEXPQ, USAVGEXPQ',
+        start='BDATE', fields='X', freq='M')
+    raw.to_csv("assets/macro/raw_macro.csv")
+    return
