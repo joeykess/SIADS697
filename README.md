@@ -8,7 +8,8 @@ Multiple scripts will be utilized to pull raw data:
 
 
 
-###Steps for creating data used for analysis:
+### Steps for creating data used for analysis:
 1. From project home directory, run historical_stocks.py, which downloads daily closing data for the top 100 S&P 500 tickers
 2. Load fundamentals_spy.csv to get details for 10Q and 10K earnings data
 3. TBD...
+
