@@ -13,6 +13,8 @@ import os
 # HAS TO BE RUN ON COMMAND LINE UBUNTU 20.04 to use CUDA - venv install broken at the moment
 # - Joey
 
+# ADD IF MODEL WILL GO UP OR DOWN RELATIVE TO MARKET
+
 results = pd.read_csv('assets/cnn_images_results.csv')
 # splitfolders.ratio("assets/cnn_images/", output="assets/cnn_images/output",
 #                    seed=0, ratio=(0.8, 0.1, 0.1), group_prefix=None)
