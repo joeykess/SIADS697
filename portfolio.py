@@ -1,7 +1,11 @@
 import pandas as pd
 from datetime import datetime
+import pandas_market_calendars as mcal
 import os
 import re
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 
 def create_running_df():
@@ -117,6 +121,9 @@ class portfolio:
         """
         :param end_date: date is hard coded to last date in data
         """
+        nyse = mcal.get_calendar('NYSE')
+        early = nyse.schedule(start_date=self.start_date, end_date=end_date)
+        d_range = mcal.date_range(early, frequency='1D').normalize()
         end_date = datetime.strptime(end_date, '%Y-%m-%d')
         start_date = datetime.strptime(self.start_date, '%Y-%m-%d')
         hist_df = self.tracking_df[self.tracking_df.index <= end_date]
@@ -129,6 +136,9 @@ class portfolio:
         ticker_df = pd.DataFrame.from_dict(self.hist_trades_dict, orient='index')
         ticker_df.index = pd.to_datetime(ticker_df.index)
         ticker_df = ticker_df.reindex(pd.date_range(self.start_date, end_date, freq='B')).ffill()
+        # muted FutureWarning: Indexing a timezone-naive DatetimeIndex with a timezone-aware datetime is
+        # deprecated and will raise KeyError in a future version.  Use a timezone-naive object instead.
+        ticker_df = ticker_df.loc[d_range[0]]
         ticker_df = ticker_df.mul(self.tracking_df, fill_value=0)
         ticker_df = ticker_df.fillna(0).loc[start_date:end_date]
         ticker_vals = pd.DataFrame(ticker_df.sum(axis=1), columns=['Stock Value'])
@@ -136,6 +146,7 @@ class portfolio:
         returns_df['Total Portfolio Value'] = returns_df['Stock Value'] + returns_df['Cash Available to Trade']
         returns_df['Rate of Return'] = returns_df['Total Portfolio Value'].apply(lambda x: (x - self.init_cash) / x)
         returns_df['Rate of Return'] = returns_df['Rate of Return'].apply(lambda x: "{0:.2f}%".format(x*100))
+        returns_df = returns_df.dropna()
         return returns_df
 
 

@@ -55,7 +55,7 @@ model.add(Dense(classes_num, activation='softmax'))
 model.summary()
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
-              metrics=['accuracy'])
+              metrics=['accuracy', 'precision', 'recall'])
 
 train_datagen = ImageDataGenerator()
     # rescale=1. / 255,
