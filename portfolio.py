@@ -53,12 +53,14 @@ class portfolio:
         self.init_cash = value
         self.current_cash = value
         self.open_positions_dict = {}
+        self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity','Price'])
         self.tracking_df = create_running_df()
         self.tracking_df.index = pd.to_datetime(self.tracking_df.index)
         self.hist_trades_dict = {}
         self.hist_trades_df = pd.DataFrame(columns=[
             'Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'
         ])
+        self.hist_cash_df = pd.DataFrame([[start_date, value]], columns=['Date', 'Cash Available to Trade'])
         self.hist_cash_dict = {datetime.strptime(start_date, '%Y-%m-%d'): value}
 
     def reset_account(self):
@@ -107,6 +109,10 @@ class portfolio:
             if self.current_cash > p_val:
                 if p_ticker in self.open_positions_dict:
                     self.open_positions_dict[p_ticker] += p_order
+
+                    # Adding current order to open_positions_df
+                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
                 else:
                     self.open_positions_dict[p_ticker] = p_order
                 self.hist_trades_dict[date][p_ticker] += p_order
