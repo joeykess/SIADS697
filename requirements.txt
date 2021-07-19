@@ -10,7 +10,7 @@ pytz==2021.1
 requests==2.25.1
 six==1.15.0
 urllib3==1.26.4
-yfinance==0.1.59
+yfinance==0.1.62
 pandas==1.2.4
 matplotlib==3.4.2
 FinNews==1.1.0
@@ -24,4 +24,4 @@ yahoo-fin==0.8.9.1
 prophet==1.0.1
 scikit-learn == 0.24.2
 tqdm==4.61.1
-
+pandas-market-calendars==2.0

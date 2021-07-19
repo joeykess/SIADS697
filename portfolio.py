@@ -123,8 +123,7 @@ class portfolio:
                      'Ticker Value': p_price, 'Total Trade Value': p_val,
                      'Remaining Cash': self.current_cash}, ignore_index=True)
             else:
-                return f"Cannot purchase {p_order} shares of {p_ticker} for a total of ${p_val} because current cash " \
-                       f"is ${self.current_cash}"
+                return f"Cannot purchase {p_order} shares of {p_ticker} for a total of ${p_val} because current cash is ${self.current_cash}"
         self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
         return
 
