@@ -48,6 +48,7 @@ def combine_inc_bal():
                                               "Tangible Total Equity": "tang_book", "Debt - Total": "debt",
                                               'Total Long Term Capital': "lt_cap",
                                               'Intangible Assets - Total - Net': 'intang',
+                                              'Price to Book Value per Share - Issue':'bvps',
                                               "Net Cash Flow from Operating Activities": "ocf",
                                               'Capital Expenditures - Total': "capex",
                                               'Cash Flow from Operations per Share': 'cfo_ps',
@@ -84,10 +85,18 @@ def combine_inc_bal():
     inc_bal['fcf_tot'] = inc_bal['fcfe'] / inc_bal["tot_assets"]
     inc_bal['fcf_mgn'] = inc_bal['fcfe'] / inc_bal['rev']
     inc_bal['fcf_ce'] = inc_bal['fcfe'] / inc_bal['lt_cap']
+    qual = pd.read_csv('assets/models/jeff_multi_factor/qual_dat.csv', index_col=0)
+    qual = qual.rename(columns={"Original Announcement Date Time": 'date',
+                                "Return on Average Common Equity - %, TTM": "roe",
+                                "Return on Average Total Assets - %, TTM": "roa",
+                                "Return on Average Total Long Term Capital - %, TTM": "roce",
+                                "Return on Invested Capital - %, TTM": "roic",
+                                "Total Debt Percentage of Total Equity": 'd_e'})
+    qual['date'] = pd.to_datetime(qual['date']).dt.date
+    inc_bal['date'] = pd.to_datetime(inc_bal['date']).dt.date
+    inc_bal = inc_bal.merge(qual, on=['date', 'Instrument'], how='outer')
     inc_bal.to_csv('assets/models/jeff_multi_factor/accounting_feats.csv', index=False)
-
     return inc_bal
-
 
 def mkt_cap_feat():
     mkt_cap = pd.read_csv("assets/models/jeff_multi_factor/mkt_cap.csv", index_col=0)
@@ -103,124 +112,198 @@ def mkt_cap_feat():
     mkt_cap_features.to_csv('assets/models/jeff_multi_factor/mkt_cap_feats.csv')
     return mkt_cap_features
 
-
-def merge_features():
+def merge_vol_mkt():
     mkt_cap = pd.read_csv("assets/models/jeff_multi_factor/mkt_cap_feats.csv", index_col=0)
     vol = pd.read_csv("assets/models/jeff_multi_factor/vol_df.csv", index_col=0)
     trading = mkt_cap.join(vol, how='inner')
     trading.index.name = 'date'
-    trading.index = pd.to_datetime(trading.index)
-    accounting = pd.read_csv("assets/models/jeff_multi_factor/accounting_feats.csv")
-    accounting['date'] = pd.to_datetime(accounting['date']).dt.date
-    accounting = accounting.set_index('date')
+    trading.index = pd.to_datetime(trading.index).date
     with open("assets/models/jeff_multi_factor/spy_rics.pkl", "rb") as f:
         rics = pickle.load(f)
     df = pd.DataFrame()
     for r in rics:
         try:
-            act = accounting[accounting['Instrument'] == r]
             vol_12 = trading['{}_12m_volume'.format(r)].to_frame(name='12m_volume')
             vol_6 = trading['{}_6m_volume'.format(r)].to_frame(name='6m_volume')
             vol_3 = trading['{}_3m_volume'.format(r)].to_frame(name='3m_volume')
             mkt_12 = trading['{}_12m_avg_mktcap'.format(r)].to_frame(name='12m_avg_mkt_cap')
             mkt_6 = trading['{}_6m_avg_mktcap'.format(r)].to_frame(name='6m_avg_mkt_cap')
             mkt_3 = trading['{}_3m_avg_mktcap'.format(r)].to_frame(name='3m_avg_mkt_cap')
-            trad = vol_12.join(vol_6, how='inner')
-            trad = trad.join(vol_3, how='inner')
-            trad = trad.join(mkt_12, how='inner')
-            trad = trad.join(mkt_3, how='inner')
-            trad = trad.join(mkt_6, how='inner')
+            trad = vol_12.join(vol_6, how='outer')
+            trad = trad.join(vol_3, how='outer')
+            trad = trad.join(mkt_12, how='outer')
+            trad = trad.join(mkt_3, how='outer')
+            trad = trad.join(mkt_6, how='outer')
             trad = trad.sort_index(ascending=False)
-            d = act.join(trad, how='inner')
-            df = pd.concat([df, d])
+            trad['Instrument'] = r
+            df = pd.concat([df, trad])
         except:
             pass
-    val_mo = pd.read_csv("assets/fundamentals/production.csv")
-    val_mo = val_mo.rename(columns={'Date': 'date'})
-    val_mo['date'] = pd.to_datetime(val_mo['date']).dt.date
-    tics = [i.split('.')[0] for i in list(df['Instrument'])]
+    df.to_csv('assets/models/jeff_multi_factor/mkt_vol_dat.csv')
+    return df
+
+def creat_labs_vol():
+    with open("assets/models/jeff_multi_factor/spy_rics.pkl", "rb") as f:
+        rics = pickle.load(f)
+    tics = [i.split('.')[0] for i in rics]
     tics = ['BRK-B' if i == 'BRKb' else i for i in tics]
     tics = ['BF-B' if i == 'BFb' else i for i in tics]
-    df = df.reset_index()
-    df['Instrument'] = tics
-    df['date'] = pd.to_datetime(df['date']).dt.date
-    df = df.merge(val_mo, on=['date', 'Instrument'], how='outer')
-    qual = pd.read_csv('qual_dat.csv')
-    tics = [i.split('.')[0] for i in list(qual['Instrument'])]
-    tics = ['BRK-B' if i == 'BRKb' else i for i in tics]
-    tics = ['BF-B' if i == 'BFb' else i for i in tics]
-    qual["Instrument"] = tics
-    qual = qual.rename(columns={"Original Announcement Date Time": 'date',
-                                "Return on Average Common Equity - %, TTM": "roe",
-                                "Return on Average Total Assets - %, TTM": "roa",
-                                "Return on Average Total Long Term Capital - %, TTM": "roce",
-                                "Return on Invested Capital - %, TTM": "roic",
-                                "Total Debt Percentage of Total Equity": 'd_e'})
-    qual['date'] = pd.to_datetime(qual['date']).dt.date
-    df = df.merge(qual, on=['date', 'Instrument'], how='outer')
-    return df.sort_values(['Instrument', 'date'])
-
-
-
-
-
-def add_labs():
-    t = merge_features()
-    stocks = t['Instrument'].unique()
     df = pd.DataFrame()
+    px_dat = pd.DataFrame()
     timer = Event()
-    for s in stocks:
+    for s in tics:
         try:
             px = si.get_data(s)
+            px = px.rename(columns = {"ticker":"Instrument"})
+            prices = px.filter(['Instrument', 'close'])
+            px_dat = pd.concat([px_dat,prices])
             ret_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_ret').shift(-252)
             ret_3m = px['adjclose'].pct_change(63).to_frame(name='3m_ret').shift(-63)
             ret_6m = px['adjclose'].pct_change(126).to_frame(name='6m_ret').shift(-126)
             vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')
             vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')
             vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")
-            px_based = ret_1yr.join(ret_3m, how='inner')
-            px_based = px_based.join(ret_6m, how='inner')
-            px_based = px_based.join(vol_1yr, how='inner')
+            px_based = ret_1yr.join(ret_3m, how='outer')
+            px_based = px_based.join(ret_6m, how='outer')
+            px_based = px_based.join(vol_1yr, how='outer')
             px_based = px_based.join(vol_6m)
             px_based = px_based.join(vol_3m)
-            feats = t[t['Instrument'] == s]
-            feats = feats.set_index('date').join(px_based, how='inner')
-            df = pd.concat([df, feats])
-            print('{}: no {} of {} complete'.format(s, len(df['Instrument'].unique()), len(stocks)))
+            px_based = px_based.join(mom_1yr)
+            px_based = px_based.join(mom_6m)
+            px_based = px_based.join(mom_3m)
+            px_based['Instrument'] = s
+            df = pd.concat([df, px_based])
+            print('{}: no {} of {} complete'.format(s, len(df['Instrument'].dropna().unique()), len(tics)))
         except:
             timer.wait(5)
             px = si.get_data(s)
+            px = px.rename(columns = {"ticker":"Instrument"})
+            prices = px.filter(['Instrument', 'close'])
+            px_dat = pd.concat([px_dat,prices])
             ret_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_ret').shift(-252)
             ret_3m = px['adjclose'].pct_change(63).to_frame(name='3m_ret').shift(-63)
             ret_6m = px['adjclose'].pct_change(126).to_frame(name='6m_ret').shift(-126)
             vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')
             vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')
             vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")
-            px_based = ret_1yr.join(ret_3m, how='inner')
-            px_based = px_based.join(ret_6m, how='inner')
-            px_based = px_based.join(vol_1yr, how='inner')
+            mom_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_mom')
+            mom_3m = px['adjclose'].pct_change(63).to_frame(name='3m_mom')
+            mom_6m = px['adjclose'].pct_change(126).to_frame(name='6m_mom')
+            px_based = ret_1yr.join(ret_3m, how='outer')
+            px_based = px_based.join(ret_6m, how='outer')
+            px_based = px_based.join(vol_1yr, how='outer')
             px_based = px_based.join(vol_6m)
             px_based = px_based.join(vol_3m)
-            feats = t[t['Instrument'] == s]
-            feats = feats.set_index('date').join(px_based, how='inner')
-            df = pd.concat([df, feats])
-            print('{}: no {} of {} complete'.format(s, len(df['Instrument'].unique()), len(stocks)))
-    df.to_csv('assets/models/jeff_multi_factor/raw_feat_lab.csv')
+            px_based = px_based.join(mom_1yr)
+            px_based = px_based.join(mom_6m)
+            px_based = px_based.join(mom_3m)
+            px_based['Instrument'] = s
+            df = pd.concat([df, px_based])
+            print('{}: no {} of {} complete'.format(s, len(df['Instrument'].dropna().unique()), len(tics)))
+    px_dat.to_csv('assets/models/jeff_multi_factor/close_prices.csv')
+    df.to_csv("assets/models/jeff_multi_factor/vol_labs.csv")
     return df
 
-def partition():
-    """takes raw data and preps for ml process"""
-    raw = pd.read_csv('assets/models/jeff_multi_factor/raw_feat_lab.csv')
-    raw = raw.rename(columns={'Unnamed: 0':'date'})
-    raw['date'] = pd.to_datetime(raw['date'])
-    quarts = list(raw['date'].dt.quarter)
-    yrs = raw['date'].dt.year
-    tfs = ['{}_{}'.format(quarts[i], yrs[i]) for i in range(0, len(quarts))]
-    raw['quarter'] = tfs
-    stripped = raw.dropna()
-    for q in stripped['quarter'].unique():
-        part = stripped[stripped['quarter']==q]
-        part.to_csv('assets/models/jeff_multi_factor/{}_dat.csv'.format(q))
-    return stripped.sort_values(by='quarter')
-y = partition()
+def valuation():
+    df = pd.read_csv('assets/models/jeff_multi_factor/accounting_feats.csv')
+    df = df.rename(columns={'Unnamed: 0': 'date'})
+    df['date'] = pd.to_datetime(df['date']).dt.date
+    rics = list(df['Instrument'])
+    tics = [i.split('.')[0] for i in rics]
+    tics = ['BRK-B' if i == 'BRKb' else i for i in tics]
+    tics = ['BF-B' if i == 'BFb' else i for i in tics]
+    df['Instrument'] = tics
+    df = df.dropna(subset=['date'])
+    acts = df.filter(['Instrument', 'date', 'eps_excl_basic', 'bvps', 'cfo_ps', 'ebit',
+                      'ebitda', 'rev', 'debt', 'cash'])
+    px = pd.read_csv('assets/models/jeff_multi_factor/close_prices.csv')
+    px = px.rename(columns={'Unnamed: 0': 'date', 'ticker': 'Instrument'})
+    px['date'] = pd.to_datetime(px['date']).dt.date
+    valuation_df = px.merge(acts, on=['date', 'Instrument'], how='outer').fillna(method='ffill')
+    valuation_df = valuation_df.drop_duplicates()
+    valuation_df['p_e'] = valuation_df['close'] / valuation_df["eps_excl_basic"]
+    valuation_df['p_b'] = valuation_df['close'] / valuation_df["bvps"]
+    valuation_df['p_cf'] = valuation_df['close'] / valuation_df["cfo_ps"]
+    mkt_cap = pd.read_csv("assets/models/jeff_multi_factor/mkt_cap.csv", index_col=0)
+    mkt_cap.columns = [re.findall("(?<=\<)(.*?)(?=\>)", i)[0] for i in mkt_cap.columns]
+    mkt_cap.columns = [i.split('.')[0] for i in mkt_cap.columns]
+    mkt_cap = mkt_cap.reset_index()
+    mkt_cap = mkt_cap.rename(columns={'Dates': 'date'})
+    mkt_cap['date'] = pd.to_datetime(mkt_cap['date']).dt.date
+    mkt_values = pd.melt(mkt_cap, id_vars='date', var_name='Instrument', value_name='mkt_cap')
+    valuation_df = valuation_df.merge(mkt_values, on=['date', 'Instrument'], how='outer').dropna()
+    valuation_df['ev'] = valuation_df['mkt_cap'] + valuation_df['debt'] - valuation_df['cash']
+    valuation_df['ev_ebit'] = valuation_df['ev'] / valuation_df['ebit']
+    valuation_df['ev_ebitda'] = valuation_df['ev'] / valuation_df['ebitda']
+    valuation_df['ev_sales'] = valuation_df['ev'] / valuation_df['rev']
+    valuation_df = valuation_df.filter(['date', 'Instrument', 'p_e', 'p_b', 'p_cf', 'ev',
+                                        'ev_ebit', 'ev_ebitda', 'ev_sales'])
+    valuation_df.to_csv('assets/models/jeff_multi_factor/valuation.csv')
+    return valuation_df
+
+def technicals():
+    px = pd.read_csv('assets/models/jeff_multi_factor/close_prices.csv')
+    px = px.rename(columns={'Unnamed: 0': 'date', 'ticker': 'Instrument'})
+    px['date'] = pd.to_datetime(px['date']).dt.date
+    df = pd.DataFrame()
+    for s in px['Instrument'].unique():
+        stock = px[px['Instrument']==s]
+        stock['200_ma'] = stock['close'].ewm(span=200).mean()
+        stock['50_ma'] = stock['close'].ewm(span=50).mean()
+        df = pd.concat([df,stock])
+    df.to_csv('assets/models/jeff_multi_factor/moving_av.csv')
+    return df
+
+
+def merge_data():
+
+    mkt_vol = pd.read_csv('assets/models/jeff_multi_factor/mkt_vol_dat.csv')
+    mkt_vol = mkt_vol.rename(columns={'Unnamed: 0':'date'})
+    rics = list(mkt_vol['Instrument'])
+    tics = [i.split('.')[0] for i in rics]
+    tics = ['BRK-B' if i == 'BRKb' else i for i in tics]
+    tics = ['BF-B' if i == 'BFb' else i for i in tics]
+    mkt_vol['Instrument'] = tics
+    mkt_vol['date'] = pd.to_datetime(mkt_vol['date']).dt.date
+    mom_labs = pd.read_csv("assets/models/jeff_multi_factor/vol_labs.csv")
+    mom_labs = mom_labs.rename(columns={'Unnamed: 0':'date'})
+    mom_labs['date'] = pd.to_datetime(mom_labs['date']).dt.date
+    labs = mom_labs.filter(['Instrument', 'date', '1yr_ret', '3m_ret', '6m_ret'])
+    mom = mom_labs.drop(['1yr_ret', '3m_ret', '6m_ret'], axis=1)
+    val = pd.read_csv('assets/models/jeff_multi_factor/valuation.csv')
+    val['date'] = pd.to_datetime(val['date']).dt.date
+    tech = pd.read_csv('assets/models/jeff_multi_factor/moving_av.csv')
+    tech['date'] = pd.to_datetime(tech['date']).dt.date
+    act = pd.read_csv('assets/models/jeff_multi_factor/accounting_feats.csv')
+    rics = list(act['Instrument'])
+    tics = [i.split('.')[0] for i in rics]
+    tics = ['BRK-B' if i == 'BRKb' else i for i in tics]
+    tics = ['BF-B' if i == 'BFb' else i for i in tics]
+    act['Instrument'] = tics
+    act['date'] = pd.to_datetime(act['date']).dt.date
+    data = mkt_vol.merge(mom, on=['date', 'Instrument'], how='inner')
+    data = data.merge(val,on=['date', 'Instrument'], how='inner')
+    data = data.merge(tech, on=['date', 'Instrument'], how='inner')
+    data['date'] = pd.to_datetime(data['date']).dt.date
+    data = data.merge(act, on=['Instrument', 'date'], how='outer')
+    data = data.sort_values(by=['Instrument','date'])
+    data = data.drop_duplicates()
+    data = data.fillna(method='ffill').dropna()
+    labs = labs.sort_values(by=['Instrument','date'])
+    data = data.merge(labs, on=['Instrument', 'date'], how='outer')
+    data.to_csv('assets/models/jeff_multi_factor/aggregate_features.csv')
+
+    return data
+
+
+
+
+
+inc_bal = combine_inc_bal()
+mkt_feat = mkt_cap_feat()
+trad = merge_vol_mkt()
+labs_vol = creat_labs_vol()
+val = valuation()
+tech = technicals()
+data = merge_data()
 
