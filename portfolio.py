@@ -80,12 +80,14 @@ class portfolio:
             if self.current_cash > p_val:
                 if p_ticker in self.open_positions_dict:
                     self.open_positions_dict[p_ticker] += p_order
-                    
-                    # Adding current order to open_positions_df
+                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
                     self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
                                                    'Quantity':p_order,'Price':p_price},ignore_index=True)
                 else:
                     self.open_positions_dict[p_ticker] = p_order
+                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
                 self.hist_trades_dict[date][p_ticker] += p_order
                 self.current_cash -= p_val
                 self.hist_trades_df = self.hist_trades_df.append(
@@ -117,6 +119,8 @@ class portfolio:
                      'Ticker': s_ticker, 'Quantity': s_order,
                      'Ticker Value': s_price, 'Total Trade Value': s_val,
                      'Remaining Cash': self.current_cash}, ignore_index=True)
+            else:
+                print(f'You do not own {s_ticker}')
 
     def view_trade_history(self):
         return self.hist_trades_df.set_index('Date')
