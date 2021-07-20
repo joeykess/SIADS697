@@ -1,4 +1,6 @@
 import pickle
+
+import numpy as np
 from yahoo_fin import stock_info as si
 import re
 from datetime import datetime
@@ -160,9 +162,9 @@ def creat_labs_vol():
             ret_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_ret').shift(-252)
             ret_3m = px['adjclose'].pct_change(63).to_frame(name='3m_ret').shift(-63)
             ret_6m = px['adjclose'].pct_change(126).to_frame(name='6m_ret').shift(-126)
-            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')
-            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')
-            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")
+            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')*np.sqrt(252)
+            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')*np.sqrt(252)
+            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")*np.sqrt(252)
             px_based = ret_1yr.join(ret_3m, how='outer')
             px_based = px_based.join(ret_6m, how='outer')
             px_based = px_based.join(vol_1yr, how='outer')
@@ -183,9 +185,9 @@ def creat_labs_vol():
             ret_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_ret').shift(-252)
             ret_3m = px['adjclose'].pct_change(63).to_frame(name='3m_ret').shift(-63)
             ret_6m = px['adjclose'].pct_change(126).to_frame(name='6m_ret').shift(-126)
-            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')
-            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')
-            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")
+            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')*np.sqrt(252)
+            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')*np.sqrt(252)
+            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")*np.sqrt(252)
             mom_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_mom')
             mom_3m = px['adjclose'].pct_change(63).to_frame(name='3m_mom')
             mom_6m = px['adjclose'].pct_change(126).to_frame(name='6m_mom')
@@ -272,7 +274,7 @@ def merge_data():
     mom = mom_labs.drop(['1yr_ret', '3m_ret', '6m_ret'], axis=1)
     val = pd.read_csv('assets/models/jeff_multi_factor/valuation.csv')
     val['date'] = pd.to_datetime(val['date']).dt.date
-    tech = pd.read_csv('assets/models/jeff_multi_factor/moving_av.csv')
+    tech = pd.read_csv('assets/models/jeff_multi_factor/moving_av.csv', index_col=0)
     tech['date'] = pd.to_datetime(tech['date']).dt.date
     act = pd.read_csv('assets/models/jeff_multi_factor/accounting_feats.csv')
     rics = list(act['Instrument'])
@@ -299,11 +301,13 @@ def merge_data():
 
 
 
-inc_bal = combine_inc_bal()
-mkt_feat = mkt_cap_feat()
-trad = merge_vol_mkt()
-labs_vol = creat_labs_vol()
-val = valuation()
-tech = technicals()
-data = merge_data()
+#inc_bal = combine_inc_bal()
+#mkt_feat = mkt_cap_feat()
+#trad = merge_vol_mkt()
+#labs_vol = creat_labs_vol()
+#val = valuation()
+#tech = technicals()
+#data = merge_data()
+data = pd.read_csv('assets/models/jeff_multi_factor/aggregate_features.csv', index_col=0)
+data = data.drop(['Unnamed: 0_x','Unnamed: 0_y','close',], axis=1)
 
