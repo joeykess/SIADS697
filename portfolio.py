@@ -53,7 +53,7 @@ class portfolio:
         self.init_cash = value
         self.current_cash = value
         self.open_positions_dict = {}
-        self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity','Price'])
+        self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity', 'Price'])
         self.tracking_df = create_running_df()
         self.tracking_df.index = pd.to_datetime(self.tracking_df.index)
         self.hist_trades_dict = {}
@@ -109,10 +109,10 @@ class portfolio:
             if self.current_cash > p_val:
                 if p_ticker in self.open_positions_dict:
                     self.open_positions_dict[p_ticker] += p_order
-
                     # Adding current order to open_positions_df
-                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
-                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
+                    self.open_positions_df = self.open_positions_df.append({'Date': date, 'Ticker': p_ticker,
+                                                                            'Quantity': p_order, 'Price': p_price},
+                                                                           ignore_index=True)
                 else:
                     self.open_positions_dict[p_ticker] = p_order
                 self.hist_trades_dict[date][p_ticker] += p_order
@@ -153,6 +153,18 @@ class portfolio:
                      'Ticker Value': s_price, 'Total Trade Value': s_val,
                      'Remaining Cash': self.current_cash}, ignore_index=True)
         self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
+
+    def sell_open_position(self, tickers, date):
+        """
+        sells all open positions for specific tickers
+        :param tickers: list of tickers - or single ticker as string
+        :param date: date selling
+        """
+        if type(tickers) == str:
+            self.sell(sell_order=self.open_positions_dict[tickers], date=date)
+        else:
+            for ticker in tickers:
+                self.sell(sell_order=self.open_positions_dict[ticker], date=date)
 
     def sell_all(self, date):
         """
@@ -203,15 +215,16 @@ class portfolio:
         returns_df = returns_df.dropna()
 
         # formatting from Jeff's figures
-        returns_fig = px.line(returns_df['Rate of Return'].apply(lambda x:float(str(x).strip('%')) / 100),
+        returns_fig = px.line(returns_df['Rate of Return'].apply(lambda x: float(str(x).strip('%')) / 100),
                               title='Returns on Initial Investment', width=700, height=500)
         returns_fig.update_layout(width=950, height=300,
-                            margin=dict(l=20, r=20, t=50, b=10),
-                            paper_bgcolor='white',
-                            plot_bgcolor='white',
-                            legend=dict(orientation="h"),
-                            yaxis_tickformat='.2%',
-                            title=dict(text='Performance Chart', font=dict(size=20, color='black'), x=0.5, y=0.96))
+                                  margin=dict(l=20, r=20, t=50, b=10),
+                                  paper_bgcolor='white',
+                                  plot_bgcolor='white',
+                                  legend=dict(orientation="h"),
+                                  yaxis_tickformat='.2%',
+                                  title=dict(text='Performance Chart', font=dict(size=20, color='black'), x=0.5,
+                                             y=0.96))
         returns_fig.show()
         return returns_df
 
