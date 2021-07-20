@@ -1,22 +1,25 @@
 import pickle
-from yahoo_fin import stock_info as si
 import re
-from datetime import datetime
 from threading import Event
-import eikon as ek
-import pandas as pd
-from eikon.tools import get_date_from_today
-import config
+
 import DatastreamDSWS as DSWS
+import eikon as ek
+import numpy as np
+import pandas as pd
+from yahoo_fin import stock_info as si
+
+import config
 
 ek.set_app_key(config.ek_key())
 ds = DSWS.Datastream(username=config.username_ds(), password=config.pw_ds())
+
 
 def batch(iterable, n=1):
     """Helper function that assist in managing batch sizes"""
     l = len(iterable)
     for ndx in range(0, l, n):
         yield iterable[ndx:min(ndx + n, l)]
+
 
 def combine_inc_bal():
     """"""
@@ -34,7 +37,7 @@ def combine_inc_bal():
         inc_bal_1 = inc_bal_1.merge(cf, on=['Instrument', "Original Announcement Date Time"])
         inc_bal_1 = inc_bal_1.rename(columns={'Original Announcement Date Time': 'date',
                                               'EPS - Basic - incl Extraordinary Items, Common - Total': 'eps_basic',
-                                              'EPS - Basic - excl Extraordinary Items, Common - Total':'eps_excl_basic',
+                                              'EPS - Basic - excl Extraordinary Items, Common - Total': 'eps_excl_basic',
                                               'EPS - Diluted - excl Exord Items Applicable to Common Total': 'eps_dil',
                                               'EPS Basic incl Exord, Common - Total, PoP Diff': 'eps_growth',
                                               'Earnings before Interest & Taxes (EBIT)': 'ebit',
@@ -48,7 +51,7 @@ def combine_inc_bal():
                                               "Tangible Total Equity": "tang_book", "Debt - Total": "debt",
                                               'Total Long Term Capital': "lt_cap",
                                               'Intangible Assets - Total - Net': 'intang',
-                                              'Price to Book Value per Share - Issue':'bvps',
+                                              'Book Value per Share': 'bvps',
                                               "Net Cash Flow from Operating Activities": "ocf",
                                               'Capital Expenditures - Total': "capex",
                                               'Cash Flow from Operations per Share': 'cfo_ps',
@@ -98,6 +101,7 @@ def combine_inc_bal():
     inc_bal.to_csv('assets/models/jeff_multi_factor/accounting_feats.csv', index=False)
     return inc_bal
 
+
 def mkt_cap_feat():
     mkt_cap = pd.read_csv("assets/models/jeff_multi_factor/mkt_cap.csv", index_col=0)
     mkt_cap.columns = [re.findall("(?<=\<)(.*?)(?=\>)", i)[0] for i in mkt_cap.columns]
@@ -111,6 +115,7 @@ def mkt_cap_feat():
     mkt_cap_features = mkt_cap_features.join(mkt_cap3m, how='inner')
     mkt_cap_features.to_csv('assets/models/jeff_multi_factor/mkt_cap_feats.csv')
     return mkt_cap_features
+
 
 def merge_vol_mkt():
     mkt_cap = pd.read_csv("assets/models/jeff_multi_factor/mkt_cap_feats.csv", index_col=0)
@@ -142,6 +147,7 @@ def merge_vol_mkt():
     df.to_csv('assets/models/jeff_multi_factor/mkt_vol_dat.csv')
     return df
 
+
 def creat_labs_vol():
     with open("assets/models/jeff_multi_factor/spy_rics.pkl", "rb") as f:
         rics = pickle.load(f)
@@ -154,15 +160,18 @@ def creat_labs_vol():
     for s in tics:
         try:
             px = si.get_data(s)
-            px = px.rename(columns = {"ticker":"Instrument"})
+            px = px.rename(columns={"ticker": "Instrument"})
             prices = px.filter(['Instrument', 'close'])
-            px_dat = pd.concat([px_dat,prices])
+            px_dat = pd.concat([px_dat, prices])
             ret_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_ret').shift(-252)
             ret_3m = px['adjclose'].pct_change(63).to_frame(name='3m_ret').shift(-63)
             ret_6m = px['adjclose'].pct_change(126).to_frame(name='6m_ret').shift(-126)
-            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')
-            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')
-            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")
+            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol') * np.sqrt(252)
+            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol') * np.sqrt(252)
+            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol") * np.sqrt(252)
+            mom_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_mom')
+            mom_3m = px['adjclose'].pct_change(63).to_frame(name='3m_mom')
+            mom_6m = px['adjclose'].pct_change(126).to_frame(name='6m_mom')
             px_based = ret_1yr.join(ret_3m, how='outer')
             px_based = px_based.join(ret_6m, how='outer')
             px_based = px_based.join(vol_1yr, how='outer')
@@ -177,15 +186,15 @@ def creat_labs_vol():
         except:
             timer.wait(5)
             px = si.get_data(s)
-            px = px.rename(columns = {"ticker":"Instrument"})
+            px = px.rename(columns={"ticker": "Instrument"})
             prices = px.filter(['Instrument', 'close'])
-            px_dat = pd.concat([px_dat,prices])
+            px_dat = pd.concat([px_dat, prices])
             ret_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_ret').shift(-252)
             ret_3m = px['adjclose'].pct_change(63).to_frame(name='3m_ret').shift(-63)
             ret_6m = px['adjclose'].pct_change(126).to_frame(name='6m_ret').shift(-126)
-            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol')
-            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol')
-            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol")
+            vol_1yr = px['adjclose'].pct_change().rolling(252).std().to_frame(name='1yr_vol') * np.sqrt(252)
+            vol_3m = px['adjclose'].pct_change().rolling(63).std().to_frame(name='3mth_vol') * np.sqrt(252)
+            vol_6m = px['adjclose'].pct_change().rolling(126).std().to_frame(name="6mth_vol") * np.sqrt(252)
             mom_1yr = px['adjclose'].pct_change(252).to_frame(name='1yr_mom')
             mom_3m = px['adjclose'].pct_change(63).to_frame(name='3m_mom')
             mom_6m = px['adjclose'].pct_change(126).to_frame(name='6m_mom')
@@ -203,6 +212,7 @@ def creat_labs_vol():
     px_dat.to_csv('assets/models/jeff_multi_factor/close_prices.csv')
     df.to_csv("assets/models/jeff_multi_factor/vol_labs.csv")
     return df
+
 
 def valuation():
     df = pd.read_csv('assets/models/jeff_multi_factor/accounting_feats.csv')
@@ -241,24 +251,24 @@ def valuation():
     valuation_df.to_csv('assets/models/jeff_multi_factor/valuation.csv')
     return valuation_df
 
+
 def technicals():
     px = pd.read_csv('assets/models/jeff_multi_factor/close_prices.csv')
     px = px.rename(columns={'Unnamed: 0': 'date', 'ticker': 'Instrument'})
     px['date'] = pd.to_datetime(px['date']).dt.date
     df = pd.DataFrame()
     for s in px['Instrument'].unique():
-        stock = px[px['Instrument']==s]
+        stock = px[px['Instrument'] == s]
         stock['200_ma'] = stock['close'].ewm(span=200).mean()
         stock['50_ma'] = stock['close'].ewm(span=50).mean()
-        df = pd.concat([df,stock])
+        df = pd.concat([df, stock])
     df.to_csv('assets/models/jeff_multi_factor/moving_av.csv')
     return df
 
 
 def merge_data():
-
     mkt_vol = pd.read_csv('assets/models/jeff_multi_factor/mkt_vol_dat.csv')
-    mkt_vol = mkt_vol.rename(columns={'Unnamed: 0':'date'})
+    mkt_vol = mkt_vol.rename(columns={'Unnamed: 0': 'date'})
     rics = list(mkt_vol['Instrument'])
     tics = [i.split('.')[0] for i in rics]
     tics = ['BRK-B' if i == 'BRKb' else i for i in tics]
@@ -266,13 +276,13 @@ def merge_data():
     mkt_vol['Instrument'] = tics
     mkt_vol['date'] = pd.to_datetime(mkt_vol['date']).dt.date
     mom_labs = pd.read_csv("assets/models/jeff_multi_factor/vol_labs.csv")
-    mom_labs = mom_labs.rename(columns={'Unnamed: 0':'date'})
+    mom_labs = mom_labs.rename(columns={'Unnamed: 0': 'date'})
     mom_labs['date'] = pd.to_datetime(mom_labs['date']).dt.date
     labs = mom_labs.filter(['Instrument', 'date', '1yr_ret', '3m_ret', '6m_ret'])
     mom = mom_labs.drop(['1yr_ret', '3m_ret', '6m_ret'], axis=1)
     val = pd.read_csv('assets/models/jeff_multi_factor/valuation.csv')
     val['date'] = pd.to_datetime(val['date']).dt.date
-    tech = pd.read_csv('assets/models/jeff_multi_factor/moving_av.csv')
+    tech = pd.read_csv('assets/models/jeff_multi_factor/moving_av.csv', index_col=0)
     tech['date'] = pd.to_datetime(tech['date']).dt.date
     act = pd.read_csv('assets/models/jeff_multi_factor/accounting_feats.csv')
     rics = list(act['Instrument'])
@@ -282,21 +292,18 @@ def merge_data():
     act['Instrument'] = tics
     act['date'] = pd.to_datetime(act['date']).dt.date
     data = mkt_vol.merge(mom, on=['date', 'Instrument'], how='inner')
-    data = data.merge(val,on=['date', 'Instrument'], how='inner')
+    data = data.merge(val, on=['date', 'Instrument'], how='inner')
     data = data.merge(tech, on=['date', 'Instrument'], how='inner')
     data['date'] = pd.to_datetime(data['date']).dt.date
     data = data.merge(act, on=['Instrument', 'date'], how='outer')
-    data = data.sort_values(by=['Instrument','date'])
+    data = data.sort_values(by=['Instrument', 'date'])
     data = data.drop_duplicates()
     data = data.fillna(method='ffill').dropna()
-    labs = labs.sort_values(by=['Instrument','date'])
+    labs = labs.sort_values(by=['Instrument', 'date'])
     data = data.merge(labs, on=['Instrument', 'date'], how='outer')
     data.to_csv('assets/models/jeff_multi_factor/aggregate_features.csv')
 
     return data
-
-
-
 
 
 inc_bal = combine_inc_bal()
@@ -306,4 +313,5 @@ labs_vol = creat_labs_vol()
 val = valuation()
 tech = technicals()
 data = merge_data()
+data = pd.read_csv('assets/models/jeff_multi_factor/aggregate_features.csv', index_col=0)
 
