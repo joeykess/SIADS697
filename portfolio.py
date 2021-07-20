@@ -138,33 +138,29 @@ class portfolio:
         :param date: mm/dd/yyyy
         """
         
-        # Checking to ensure dictonary is not empty
-        if not sell_order:
-            pass
-        else:
-            if date not in self.hist_trades_dict:
-                if len(self.hist_trades_dict) == 0:
-                    self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
-                else:
-                    self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
+        if date not in self.hist_trades_dict:
+            if len(self.hist_trades_dict) == 0:
+                self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
+            else:
+                self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
 
-            # goes through order and sells all necessary stocks
-            for s_ticker, s_order in sell_order.items():
-                s_price = self.get_price(date=date, ticker=s_ticker)
-                s_val = s_order * s_price
-                if s_ticker in self.open_positions_dict:
-                    self.hist_trades_dict[date][s_ticker] -= s_order
-                    self.open_positions_dict[s_ticker] -= s_order
-                    self.current_cash += s_val
-                    self.hist_trades_df = self.hist_trades_df.append(
-                        {'Date': date, 'Order Type': 'sell',
-                         'Ticker': s_ticker, 'Quantity': s_order,
-                         'Ticker Value': s_price, 'Total Trade Value': s_val,
-                         'Remaining Cash': self.current_cash}, ignore_index=True)
+        # goes through order and sells all necessary stocks
+        for s_ticker, s_order in sell_order.items():
+            s_price = self.get_price(date=date, ticker=s_ticker)
+            s_val = s_order * s_price
+            if s_ticker in self.open_positions_dict:
+                self.hist_trades_dict[date][s_ticker] -= s_order
+                self.open_positions_dict[s_ticker] -= s_order
+                self.current_cash += s_val
+                self.hist_trades_df = self.hist_trades_df.append(
+                    {'Date': date, 'Order Type': 'sell',
+                     'Ticker': s_ticker, 'Quantity': s_order,
+                     'Ticker Value': s_price, 'Total Trade Value': s_val,
+                     'Remaining Cash': self.current_cash}, ignore_index=True)
 
-                else:
-                    print(f'You do not own {s_ticker}')
-            self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
+            else:
+                print(f'You do not own {s_ticker}')
+        self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
 
     def sell_open_position(self, tickers, date):
         """
