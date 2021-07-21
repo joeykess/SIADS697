@@ -137,6 +137,7 @@ class portfolio:
         :param sell_order: {ticker:amount}
         :param date: mm/dd/yyyy
         """
+        
         if date not in self.hist_trades_dict:
             if len(self.hist_trades_dict) == 0:
                 self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
