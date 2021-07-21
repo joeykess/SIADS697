@@ -9,3 +9,4 @@
 # Omitting historical stocks
 /historical-symbols/
 /cnn_images
+/short_term_symbols
