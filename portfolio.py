@@ -109,12 +109,16 @@ class portfolio:
             if self.current_cash > p_val:
                 if p_ticker in self.open_positions_dict:
                     self.open_positions_dict[p_ticker] += p_order
-                    # Adding current order to open_positions_df
-                    self.open_positions_df = self.open_positions_df.append({'Date': date, 'Ticker': p_ticker,
-                                                                            'Quantity': p_order, 'Price': p_price},
-                                                                           ignore_index=True)
+
+                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
+
                 else:
                     self.open_positions_dict[p_ticker] = p_order
+                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
                 self.hist_trades_dict[date][p_ticker] += p_order
                 self.current_cash -= p_val
                 self.hist_trades_df = self.hist_trades_df.append(
@@ -133,6 +137,7 @@ class portfolio:
         :param sell_order: {ticker:amount}
         :param date: mm/dd/yyyy
         """
+        
         if date not in self.hist_trades_dict:
             if len(self.hist_trades_dict) == 0:
                 self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
@@ -152,6 +157,9 @@ class portfolio:
                      'Ticker': s_ticker, 'Quantity': s_order,
                      'Ticker Value': s_price, 'Total Trade Value': s_val,
                      'Remaining Cash': self.current_cash}, ignore_index=True)
+
+            else:
+                print(f'You do not own {s_ticker}')
         self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
 
     def sell_open_position(self, tickers, date):
