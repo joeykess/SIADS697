@@ -24,7 +24,9 @@ def create_running_df():
                 if file.endswith('.csv'):
                     symbol = re.findall(r'(.*).csv', file)[0]
                     temp_df = pd.read_csv(path_to_files + '/' + file).set_index(['Date'])
-                    temp_df[symbol] = temp_df[['Close', 'Open', 'High', 'Low']].mean(axis=1)
+                    temp_df[symbol] = temp_df['Close']
+                    # Removing averaging of price to use more accurate buy/sell price
+#                     temp_df[symbol] = temp_df[['Close', 'Open', 'High', 'Low']].mean(axis=1)
                     # since we're trading in the 'middle' of the day so we can't assume pricing is Open or Close
                     if df.shape[0] == 0:
                         df = temp_df[symbol].to_frame(name=symbol)
@@ -35,6 +37,73 @@ def create_running_df():
         df.to_csv('assets/hist_dailies.csv')
     df['Date'] = pd.to_datetime(df['Date'])
     return df.set_index(['Date'])
+
+# Helper function to allow user to create list of tickers sell (Note: All positions are sold)
+def create_sell_dict(ticker_preds,open_positions_dict,sell_threshold = -0.05):
+
+    # Establish weights for selling stocks - Not working, only selling full positions
+    # How do we deal with cascading price reductions (e.g. only lose 5%, but time after time)
+    sell_stocks = ticker_preds[ticker_preds['earn_ratio'] <= sell_threshold]
+
+    sell_dict = {}
+
+    for ticker in sell_stocks.ticker.unique():
+        try: 
+            # Sell all open positions
+            sell_dict[ticker] = open_positions_dict[ticker]
+
+        except: # or pass if they do not exist
+            pass
+
+    return sell_dict
+
+# Helper function to allow user to create dictionary of tickers and quantities to buy
+def create_buy_dict(ticker_preds,current_cash,buy_threshold=0.05,buy_ratios=None):
+
+    # Establishing weights to buy stocks
+    buy_stocks = ticker_preds[ticker_preds['earn_ratio'] >= buy_threshold].sort_values(by='earn_ratio',ascending=False)
+
+    buy_dict = {}
+
+    # Establish weights for buying stocks. Allows you to bring in your owns buy ratios
+    if buy_ratios == None:
+        buy_ratios = buy_stocks.earn_ratio / buy_stocks.earn_ratio.sum()
+    else:
+        pass
+
+    # Getting cash amount that can be used to buy; Can only buy full shares
+    buy_dict = dict(zip(buy_stocks.ticker, (current_cash * buy_ratios / buy_stocks.curr_price).astype('int')))
+
+    # Removing keys where we are not buying any stock
+    del_list = []
+    for key in buy_dict.keys():
+        if buy_dict[key] == 0:
+            del_list.append(key)
+
+    for key in del_list:
+        del buy_dict[key]
+
+    return buy_dict
+
+# Helper function to allow user to get portfolio value for current open positions for given date
+def get_curr_portfolio_value(open_positions_dict, port, date):
+
+    output_dict = {}
+    
+    # Getting key closest to date picked, but in past
+    try:
+        open_positions_dict[date]
+        date_key = date
+    except:
+        date_key = [x for x in open_positions_dict.keys() if x < date][-1]
+
+    for ticker, quantity in open_positions_dict[date_key].items():
+
+        curr_price = port.get_price(date, ticker)
+
+        output_dict[ticker] = {'date':date,'price':curr_price,'quantity':quantity,'curr_val':curr_price*quantity}
+
+    return output_dict
 
 
 class portfolio:
@@ -56,7 +125,7 @@ class portfolio:
         self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity', 'Price'])
         self.tracking_df = create_running_df()
         self.tracking_df.index = pd.to_datetime(self.tracking_df.index)
-        self.hist_trades_dict = {}
+#         self.hist_trades_dict = {}
         self.hist_trades_df = pd.DataFrame(columns=[
             'Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'
         ])
@@ -94,11 +163,11 @@ class portfolio:
         :param date: mm/dd/yyyy
         """
         # brings trading dictionary up to date with what was previously held
-        if date not in self.hist_trades_dict:
-            if len(self.hist_trades_dict) == 0:
-                self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
-            else:
-                self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
+#         if date not in self.hist_trades_dict:
+#             if len(self.hist_trades_dict) == 0:
+#                 self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
+#             else:
+#                 self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
         # goes through order and buys all necessary stocks
         # returns issue string if not enough cash present
 
@@ -106,28 +175,36 @@ class portfolio:
         for p_ticker, p_order in purchase_order.items():
             p_price = self.get_price(date=date, ticker=p_ticker)
             p_val = p_order * p_price
-            if self.current_cash > p_val:
-                if p_ticker in self.open_positions_dict:
-                    self.open_positions_dict[p_ticker] += p_order
+            
+            # Checking to see if enough funds exist to buy current selection and adjusting shares if not
+            if self.current_cash < p_val:
+                
+                # Getting max quantity available to buy
+                p_order = int(self.current_cash / p_price)
+                p_val = p_order * p_price
+                print(f'Only buying {p_order} of {p_ticker} due to insufficient funds')
+                
+            if p_ticker in self.open_positions_dict:
+                self.open_positions_dict[p_ticker] += p_order
 
-                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
-                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
-                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
+                # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                               'Quantity':p_order,'Price':p_price},ignore_index=True)
 
-                else:
-                    self.open_positions_dict[p_ticker] = p_order
-                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
-                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
-                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
-                self.hist_trades_dict[date][p_ticker] += p_order
-                self.current_cash -= p_val
-                self.hist_trades_df = self.hist_trades_df.append(
-                    {'Date': date, 'Order Type': 'buy',
-                     'Ticker': p_ticker, 'Quantity': p_order,
-                     'Ticker Value': p_price, 'Total Trade Value': p_val,
-                     'Remaining Cash': self.current_cash}, ignore_index=True)
             else:
-                return f"Cannot purchase {p_order} shares of {p_ticker} for a total of ${p_val} because current cash is ${self.current_cash}"
+                self.open_positions_dict[p_ticker] = p_order
+                # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                               'Quantity':p_order,'Price':p_price},ignore_index=True)
+#             self.hist_trades_dict[date][p_ticker] += p_order
+            self.current_cash -= p_val
+            self.hist_trades_df = self.hist_trades_df.append(
+                {'Date': date, 'Order Type': 'buy',
+                 'Ticker': p_ticker, 'Quantity': p_order,
+                 'Ticker Value': p_price, 'Total Trade Value': p_val,
+                 'Remaining Cash': self.current_cash}, ignore_index=True)
+#             else:
+#                 return f"Cannot purchase {p_order} shares of {p_ticker} for a total of ${p_val} because current cash is ${self.current_cash}"
         self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
         return
 
@@ -138,19 +215,25 @@ class portfolio:
         :param date: mm/dd/yyyy
         """
         
-        if date not in self.hist_trades_dict:
-            if len(self.hist_trades_dict) == 0:
-                self.hist_trades_dict[date] = {}
-            else:
-                self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
+#         if date not in self.hist_trades_dict:
+#             if len(self.hist_trades_dict) == 0:
+#                 self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
+#             else:
+#                 self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
 
         # goes through order and sells all necessary stocks
         for s_ticker, s_order in sell_order.items():
             s_price = self.get_price(date=date, ticker=s_ticker)
             s_val = s_order * s_price
             if s_ticker in self.open_positions_dict:
-                self.hist_trades_dict[date][s_ticker] -= s_order
+                
+#                 self.hist_trades_dict[date][s_ticker] -= s_order
+                
+                # Updating the open_positions_dict
                 self.open_positions_dict[s_ticker] -= s_order
+                if self.open_positions_dict[s_ticker] == 0:
+                    del self.open_positions_dict[s_ticker] # Removing ticker after selling all
+                
                 self.current_cash += s_val
                 self.hist_trades_df = self.hist_trades_df.append(
                     {'Date': date, 'Order Type': 'sell',
@@ -203,7 +286,7 @@ class portfolio:
         cash_df = cash_df.reindex(pd.date_range(self.start_date, end_date, freq='B')).ffill()
         cash_df.index = pd.to_datetime(cash_df.index)
         # gets all historical trades
-        ticker_df = pd.DataFrame.from_dict(self.hist_trades_dict, orient='index')
+#         ticker_df = pd.DataFrame.from_dict(self.hist_trades_dict, orient='index')
         ticker_df.index = pd.to_datetime(ticker_df.index)
         ticker_df = ticker_df.reindex(pd.date_range(start_date, end_date, freq='B')).ffill()
         # muted FutureWarning: Indexing a timezone-naive DatetimeIndex with a timezone-aware datetime is
@@ -236,21 +319,20 @@ class portfolio:
         returns_fig.show()
         return returns_df
 
-
 if __name__ == '__main__':
     # commence example portfolio with $1M on 2015-01-05
     # will purchase AAPL at various amounts and then use sell all function to liquidate account of all shares
     # buy/sell with order format x.buy({ticker:amount}, date=trading_date_only_please)
     # best way to use this with a model is to loop through trading dates within start and end date that you choose
     # example-Joey will test his model with unseen data (only training on pre-2020, and testing on 2020-present)
-    ptflio = portfolio(start_date='2015-01-05', value=100000)
-    ptflio.buy(purchase_order={'AAPL': 100}, date='2015-01-05')
-    ptflio.buy(purchase_order={'AAPL': 2}, date='2020-5-26')
-    ptflio.buy(purchase_order={'AAPL': 2}, date='2020-8-24')
-    ptflio.buy(purchase_order={'AAPL': 2}, date='2020-10-02')
-    ptflio.buy(purchase_order={'AAPL': 2}, date='2020-11-02')
-    ptflio.buy(purchase_order={'AAPL': 2}, date='2020-12-22')
-    ptflio.sell(sell_order={'AAPL': 2}, date='2020-12-22')
-    ptflio.sell_all(date='2020-12-22')
-    print(ptflio.calculate_daily_returns())
+#     ptflio = portfolio(start_date='2015-01-05', value=100000)
+#     ptflio.buy(purchase_order={'AAPL': 100}, date='2015-01-05')
+#     ptflio.buy(purchase_order={'AAPL': 2}, date='2020-5-26')
+#     ptflio.buy(purchase_order={'AAPL': 2}, date='2020-8-24')
+#     ptflio.buy(purchase_order={'AAPL': 2}, date='2020-10-02')
+#     ptflio.buy(purchase_order={'AAPL': 2}, date='2020-11-02')
+#     ptflio.buy(purchase_order={'AAPL': 2}, date='2020-12-22')
+#     ptflio.sell(sell_order={'AAPL': 2}, date='2020-12-22')
+#     ptflio.sell_all(date='2020-12-22')
+#     print(ptflio.calculate_daily_returns())
     ptflio.reset_account()
