@@ -140,7 +140,7 @@ class portfolio:
         
         if date not in self.hist_trades_dict:
             if len(self.hist_trades_dict) == 0:
-                self.hist_trades_dict[date] = {i: 0 for i in self.tracking_df.columns.tolist()}
+                self.hist_trades_dict[date] = {}
             else:
                 self.hist_trades_dict[date] = self.hist_trades_dict[list(self.hist_trades_dict.keys())[-1]].copy()
 

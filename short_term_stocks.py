@@ -12,7 +12,7 @@ def get_short_stock_info():
     Will be choosing 10 stocks that make up the top of the S&P500
     """
     symbol_list = ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']
-    # ones that work with alpha vantage (no nasdaq) NVDA, AMD, JPM, JNJ, MRNA, F, TSLA, MSFT, BAC, BABA, SPY, QQQ
+    # ones that work with alpha vantage (no nasdaq)
     # chosen for high volume and availability on alpha vantage
     av_api_key = os.getenv('ALPHAVANTAGE_API_KEY')
     slices = ['year{}month{}'.format(a, b) for a in range(1, 3) for b in range(1, 13)]
@@ -25,7 +25,6 @@ def get_short_stock_info():
             new_df = pd.read_csv(csv_url, header=0)
             ticker_df = ticker_df.append(new_df)
         ticker_df.to_csv('assets/short_term_symbols/{}.csv'.format(ticker))
-        print(f'Finished with {ticker}')
         time.sleep(15)
     print("Done!")
 
