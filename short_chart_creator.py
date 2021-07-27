@@ -36,7 +36,6 @@ def main(ticker, num_days):
     df['time'] = pd.to_datetime(df['time'])
     df = df.set_index(df['time']).drop(columns=['time'])
     df = df.resample('5min').first()
-    print(df.shape)
     df[['open', 'high', 'low', 'close']] = df[['open', 'high', 'low', 'close']].ffill()
     df['volume'] = df['volume'].fillna(0)
     df['MA12'] = df['close'].rolling(window=12).mean()
@@ -47,26 +46,28 @@ def main(ticker, num_days):
     df = df.iloc[11:]
     for start in range(0, df.shape[0], num_days):
         data = df.iloc[start:start + num_days].copy()
-        # when half the data is filled in skip for training purpose
-        if data['volume'].value_counts()[0.0] < 6:
-            last_point = data[['open', 'high', 'low', 'close']].iloc[0].mean()
-            next_points = [last_point]
-            for index, row in df.iloc[start + 1:start + 11].iterrows():
-                if row['volume'] > 0.0 and len(next_points) <= 5:
-                    next_points.append(row[['open', 'high', 'low', 'close']].mean())
-            result = []
-            for ind, j in enumerate(next_points[:-1]):
-                n = next_points[ind + 1]
-                if j > n:
-                    result.append('up')
-                elif j == n:
-                    result.append('same')
-                else:
-                    result.append('down')
-            folder = '_'.join(result)
-            file = ticker + '_' + str(start)
+        # when a quarter the data is filled in skip for training purpose
+        last_point = data[['open', 'high', 'low', 'close']].iloc[0].mean()
+        next_points = [last_point]
+        for index, row in df.iloc[start + 1:start + 11].iterrows():
+            if row['volume'] > 0.0 and len(next_points) <= 3:
+                next_points.append(row[['open', 'high', 'low', 'close']].mean())
+        result = []
+        for ind, j in enumerate(next_points[:-1]):
+            n = next_points[ind + 1]
+            if j > n:
+                result.append('up')
+            elif j == n:
+                result.append('same')
+            else:
+                result.append('down')
+        folder = '_'.join(result)
+        file = ticker + '_' + str(start)
+        if 0.0 in data['volume'].value_counts():
+            if data['volume'].value_counts()[0.0] <= 3:
+                create_candles(data, folder, file)
+        else:
             create_candles(data, folder, file)
-
 
 if __name__ == '__main__':
     symbol_list = ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']
