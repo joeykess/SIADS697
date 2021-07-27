@@ -181,28 +181,35 @@ class portfolio:
                 
                 # Getting max quantity available to buy
                 p_order = int(self.current_cash / p_price)
-                p_val = p_order * p_price
-                print(f'Only buying {p_order} of {p_ticker} due to insufficient funds')
                 
-            if p_ticker in self.open_positions_dict:
-                self.open_positions_dict[p_ticker] += p_order
-
-                # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
-                self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
-                                               'Quantity':p_order,'Price':p_price},ignore_index=True)
+                p_val = p_order * p_price
+                
+            # Ensuring we don't buy zero shares
+            if p_val == 0:
+                    pass    
 
             else:
-                self.open_positions_dict[p_ticker] = p_order
-                # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
-                self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
-                                               'Quantity':p_order,'Price':p_price},ignore_index=True)
-#             self.hist_trades_dict[date][p_ticker] += p_order
-            self.current_cash -= p_val
-            self.hist_trades_df = self.hist_trades_df.append(
-                {'Date': date, 'Order Type': 'buy',
-                 'Ticker': p_ticker, 'Quantity': p_order,
-                 'Ticker Value': p_price, 'Total Trade Value': p_val,
-                 'Remaining Cash': self.current_cash}, ignore_index=True)
+                print(f'Only buying {p_order} of {p_ticker} due to insufficient funds')
+                
+                if p_ticker in self.open_positions_dict:
+                    self.open_positions_dict[p_ticker] += p_order
+
+                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
+
+                else:
+                    self.open_positions_dict[p_ticker] = p_order
+                    # Adding current order to open_positions_df - WILL NOT WORK FOR MORE FREQUENT THAN DAILY
+                    self.open_positions_df = self.open_positions_df.append({'Date':date,'Ticker':p_ticker,
+                                                   'Quantity':p_order,'Price':p_price},ignore_index=True)
+    #             self.hist_trades_dict[date][p_ticker] += p_order
+                self.current_cash -= p_val
+                self.hist_trades_df = self.hist_trades_df.append(
+                    {'Date': date, 'Order Type': 'buy',
+                     'Ticker': p_ticker, 'Quantity': p_order,
+                     'Ticker Value': p_price, 'Total Trade Value': p_val,
+                     'Remaining Cash': self.current_cash}, ignore_index=True)
 #             else:
 #                 return f"Cannot purchase {p_order} shares of {p_ticker} for a total of ${p_val} because current cash is ${self.current_cash}"
         self.hist_cash_dict[datetime.strptime(date, '%Y-%m-%d')] = self.current_cash
