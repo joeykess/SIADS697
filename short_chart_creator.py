@@ -39,7 +39,6 @@ def main(ticker, num_days):
     df[['open', 'high', 'low', 'close']] = df[['open', 'high', 'low', 'close']].ffill()
     df['volume'] = df['volume'].fillna(0)
     df['MA12'] = df['close'].rolling(window=12).mean()
-
     df['upper_bb'], df['lower_bb'] = bollinger_bands(df['close'], df['MA12'], 12)
     df['ema12'] = df['close'].ewm(span=12).mean()
     df = df[(df.index < '2020-07-19')]
@@ -49,13 +48,14 @@ def main(ticker, num_days):
         # when a quarter the data is filled in skip for training purpose
         last_point = data[['open', 'high', 'low', 'close']].iloc[0].mean()
         next_points = [last_point]
-        for index, row in df.iloc[start + 1:start + 11].iterrows():
+        # checks within next 2 hours if going up or down (if no volume present)
+        for index, row in df.iloc[start + 1:start + 24].iterrows():
             if row['volume'] > 0.0 and len(next_points) <= 3:
                 next_points.append(row[['open', 'high', 'low', 'close']].mean())
         result = []
         for ind, j in enumerate(next_points[:-1]):
             n = next_points[ind + 1]
-            if j > n:
+            if n > j:
                 result.append('up')
             elif j == n:
                 result.append('same')
@@ -64,10 +64,11 @@ def main(ticker, num_days):
         folder = '_'.join(result)
         file = ticker + '_' + str(start)
         if 0.0 in data['volume'].value_counts():
-            if data['volume'].value_counts()[0.0] <= 3:
+            if data['volume'].value_counts()[0.0] <= 4:
                 create_candles(data, folder, file)
         else:
             create_candles(data, folder, file)
+
 
 if __name__ == '__main__':
     symbol_list = ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']
