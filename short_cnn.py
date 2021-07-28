@@ -1,21 +1,27 @@
 import splitfolders
+import tensorflow
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Dropout, Flatten, Dense, Activation
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.models import Sequential
+from keras import metrics
 from keras import callbacks
 import time
 import os
+import pickle
 
 # HAS TO BE RUN ON CLI in UBUNTU 20.04 to use CUDA - venv and windows CUDA broken on my PC
 # - Joey
 
 
-def train_cnn_model(width, height, num_samples):
+def train_cnn_model(width, height, num_samples, needs_split=False):
     start = time.time()
-    splitfolders.ratio("assets/cnn_images/", output="assets/cnn_images/output",
+    if needs_split:
+        splitfolders.ratio("assets/cnn_images/", output="assets/cnn_images/output",
                         seed=0, ratio=(0.8, 0.1, 0.1), group_prefix=None)
 
+    model_metrics = ['accuracy', metrics.CategoricalCrossentropy(), metrics.Precision(),
+                     metrics.Recall(), metrics.CategoricalAccuracy()]
     img_width, img_height = width, height
     train_data_dir = 'assets/cnn_images/output/train'
     val_data_dir = 'assets/cnn_images/output/val'
@@ -52,7 +58,7 @@ def train_cnn_model(width, height, num_samples):
     model.summary()
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
-                  metrics=['accuracy', 'precision', 'recall'])
+                  metrics=model_metrics)
 
     train_datagen = ImageDataGenerator()
     test_datagen = ImageDataGenerator()
@@ -73,7 +79,7 @@ def train_cnn_model(width, height, num_samples):
     tb_cb = callbacks.TensorBoard(log_dir=log_dir, histogram_freq=0)
     cbks = [tb_cb]
 
-    model.fit(
+    history = model.fit(
         train_generator,
         batch_size=batch_size,
         steps_per_epoch=256,
@@ -87,6 +93,8 @@ def train_cnn_model(width, height, num_samples):
         os.mkdir(target_dir)
     model.save('assets/models/joey_cnn_intraday/cnn_model.h5')
     model.save_weights('assets/models/joey_cnn_intraday/cnn_weights.h5')
+
+    pickle.dump(history.history, open('assets/models/joey_cnn_intraday/history.pkl', 'wb'))
 
     # Calculate execution time
     end = time.time()
@@ -103,4 +111,4 @@ def train_cnn_model(width, height, num_samples):
 
 
 if __name__ == '__main__':
-    train_cnn_model(width=203, height=202, num_samples=35664)
+    train_cnn_model(width=203, height=202, num_samples=35664, needs_split=False)

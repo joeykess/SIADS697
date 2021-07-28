@@ -1,5 +1,7 @@
 import pandas as pd
 import mplfinance as mpf
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
@@ -27,7 +29,10 @@ def create_candles(plot_df, folder, file):
     if not os.path.exists(save_spot):
         os.makedirs(save_spot)
     plt.savefig(f'{save_spot}/{file}.png', dpi=50, bbox_inches='tight')
-    plt.close('all')
+    try:
+        plt.close()
+    except Exception as e:
+        print(e)
 
 
 def main(ticker, num_days):
