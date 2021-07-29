@@ -26,7 +26,7 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     train_data_dir = 'assets/cnn_images/output/train'
     val_data_dir = 'assets/cnn_images/output/val'
     test_data_dir = 'assets/cnn_images/output/test'
-    epochs = 100
+    epochs = 250
     validation_steps = 300
     batch_size = 32
     num_train_samples = int(num_samples * 0.8)
@@ -56,7 +56,7 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     model.add(Dense(classes_num, activation='softmax'))
 
     model.summary()
-    model.compile(loss='categorical_crossentropy',
+    model.compile(loss='binary_crossentropy',
                   optimizer='adam',
                   metrics=model_metrics)
 
@@ -116,6 +116,7 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
 
 
 if __name__ == '__main__':
+    needs_split = True
     if os.path.exists('assets/cnn_images/output'):
         needs_split=False
-    train_cnn_model(width=203, height=202, num_samples=35664, needs_split=True)
+    train_cnn_model(width=203, height=202, num_samples=35664, needs_split=needs_split)

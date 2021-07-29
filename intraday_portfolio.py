@@ -8,7 +8,6 @@ import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-
 def create_tracking_dfs():
     results = {}
     for symbol in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
@@ -22,9 +21,8 @@ def create_tracking_dfs():
         results[symbol] = df
     return results
 
-
-class portfolio:
-    def __init__(self, start_date='2019-07-31', value=1000000, end_date='2021-07-19'):
+class intraday_portfolio:
+    def __init__(self, start_date='2020-07-20', value=1000000, end_date='2021-07-19'):
         """
         :param start_date: beginning date to start portfolio
         :param value: amount of initial cash to use to buy shares
@@ -52,10 +50,14 @@ class portfolio:
 
     def get_price(self, date, ticker):
         """
+        :param ticker: ticker string
         :param date: datetime object with time and date '2021-07-19 04:00:00' from a dataframe index
         """
         ticker = ticker.upper()
-        return self.tracking_dfs[ticker]
+        try:
+            return self.tracking_dfs[ticker].loc[date]
+        except:
+            return -1
 
     def buy(self, purchase_order, date):
         """
@@ -176,12 +178,17 @@ class portfolio:
         return returns_df
 
 
-def intraday_trading(pf):
-    model = keras.models.load_model('assets/models/joey_cnn_intraday/cnn_model.h5')
-    model.set_weights('assets/models/joey_cnn_intraday/cnn_weights.h5')
+def intraday_trading(pf, model_path, weights_path):
+    model = keras.models.load_model(model_path)
+    model.set_weights(weights_path)
+
+    start_date = '2020-07-20 04:05:00'
 
 
 if __name__ == '__main__':
-    # commence example portfolio with $1M on 2020-07-19
-    ptflio = portfolio(start_date='2020-07-19', value=100000)
+    # commence example portfolio with $100k on 2020-07-20
+    model = 'assets/models/joey_cnn_intraday/cnn_model_250epochs_2classes.h5'
+    weights = 'assets/models/joey_cnn_intraday/cnn_weights_250epochs_2classes.h5'
+    ptflio = intraday_portfolio(start_date='2020-07-19', value=100000)
+    intraday_trading(ptflio, model_path=model, weights_path=weights)
 
