@@ -1,6 +1,7 @@
 import pandas as pd
 import mplfinance as mpf
 import matplotlib
+
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import os
@@ -66,7 +67,12 @@ def main(ticker, num_days):
                 result.append('same')
             else:
                 result.append('down')
-        folder = '_'.join(result)
+
+        if result.count('up') >= 1 and result.count('down') <= 1:
+            folder = 'buy'
+        else:
+            folder = 'hold'
+
         file = ticker + '_' + str(start)
         if 0.0 in data['volume'].value_counts():
             if data['volume'].value_counts()[0.0] <= 4:

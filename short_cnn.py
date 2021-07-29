@@ -20,8 +20,8 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
         splitfolders.ratio("assets/cnn_images/", output="assets/cnn_images/output",
                         seed=0, ratio=(0.8, 0.1, 0.1), group_prefix=None)
 
-    model_metrics = ['accuracy', metrics.CategoricalCrossentropy(), metrics.Precision(),
-                     metrics.Recall(), metrics.CategoricalAccuracy()]
+    model_metrics = ['accuracy', metrics.BinaryCrossentropy(), metrics.Precision(),
+                     metrics.Recall(), metrics.BinaryAccuracy()]
     img_width, img_height = width, height
     train_data_dir = 'assets/cnn_images/output/train'
     val_data_dir = 'assets/cnn_images/output/val'
@@ -31,13 +31,13 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     batch_size = 32
     num_train_samples = int(num_samples * 0.8)
     num_val_samples = int(num_samples * 0.1)
-    classes_num = 27  # x_x_x where x could be up, down, or same
-    nb_filters1 = 32
+    classes_num = 2
+    nb_filters1 = 16
     nb_filters2 = 32
     nb_filters3 = 64
-    conv1_size = 3
+    conv1_size = 4
     conv2_size = 2
-    conv3_size = 5
+    conv3_size = 6
     pool_size = 2
 
     model = Sequential()
@@ -91,10 +91,15 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     target_dir = './models/'
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
-    model.save('assets/models/joey_cnn_intraday/cnn_model.h5')
-    model.save_weights('assets/models/joey_cnn_intraday/cnn_weights.h5')
+    model.save(f'assets/models/joey_cnn_intraday/cnn_model_{epochs}epochs_{classes_num}classes.h5')
+    model.save_weights(f'assets/models/joey_cnn_intraday/cnn_weights_{epochs}epochs_{classes_num}classes.h5')
 
-    pickle.dump(history.history, open('assets/models/joey_cnn_intraday/history.pkl', 'wb'))
+    with open(f'assets/models/joey_cnn_intraday/history_{epochs}epochs_{classes_num}classes.pkl', 'wb') as f:
+        pickle.dump(history.history, f)
+
+    print('binary_accuracy', history.history['val_binary_accuracy'])
+    print('precision', history.history['val_precision'])
+    print('recall', history.history['val_recall'])
 
     # Calculate execution time
     end = time.time()
@@ -111,4 +116,6 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
 
 
 if __name__ == '__main__':
-    train_cnn_model(width=203, height=202, num_samples=35664, needs_split=False)
+    if os.path.exists('assets/cnn_images/output'):
+        needs_split=False
+    train_cnn_model(width=203, height=202, num_samples=35664, needs_split=True)
