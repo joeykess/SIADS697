@@ -2,38 +2,84 @@ import pandas as pd
 from datetime import datetime
 import pandas_market_calendars as mcal
 import plotly.express as px
-import tensorflow as tf
-from tensorflow import keras
+import mplfinance as mpf
+import matplotlib
+
+matplotlib.use('agg')
+import matplotlib.pyplot as plt
+import os
+import shutil
+from tqdm import tqdm
+import numpy as np
+# import tensorflow as tf
+# from tensorflow import keras
+from keras.preprocessing import image
 import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 def create_tracking_df():
-    results = {}
-    for symbol in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
-        df = pd.read_csv(f'assets/short_term_symbols/{symbol}.csv').drop(columns=['Unnamed: 0'])
-        df = df.reindex(index=df.index[::-1])
-        df['time'] = pd.to_datetime(df['time'])
-        df = df.set_index(df['time']).drop(columns=['time'])
-        df = df.resample('5min').first()
-        df[['open', 'high', 'low', 'close']] = df[['open', 'high', 'low', 'close']].ffill()
-        df['volume'] = df['volume'].fillna(0)
-        results[symbol] = df
-    results = pd.concat([v.add_prefix(f'{k}_') for k, v in results.items()], axis=1, join='outer')
-    for symb in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
-        results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']] = results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].ffill()
-        results[f'{symb}_volume'] = results[f'{symb}_volume'].fillna(0)
-        results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']] = results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].bfill()
+    if os.path.exists('assets/short_term_symbols/total.csv'):
+        results = pd.read_csv('assets/short_term_symbols/total.csv')
+        results['time'] = pd.to_datetime(results['time'])
+        results = results.set_index(results['time']).drop(columns=['time'])
+    else:
+        results = {}
+        for symbol in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
+            df = pd.read_csv(f'assets/short_term_symbols/{symbol}.csv').drop(columns=['Unnamed: 0'])
+            df = df.reindex(index=df.index[::-1])
+            df['time'] = pd.to_datetime(df['time'])
+            df = df.set_index(df['time']).drop(columns=['time'])
+            df = df.resample('5min').first()
+            df[['open', 'high', 'low', 'close']] = df[['open', 'high', 'low', 'close']].ffill()
+            df['volume'] = df['volume'].fillna(0)
+            results[symbol] = df
+        results = pd.concat([v.add_prefix(f'{k}_') for k, v in results.items()], axis=1, join='outer')
+        for symb in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
+            results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']] = results[
+                [f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].ffill()
+            results[f'{symb}_volume'] = results[f'{symb}_volume'].fillna(0)
+            results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']] = results[
+                [f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].bfill()
+        results = results.between_time('4:05', '20:00')
+        results.to_csv('assets/short_term_symbols/total.csv')
     return results
 
 
+def bollinger_bands(data, sma, window):
+    std = data.rolling(window=window).std()
+    upper_bb = sma + std * 2
+    lower_bb = sma - std * 2
+    return upper_bb, lower_bb
+
+
+def create_candles(plot_df, file):
+    if not os.path.exists('assets/models/joey_cnn_intraday/live_test'):
+        os.mkdir('assets/models/joey_cnn_intraday/live_test')
+    fig, ax = plt.subplots(figsize=(5, 5))
+    mpf.plot(plot_df, type='candlestick', style='charles', ax=ax)
+    plot_df.reset_index().plot(kind='line', y='upper_bb', color='blue', lw=3, alpha=0.75, ax=ax, legend=None)
+    plot_df.reset_index().plot(kind='line', y='lower_bb', color='orange', lw=3, alpha=0.75, ax=ax, legend=None)
+    plot_df.reset_index().plot(kind='line', y='ema12', color='black', lw=3, alpha=0.75, ax=ax, legend=None)
+    ax.set_facecolor('white')
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_ylabel("")
+    ax.axis('off')
+    save_spot = f'assets/models/joey_cnn_intraday/live_test'
+    if not os.path.exists(save_spot):
+        os.makedirs(save_spot)
+    plt.savefig(f'{save_spot}/{file}.png', dpi=50, bbox_inches='tight')
+    plt.close()
+
+
 class intraday_portfolio:
-    def __init__(self, start_date='2020-07-20', value=1000000, end_date='2021-07-19'):
+    def __init__(self, start_date='2020-07-20', value=1000000, end_date='2021-07-20'):
         """
         :param start_date: beginning date to start portfolio
         :param value: amount of initial cash to use to buy shares
-        :param end_date: end date of trading simulation - 2021-07-02 is last day in data so that is hard coded for now
+        :param end_date: end date of trading simulation - 2021-07-20 is last day in data so that is hard coded for now
         :var: current_cash is the amount of cash held at any given moment in the account duration
         :var: open_positions_dict is a dictionary which at any given point has the held positions for instance {AAPL:10}
         :var: hist_trades_dict and df track the historical trades, where the dataframe keeps a column to track buy/sell
@@ -186,15 +232,52 @@ class intraday_portfolio:
 
 
 def intraday_trading(pf, model_path, weights_path):
-    model = keras.models.load_model(model_path)
-    model.set_weights(weights_path)
+    # model = keras.models.load_model(model_path)
+    # model.set_weights(weights_path)
 
     start_date = '2020-07-20 04:05:00'
+    # loop through array above in portfolio (pf)
+    df = pf.tracking_dfs.loc[start_date:]
+    for time in tqdm(range(0, df.shape[0])):
+        # for each trading period, after trading delete folder contents
+        # get predictions here
+        top_of_hour = df.iloc[time].name.minute == 0 # top of hour 9:00
+        sell_time = df.iloc[time].name.minute == 15 # 15 minutes after top of hour i.e. 9:15
+        closing = df.iloc[time].name.minute == 0 and df.iloc[time].name.hour == 20
+        if top_of_hour and not closing:
+            if os.path.exists('assets/models/joey_cnn_intraday/live_test'):
+                shutil.rmtree('assets/models/joey_cnn_intraday/live_test')
+            tickers = ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']
+            timed_df = df.iloc[time-12: time]
+            for symb in tickers:
+                symbol_df = timed_df[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']]
+                symbol_df = symbol_df.rename(columns={f'{symb}_open': 'open', f'{symb}_high': 'high',
+                                                      f'{symb}_low': 'low', f'{symb}_close': 'close'})
+                create_candles(plot_df=symbol_df, file=str(tickers.index(symb)))
+            images = []
+            path = 'assets/models/joey_cnn_intraday/live_test'
+            width, height = 203, 202
+            # gets all images and stacks them together for predictions
+            for img in os.listdir(path):
+                img = os.path.join(path, img)
+                img = image.load_img(img, target_size=(width, height))
+                img = image.img_to_array(img)
+                img = np.expand_dims(img, axis=0)
+                images.append(img)
+            images = np.vstack(images)
+            preds = model.predict_classes(images, batch_size=12) # will output 1 for buy and 0 for hold
+            cash = pf.current_cash
+            preds_buy = [tickers[i] for i, x in enumerate(preds) if x == 1]
+            for item in preds_buy:
+                max_cost = cash * 0.75 # trading max 75% cash every trade
+                cost_per = max_cost / len(preds_buy)
+        if sell_time:
+            continue
 
 
 if __name__ == '__main__':
     # commence example portfolio with $100k on 2020-07-20
-    model = 'assets/models/joey_cnn_intraday/cnn_model_250epochs_2classes.h5'
-    weights = 'assets/models/joey_cnn_intraday/cnn_weights_250epochs_2classes.h5'
-    ptflio = intraday_portfolio(start_date='2020-07-19', value=100000)
+    model = 'assets/models/joey_cnn_intraday/cnn_model_100epochs_2classes.h5'
+    weights = 'assets/models/joey_cnn_intraday/cnn_weights_100epochs_2classes.h5'
+    ptflio = intraday_portfolio(start_date='2020-07-20', value=100000)
     intraday_trading(ptflio, model_path=model, weights_path=weights)
