@@ -8,7 +8,8 @@ import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-def create_tracking_dfs():
+
+def create_tracking_df():
     results = {}
     for symbol in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
         df = pd.read_csv(f'assets/short_term_symbols/{symbol}.csv').drop(columns=['Unnamed: 0'])
@@ -19,7 +20,13 @@ def create_tracking_dfs():
         df[['open', 'high', 'low', 'close']] = df[['open', 'high', 'low', 'close']].ffill()
         df['volume'] = df['volume'].fillna(0)
         results[symbol] = df
+    results = pd.concat([v.add_prefix(f'{k}_') for k, v in results.items()], axis=1, join='outer')
+    for symb in ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']:
+        results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']] = results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].ffill()
+        results[f'{symb}_volume'] = results[f'{symb}_volume'].fillna(0)
+        results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']] = results[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].bfill()
     return results
+
 
 class intraday_portfolio:
     def __init__(self, start_date='2020-07-20', value=1000000, end_date='2021-07-19'):
@@ -43,19 +50,19 @@ class intraday_portfolio:
         ])
         self.hist_cash_df = pd.DataFrame([[start_date, value]], columns=['Date', 'Cash Available to Trade'])
         self.hist_cash_dict = {datetime.strptime(start_date, '%Y-%m-%d'): value}
-        self.tracking_dfs = create_tracking_dfs()
+        self.tracking_dfs = create_tracking_df()
 
     def reset_account(self):
         self.__init__(self.start_date, self.init_cash, self.end_date)
 
-    def get_price(self, date, ticker):
+    def get_price(self, date, symb):
         """
         :param ticker: ticker string
         :param date: datetime object with time and date '2021-07-19 04:00:00' from a dataframe index
         """
-        ticker = ticker.upper()
+        symb = symb.upper()
         try:
-            return self.tracking_dfs[ticker].loc[date]
+            return self.tracking_dfs.loc[date][[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].mean()
         except:
             return -1
 
@@ -191,4 +198,3 @@ if __name__ == '__main__':
     weights = 'assets/models/joey_cnn_intraday/cnn_weights_250epochs_2classes.h5'
     ptflio = intraday_portfolio(start_date='2020-07-19', value=100000)
     intraday_trading(ptflio, model_path=model, weights_path=weights)
-
