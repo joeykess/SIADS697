@@ -96,19 +96,19 @@ class intraday_portfolio:
         ])
         self.hist_cash_df = pd.DataFrame([[start_date, value]], columns=['Date', 'Cash Available to Trade'])
         self.hist_cash_dict = {datetime.strptime(start_date, '%Y-%m-%d'): value}
-        self.tracking_dfs = create_tracking_df()
+        self.tracking_df = create_tracking_df()
 
     def reset_account(self):
         self.__init__(self.start_date, self.init_cash, self.end_date)
 
     def get_price(self, date, symb):
         """
-        :param ticker: ticker string
+        :param symb: ticker string
         :param date: datetime object with time and date '2021-07-19 04:00:00' from a dataframe index
         """
         symb = symb.upper()
         try:
-            return self.tracking_dfs.loc[date][[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].mean()
+            return self.tracking_df.loc[date][[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']].mean()
         except:
             return -1
 
@@ -119,7 +119,7 @@ class intraday_portfolio:
         :param date: mm/dd/yyyy
         """
         for p_ticker, p_order in purchase_order.items():
-            p_price = self.get_price(date=date, ticker=p_ticker)
+            p_price = self.get_price(date=date, symb=p_ticker)
             p_val = p_order * p_price
             if self.current_cash > p_val:
                 if p_ticker in self.open_positions_dict:
@@ -143,10 +143,9 @@ class intraday_portfolio:
         """
         # goes through order and sells all necessary stocks
         for s_ticker, s_order in sell_order.items():
-            s_price = self.get_price(date=date, ticker=s_ticker)
+            s_price = self.get_price(date=date, symb=s_ticker)
             s_val = s_order * s_price
             if s_ticker in self.open_positions_dict:
-                self.hist_trades_dict[date][s_ticker] -= s_order
                 self.open_positions_dict[s_ticker] -= s_order
                 self.current_cash += s_val
                 self.hist_trades_df = self.hist_trades_df.append(
@@ -237,23 +236,27 @@ def intraday_trading(pf, model_path, weights_path):
 
     start_date = '2020-07-20 04:05:00'
     # loop through array above in portfolio (pf)
-    df = pf.tracking_dfs.loc[start_date:]
+    df = pf.tracking_df.loc[start_date:]
     for time in tqdm(range(0, df.shape[0])):
         # for each trading period, after trading delete folder contents
         # get predictions here
-        top_of_hour = df.iloc[time].name.minute == 0 # top of hour 9:00
-        sell_time = df.iloc[time].name.minute == 15 # 15 minutes after top of hour i.e. 9:15
-        closing = df.iloc[time].name.minute == 0 and df.iloc[time].name.hour == 20
-        if top_of_hour and not closing:
+        trading_time = df.iloc[time].name.hour >= 5 and df.iloc[time].name.minute % 15 == 0
+        closing = df.iloc[time].name.minute >= 0 and df.iloc[time].name.hour >= 20
+        if trading_time and not closing:
+            pf.sell_all(time)
             if os.path.exists('assets/models/joey_cnn_intraday/live_test'):
                 shutil.rmtree('assets/models/joey_cnn_intraday/live_test')
             tickers = ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']
-            timed_df = df.iloc[time-12: time]
+            timed_df = df.iloc[time - 12: time].copy()
             for symb in tickers:
                 symbol_df = timed_df[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close']]
                 symbol_df = symbol_df.rename(columns={f'{symb}_open': 'open', f'{symb}_high': 'high',
                                                       f'{symb}_low': 'low', f'{symb}_close': 'close'})
-                create_candles(plot_df=symbol_df, file=str(tickers.index(symb)))
+                if 0.0 in symbol_df['volume'].value_counts():
+                    if symbol_df['volume'].value_counts()[0.0] <= 4:
+                        create_candles(plot_df=symbol_df, file=str(tickers.index(symb)))
+                else:
+                    create_candles(plot_df=symbol_df, file=str(tickers.index(symb)))
             images = []
             path = 'assets/models/joey_cnn_intraday/live_test'
             width, height = 203, 202
@@ -265,14 +268,18 @@ def intraday_trading(pf, model_path, weights_path):
                 img = np.expand_dims(img, axis=0)
                 images.append(img)
             images = np.vstack(images)
-            preds = model.predict_classes(images, batch_size=12) # will output 1 for buy and 0 for hold
+            preds = model.predict_classes(images, batch_size=12)  # will output 1 for buy and 0 for hold
             cash = pf.current_cash
             preds_buy = [tickers[i] for i, x in enumerate(preds) if x == 1]
+            buy_order = {}
             for item in preds_buy:
-                max_cost = cash * 0.75 # trading max 75% cash every trade
+                max_cost = cash * 0.75  # trading max 75% cash every trade
                 cost_per = max_cost / len(preds_buy)
-        if sell_time:
-            continue
+                price = pf.get_price(date=time, symb=item)
+                buy_order['item'] = int(np.floor(cost_per / price))
+            pf.buy(purchase_order=buy_order, date=time)
+        if closing:
+            pf.sell_all(time)
 
 
 if __name__ == '__main__':
