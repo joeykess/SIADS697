@@ -1,7 +1,6 @@
 import pickle
 import re
 from threading import Event
-
 import DatastreamDSWS as DSWS
 import eikon as ek
 import numpy as np
