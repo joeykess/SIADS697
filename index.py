@@ -12,6 +12,7 @@ from app import server
 
 # Import pages creates separately
 from apps import portfolio_performance
+from apps import model_performance
 from apps.ind_css import *
 
 title_style = {'display': 'inline-block',
@@ -107,9 +108,7 @@ def render_content(tab):
         return portfolio_performance.layout
 
     elif tab == 'tab-2':
-        return html.Div([
-            html.H3('Tab 2 content ')
-        ])
+        return model_performance.layout
 
     elif tab == 'tab-3':
         return html.Div([
