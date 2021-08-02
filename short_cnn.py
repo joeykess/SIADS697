@@ -10,6 +10,7 @@ import time
 import os
 import pickle
 
+
 # HAS TO BE RUN ON CLI in UBUNTU 20.04 to use CUDA - venv and windows CUDA broken on my PC
 # - Joey
 
@@ -18,7 +19,7 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     start = time.time()
     if needs_split:
         splitfolders.ratio("assets/cnn_images/", output="assets/cnn_images/output",
-                        seed=0, ratio=(0.8, 0.1, 0.1), group_prefix=None)
+                           seed=0, ratio=(0.8, 0.1, 0.1), group_prefix=None)
 
     model_metrics = ['accuracy', metrics.BinaryCrossentropy(), metrics.Precision(),
                      metrics.Recall(), metrics.BinaryAccuracy()]
@@ -26,7 +27,7 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     train_data_dir = 'assets/cnn_images/output/train'
     val_data_dir = 'assets/cnn_images/output/val'
     test_data_dir = 'assets/cnn_images/output/test'
-    epochs = 250
+    epochs = 100
     validation_steps = 300
     batch_size = 32
     num_train_samples = int(num_samples * 0.8)
@@ -68,6 +69,7 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
         target_size=(img_height, img_width),
         batch_size=batch_size,
         class_mode='categorical')
+    # buy is 0, hold is 1
 
     validation_generator = test_datagen.flow_from_directory(
         val_data_dir,
@@ -118,5 +120,5 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
 if __name__ == '__main__':
     needs_split = True
     if os.path.exists('assets/cnn_images/output'):
-        needs_split=False
+        needs_split = False
     train_cnn_model(width=203, height=202, num_samples=35664, needs_split=needs_split)
