@@ -26,7 +26,7 @@ def create_candles(plot_df, folder, file):
     ax.set_yticks([])
     ax.set_ylabel("")
     ax.axis('off')
-    save_spot = f'assets/cnn_images/{folder}/'
+    save_spot = f'assets/cnn_images_5m/{folder}/'
     if not os.path.exists(save_spot):
         os.makedirs(save_spot)
     plt.savefig(f'{save_spot}/{file}.png', dpi=50, bbox_inches='tight')
@@ -36,7 +36,7 @@ def create_candles(plot_df, folder, file):
         print(e)
 
 
-def main(ticker, num_days):
+def main(ticker, num_index):
     df = pd.read_csv(f'assets/short_term_symbols/{ticker}.csv').drop(columns=['Unnamed: 0'])
     df = df.reindex(index=df.index[::-1])
     df['time'] = pd.to_datetime(df['time'])
@@ -49,44 +49,55 @@ def main(ticker, num_days):
     df['ema12'] = df['close'].ewm(span=12).mean()
     df = df[(df.index < '2020-07-19')]
     df = df.iloc[11:]
-    for start in range(0, df.shape[0], num_days):
-        data = df.iloc[start:start + num_days].copy()
+    # doing every 30m intervals
+    for start in range(0, df.shape[0], 6):
+        data = df.iloc[start:start + num_index].copy()
         # when a quarter the data is filled in skip for training purpose
         last_point = data[['open', 'high', 'low', 'close']].iloc[0].mean()
         next_points = [last_point]
         # checks within next 2 hours if going up or down (if no volume present)
-        for index, row in df.iloc[start + 1:start + 24].iterrows():
-            if row['volume'] > 0.0 and len(next_points) <= 3:
-                next_points.append(row[['open', 'high', 'low', 'close']].mean())
-        result = []
-        for ind, j in enumerate(next_points[:-1]):
-            n = next_points[ind + 1]
-            if n > j:
-                result.append('up')
-            elif j == n:
-                result.append('same')
+        # for index, row in df.iloc[start + 1:start + 24].iterrows():
+        #     if row['volume'] > 0.0 and len(next_points) <= 3:
+        #         next_points.append(row[['open', 'high', 'low', 'close']].mean())
+        # result = []
+        # for ind, j in enumerate(next_points[:-1]):
+        #     n = next_points[ind + 1]
+        #     if n > j:
+        #         result.append('up')
+        #     elif j == n:
+        #         result.append('same')
+        #     else:
+        #         result.append('down')
+        #
+        # if result.count('up') >= 1 and result.count('down') <= 1:
+        #     folder = 'buy'
+        # else:
+        #     folder = 'hold'
+
+        # checks if next point has volume then creates chart
+        next_row = df.iloc[start+1]
+        same_day = next_row.name.hour > 4
+        if next_row['volume'] > 0.0 and same_day:
+            next_points.append(next_row[['open', 'high', 'low', 'close']].mean())
+            if next_points[1] > next_points[0]:
+                folder = 'buy'
             else:
-                result.append('down')
+                folder = 'hold'
 
-        if result.count('up') >= 1 and result.count('down') <= 1:
-            folder = 'buy'
-        else:
-            folder = 'hold'
-
-        file = ticker + '_' + str(start)
-        if 0.0 in data['volume'].value_counts():
-            if data['volume'].value_counts()[0.0] <= 4:
+            file = ticker + '_' + str(start)
+            if 0.0 in data['volume'].value_counts():
+                if data['volume'].value_counts()[0.0] <= 4:
+                    create_candles(data, folder, file)
+            else:
                 create_candles(data, folder, file)
-        else:
-            create_candles(data, folder, file)
 
 
 if __name__ == '__main__':
     symbol_list = ['NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA', 'SPY', 'QQQ']
-    if not os.path.exists('assets/cnn_images'):
-        os.makedirs('assets/cnn_images')
+    if not os.path.exists('assets/cnn_images_5m'):
+        os.makedirs('assets/cnn_images_5m')
     for symbol in tqdm(symbol_list):
         try:
-            main(ticker=symbol, num_days=12)
+            main(ticker=symbol, num_index=12)
         except Exception as e:
             print(e)

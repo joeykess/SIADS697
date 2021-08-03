@@ -179,12 +179,12 @@ class intraday_portfolio:
         d_range = mcal.date_range(early, frequency='1D').normalize().date
         end_date = datetime.strptime(end_date, '%Y-%m-%d')
         start_date = datetime.strptime(self.start_date, '%Y-%m-%d')
-        cash_df = self.hist_cash_df.set_index('Date').iloc[1:]
+        cash_df = self.hist_cash_df.set_index('Date')
+        cash_df = cash_df.reset_index()
+        cash_df = cash_df.append({'Date': '2020-07-19', 'Cash Available to Trade': self.init_cash}, ignore_index=True)
+        cash_df = cash_df.set_index('Date')
         cash_df.index = pd.to_datetime(cash_df.index)
-        print(cash_df)
         cash_df = cash_df.groupby(pd.Grouper(freq='D')).last()
-        # cash_df = cash_df.reindex(pd.date_range(self.start_date, end_date, freq='B')).ffill()
-
         cash_df['Total Portfolio Value'] = cash_df['Cash Available to Trade']
         cash_df['Rate of Return'] = cash_df['Total Portfolio Value'].apply(lambda x: (x - self.init_cash) / x)
         cash_df['Rate of Return'] = cash_df['Rate of Return'].apply(lambda x: "{0:.2f}%".format(x * 100))
@@ -221,9 +221,9 @@ def intraday_trading(pf, model_path):
     for time in tqdm(range(0, df.shape[0])):
         # for each trading period, after trading delete folder contents
         # get predictions here
-        trading_time = df.iloc[time].name.hour >= 5 and df.iloc[time].name.minute % 15 == 0
-        test = df.iloc[time].name
-        closing = df.iloc[time].name.minute >= 0 and df.iloc[time].name.hour >= 20
+        curr_time = df.iloc[time].name
+        trading_time = curr_time.hour >= 5 and curr_time.minute % 5 == 0
+        closing = curr_time.minute >= 0 and curr_time.hour >= 20
         if trading_time and not closing:
             if os.path.exists('assets/models/joey_cnn_intraday/live_test'):
                 shutil.rmtree('assets/models/joey_cnn_intraday/live_test')
@@ -236,8 +236,7 @@ def intraday_trading(pf, model_path):
                                                       f'{symb}_low': 'low', f'{symb}_close': 'close',
                                                       f'{symb}_volume': 'volume'})
                 symbol_df['MA12'] = symbol_df['close'].rolling(window=12).mean()
-                symbol_df['upper_bb'], symbol_df['lower_bb'] = bollinger_bands(symbol_df['close'], symbol_df['MA12'],
-                                                                               12)
+                symbol_df['upper_bb'], symbol_df['lower_bb'] = bollinger_bands(symbol_df['close'], symbol_df['MA12'], 12)
                 symbol_df['ema12'] = symbol_df['close'].ewm(span=12).mean()
                 if time > 12:
                     symbol_df = symbol_df.iloc[-12:]
@@ -262,11 +261,15 @@ def intraday_trading(pf, model_path):
                     images.append(img)
                 images = np.vstack(images)
                 preds = np.argmax(model.predict(images), axis=-1)  # will output 0 for buy and 1 for hold
-                pf.sell_all(df.iloc[time].name)
-                cash = pf.current_cash
                 preds_buy = [plotted_tickers[i] for i, x in enumerate(preds) if x == 0]
+                pf.sell_all(curr_time)
+                cash = pf.current_cash
                 buy_order = {}
-                max_cost = cash * 0.75
+                # test to see if holding cash reduces losses (should only see minor changes to be honest)
+                # with holding will be riskier because we're saving our earnings
+                if cash > 100000:
+                    cash = 100000
+                max_cost = cash * 0.8
                 if len(preds_buy) > 0:
                     cost_per = max_cost / len(preds_buy)
                     for item in preds_buy:
@@ -277,12 +280,12 @@ def intraday_trading(pf, model_path):
         if closing:
             pf.sell_all(df.iloc[time].name)
             print("${:,.2f}".format(pf.current_cash))
-    pf.save_all_to_csvs('assets/models/joey_cnn_intraday/50percent_confidence_no_holding')
+    pf.save_all_to_csvs('assets/models/joey_cnn_intraday/5m_50percent_confidence_holding')
 
 
 if __name__ == '__main__':
     # commence example portfolio with $100k on 2020-07-20
-    model = 'assets/models/joey_cnn_intraday/cnn_model_100epochs_2classes.h5'
+    model = 'assets/models/joey_cnn_intraday/cnn_model_5m_100epochs_2classes.h5'
     ptflio = intraday_portfolio(start_date='2020-07-20', value=100000)
     intraday_trading(ptflio, model_path=model)
     print(ptflio.current_cash)
