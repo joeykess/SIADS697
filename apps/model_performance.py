@@ -21,16 +21,15 @@ import plotly.graph_objects as go
 from apps.ind_css import *
 from app import app
 
-
 layout = html.Div([
 
             dbc.Row(
                 [
-                html.A('What Models Do You Want to Compare?',style={'float':'left','width':'25%'}),
-                dcc.Dropdown(id='model_filter',
+                dbc.Col(html.A('What Models Do You Want to Compare?',style={'margin':'5px','lineHeight':2}),width=3),
+                dbc.Col(dcc.Dropdown(id='model_filter',
                     options=[{'label': i, 'value': i} for i in ['Random Forest Regressor','Next Model']],
-                    value='Random Forest Regressor',multi=True,style={'width':'50%'})
-                ],justify="start"),
+                    value='Random Forest Regressor',multi=True),width=5,style={'margin':'5px','lineHeight':2})
+                ]),
             dbc.Row(
                 [
                 dbc.Col(html.Div("R^2,ROI, etc"),width=3,style={'border': 'thin black solid','margin':'5px'}),

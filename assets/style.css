@@ -55,13 +55,13 @@ a:hover {
      font-weight: normal;
      line-height: normal;
      color: #111111;
-     margin: 0 
+     margin: 0
 }
  h1 {
-     font-size: 24px 
+     font-size: 24px
 }
  h2 {
-     font-size: 22px 
+     font-size: 22px
 }
 h3 {
     font-size: 25px;
@@ -74,7 +74,7 @@ h3 strong {
     font-size: 18px;
 }
  h4 {
-     font-size: 16px 
+     font-size: 16px
 }
 h5 {
     font-size: 15px;
@@ -83,7 +83,7 @@ h5 {
     padding-bottom: 5px;
 }
  h6 {
-     font-size: 13px 
+     font-size: 13px
 }
  *, *::after, *::before {
      -webkit-box-sizing: border-box;
@@ -93,7 +93,7 @@ h5 {
  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
      color: #212121;
      text-decoration: none!important;
-     opacity: 1 
+     opacity: 1
 }
  button:focus {
      outline: none;
@@ -382,7 +382,7 @@ p {
     text-align: center !important;
 }
 .theme_blue {
-     color: #12c6f4 !important; 
+     color: #12c6f4 !important;
 }
 /*--------------------------------------------------------------------- header area ---------------------------------------------------------------------*/
 .header {
@@ -1087,7 +1087,7 @@ p {
      background: #ffffff;
 }
  .is-sticky .sticky-wrapper-header .middle-area {
-     padding: 10px 0px 
+     padding: 10px 0px
 }
  .sticky-wrapper:not(.is-sticky) {
      height: auto !important;
@@ -1980,6 +1980,3 @@ footer button {
     height: 48px;
 
 }
-
-
- 
