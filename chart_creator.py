@@ -41,7 +41,6 @@ def candle_charts(ticker, start, end, val):
     plt.savefig('assets/cnn_images/{}/{}_{}_{}.png'.format(val, ticker, start, end), dpi=50, bbox_inches='tight')
     plt.close('all')
 
-
 def make_charts(ticker, num_days):
     dict_of_results = {}
     data2 = pd.read_csv('assets/historical-symbols/{}.csv'.format(ticker))
@@ -63,7 +62,6 @@ def make_charts(ticker, num_days):
         candle_charts(ticker, beg, end, val)
     results = pd.DataFrame.from_dict(dict_of_results, orient='index', columns=['ticker', 'value', 'future_percent'])
     return results
-
 
 if __name__ == '__main__':
     symbols_list = pd.read_csv('symbols.csv')['Symbols'].tolist()

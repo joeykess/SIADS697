@@ -12,6 +12,7 @@ from app import server
 
 # Import pages creates separately
 from apps import portfolio_performance
+from apps import model_performance
 from apps.ind_css import *
 
 title_style = {'display': 'inline-block',
@@ -19,9 +20,12 @@ title_style = {'display': 'inline-block',
                'verticalAlign':'center',
                'lineHeight':2.5,
                'height':75,
-               'border': 'thick black solid',\
-               'width':'85%',
-               'backgroundColor': 'rgb(212, 150, 18)'}
+               'color':'white',
+               'fontSize':32,
+               'margin-left':5,
+               'font-weight':'bold',
+               # 'border': 'thick black solid',\
+               'width':'85%'}
 
 title_link_style = {'display': 'inline-block',
                'textAlign':'center',
@@ -30,6 +34,7 @@ title_link_style = {'display': 'inline-block',
                'height':75,
                'width':'10%',
                'float':'right',
+               'margin-top':5,
                # 'border': 'thick black solid',\
                'fontSize':12,}
                # 'backgroundColor': 'rgb(212, 150, 18)'}
@@ -60,25 +65,25 @@ tab_style = {
     'fontWeight': 'bold',
     'backgroundColor': '#4e5d6c',
     'color':'white',
-    'lineHeight':2,
-    'fontSize':10
+    'lineHeight':2.5,
+    'fontSize':15
 }
 
 tab_selected_style = {
     'borderTop': '1px solid #d6d6d6',
     'borderBottom': '1px solid #d6d6d6',
-    'backgroundColor': 'gray',
+    'backgroundColor': '#191970',
     'color': 'white',
     'padding': '6px',
     'fontWeight': 'bold',
-    'lineHeight':2,
-    'fontSize':10
+    'lineHeight':2.5,
+    'fontSize':15
 }
 
 app.layout = html.Div([
 
     html.Div([
-        html.H1('Dashboard Title',style=title_style),
+        html.H1('Financial Modeling Exploration Dashboard',style=title_style),
         html.Div([dbc.Button('Dashboard Info Link',id="open", n_clicks=0),
                   dbc.Modal([
                     dbc.ModalHeader("Legal Disclaimer",style={"color":'black'}),
@@ -89,7 +94,7 @@ app.layout = html.Div([
                         dbc.Button("Close", id="close", className="ml-auto", n_clicks=0))
                   ],id="modal",centered=True,is_open=False)
         ],style=title_link_style)
-        ]),
+        ],style={'height':75,'margin-bottom':10}),
 
     dcc.Tabs(id='tabs-example', value='tab-1', children=[
         dcc.Tab(label='Portfolio Performance', value='tab-1',style=tab_style,selected_style=tab_selected_style),
@@ -107,9 +112,7 @@ def render_content(tab):
         return portfolio_performance.layout
 
     elif tab == 'tab-2':
-        return html.Div([
-            html.H3('Tab 2 content ')
-        ])
+        return model_performance.layout
 
     elif tab == 'tab-3':
         return html.Div([

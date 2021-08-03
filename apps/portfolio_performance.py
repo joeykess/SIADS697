@@ -47,6 +47,8 @@ stock_df = pd.concat(li, axis=0, ignore_index=True,sort=True)
 
 stock_df['Date'] = pd.to_datetime(stock_df['Date'])
 
+sector_df = stock_df.groupby(['sector','Date']).mean()['Close'].reset_index()
+
 layout = html.Div([
 
                 html.Div([
@@ -89,7 +91,7 @@ layout = html.Div([
 
                     # Line two: portoflio and ticker info
                     html.Div([
-                        html.H2('Portfolio Performance',style=portfolio_style),
+                        html.H2('Portfolio Performance and Model Recommendations',style=portfolio_style),
                         dcc.Graph(id='chart-1',style=chart_style),
                         html.Div(id='news_list',style=news_style_b)
                         # html.Div(id='news_list',children=news_info,style=news_style_b)
@@ -97,14 +99,16 @@ layout = html.Div([
 
                     # Line three: other info, notyet defined
                     html.Div([
-                        html.H2('Other Portfolio Statistics',style=portfolio_style),
+                        html.H2('Sector Mix (Pie Chart?)',style=portfolio_style),
                         dcc.Graph(id='chart-2',style=chart_style),
+                        html.H2('Twitter Sentiment',style=news_style_b)
                         ])
                     ])
 
 # Callback to connect input(s) to output(s) for Tab 1
 @app.callback(dash.dependencies.Output('chart-1','figure'),
-    [dash.dependencies.Input('data_filter','value'),
+    [dash.dependencies.Input('ticker_filter','value'),
+    dash.dependencies.Input('data_filter','value'),
     dash.dependencies.Input('btn-nclicks-1', 'n_clicks'),
     dash.dependencies.Input('btn-nclicks-2', 'n_clicks'),
     dash.dependencies.Input('btn-nclicks-3', 'n_clicks'),
@@ -112,14 +116,20 @@ layout = html.Div([
     dash.dependencies.Input('MA_filter', 'value')])
 
 # Step 3: Define the graph with plotly express
-def update_ticker(ticker,btn1,btn2,btn3,btn4,ma_filters):
+def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
 
     from datetime import datetime, timedelta
 
     fig = go.Figure()
 
-    df = stock_df[stock_df['ticker']==ticker]
-    df = df.set_index('Date')
+    if ticker_filter == 'Ticker':
+
+        df = stock_df[stock_df['ticker']==ticker]
+        df = df.set_index('Date')
+
+    else:
+        df = sector_df[sector_df['sector']==ticker]
+        df = df.set_index('Date')
 
     # Adding 60 Day Moving Average
     df['60 Day MA'] = df.Close.rolling(window=60).mean()
@@ -171,20 +181,24 @@ def update_ticker(ticker,btn1,btn2,btn3,btn4,ma_filters):
         pass
 
     fig.update_layout(hovermode="x unified")
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=10))
 
     return fig
 
 # Creating callback to get news when ticker changes
 @app.callback(dash.dependencies.Output('news_list', 'children'),
-[dash.dependencies.Input('data_filter', 'value')])
-def update_news(ticker):
+[dash.dependencies.Input('ticker_filter','value'),
+ dash.dependencies.Input('data_filter', 'value')])
+def update_news(ticker_filter,ticker):
 
-    seeking_alpha = fn.SeekingAlpha(topics=['$'+ticker], save_feeds=True)
+    if ticker_filter == 'Sector':
+        topics = ticker.lower().split(" ")
+        seeking_alpha = fn.SeekingAlpha(topics=topics)
+        news = seeking_alpha.get_news()
 
-    news = seeking_alpha.get_news()
-
-#     title_strings = [re.sub('[^A-Za-z0-9,\s]+', '', item['title']).lower().replace(" ", "-") for item in news[:5]]
-#     url_ids = [re.sub('MarketCurrent:','news/',item) for item in news[:5]]
+    else:
+        seeking_alpha = fn.SeekingAlpha(topics=['$'+ticker])
+        news = seeking_alpha.get_news()
 
     return html.Div([html.H2(f'News for {ticker}',style={'backgroundColor':'gray','color':'white','fontSize':14,'border-bottom':'3px solid white'}),\
                 dbc.ListGroup(
