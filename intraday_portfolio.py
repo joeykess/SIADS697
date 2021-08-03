@@ -92,7 +92,6 @@ class intraday_portfolio:
         self.init_cash = value
         self.current_cash = value
         self.open_positions_dict = {}
-        self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity', 'Price'])
         self.hist_trades_df = pd.DataFrame(columns=[
             'Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'
         ])
@@ -205,6 +204,12 @@ class intraday_portfolio:
         returns_fig.show()
         return cash_df
 
+    def save_all_to_csvs(self, path):
+        if not os.path.exists(path):
+            os.mkdir(path)
+        self.hist_trades_df.to_csv(os.path.join(path, 'hist_trades.csv'))
+        self.hist_cash_df.to_csv(os.path.join(path, 'hist_cash.csv'))
+
 
 def intraday_trading(pf, model_path):
     model = keras.models.load_model(model_path)
@@ -212,7 +217,7 @@ def intraday_trading(pf, model_path):
     start_date = '2020-07-20 04:05:00'
     test_end_date = '2020-12-31 20:00:00'
     # loop through array above in portfolio (pf)
-    df = pf.tracking_df.loc[start_date:test_end_date]
+    df = pf.tracking_df.loc[start_date:]
     for time in tqdm(range(0, df.shape[0])):
         # for each trading period, after trading delete folder contents
         # get predictions here
@@ -271,7 +276,8 @@ def intraday_trading(pf, model_path):
                     pf.buy(purchase_order=buy_order, date=df.iloc[time].name)
         if closing:
             pf.sell_all(df.iloc[time].name)
-            print(pf.current_cash)
+            print("${:,.2f}".format(pf.current_cash))
+    pf.save_all_to_csvs('assets/models/joey_cnn_intraday/50percent_confidence_no_holding')
 
 
 if __name__ == '__main__':
