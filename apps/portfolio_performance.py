@@ -91,7 +91,7 @@ layout = html.Div([
 
                     # Line two: portoflio and ticker info
                     html.Div([
-                        html.H2('Portfolio Performance',style=portfolio_style),
+                        html.H2('Portfolio Performance and Model Recommendations',style=portfolio_style),
                         dcc.Graph(id='chart-1',style=chart_style),
                         html.Div(id='news_list',style=news_style_b)
                         # html.Div(id='news_list',children=news_info,style=news_style_b)

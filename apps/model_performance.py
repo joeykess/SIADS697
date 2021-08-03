@@ -40,6 +40,6 @@ layout = html.Div([
                 [
                 dbc.Col(html.Div("Stock Mix"),width=3,style={'border': 'thin black solid','margin':'5px'}),
                 dbc.Col(html.Div("% Mix by Sector"),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
-                dbc.Col(html.Div("Confusion Matrix?"),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
+                dbc.Col(html.Div("Confusion Matrix or table comparing metrics to benchmarks (e.g. sharpe ratio)"),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
                 ])
             ])
