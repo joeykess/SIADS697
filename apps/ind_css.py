@@ -27,7 +27,6 @@ news_style_b = {'display': 'inline-block',
                 'height':300,
                 'overflowY':'scroll',
                 'color':'white',
-                'backgroundColor':'black',
                 'borderRadius': '.4rem'}
 
 news_style = {'fontSize':11,
@@ -44,9 +43,9 @@ news_style_c = {'fontSize':11,
               'textAlign':'left',
               'height':'auto',
 #               'height':27,
-              'padding-top':'1',
+              'padding-top':'0',
               'margin':0,
-              "lineHeight":1.5,
+              "lineHeight":4,
               'float':'middle',
               'border-bottom-style':'double'}
 
