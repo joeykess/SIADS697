@@ -52,7 +52,7 @@ def get_spy_stocks():
     """This function imports the Symbols (RICS) for all stocks in the SPDR SP 500 ETF do not run w/o a
     subscription to refinitive. """
     date = datetime.now().date().strftime('%Y-%m-%d')
-    hold = ek.get_data('IWV', fields=[ek.TR_Field('TR.ETPConstituentRIC', params={'SDate': date})])[0]
+    hold = ek.get_data('SPY', fields=[ek.TR_Field('TR.ETPConstituentRIC', params={'SDate': date})])[0]
     hold = hold[hold['Constituent RIC'] != 'GOOG.OQ']
     rics = [x for x in hold['Constituent RIC']]
     return rics

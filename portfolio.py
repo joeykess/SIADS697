@@ -125,7 +125,7 @@ class portfolio:
         self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity', 'Price'])
         self.tracking_df = create_running_df()
         self.tracking_df.index = pd.to_datetime(self.tracking_df.index)
-#         self.hist_trades_dict = {}
+        self.hist_trades_dict = {}
         self.hist_trades_df = pd.DataFrame(columns=[
             'Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'
         ])
@@ -293,7 +293,7 @@ class portfolio:
         cash_df = cash_df.reindex(pd.date_range(self.start_date, end_date, freq='B')).ffill()
         cash_df.index = pd.to_datetime(cash_df.index)
         # gets all historical trades
-#         ticker_df = pd.DataFrame.from_dict(self.hist_trades_dict, orient='index')
+        ticker_df = pd.DataFrame.from_dict(self.hist_trades_dict, orient='index')
         ticker_df.index = pd.to_datetime(ticker_df.index)
         ticker_df = ticker_df.reindex(pd.date_range(start_date, end_date, freq='B')).ffill()
         # muted FutureWarning: Indexing a timezone-naive DatetimeIndex with a timezone-aware datetime is
