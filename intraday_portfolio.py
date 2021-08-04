@@ -218,6 +218,7 @@ def intraday_trading(pf, model_path):
     test_end_date = '2020-12-31 20:00:00'
     # loop through array above in portfolio (pf)
     df = pf.tracking_df.loc[start_date:]
+    tickers = ['SPY', 'QQQ', 'NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA']
     for time in tqdm(range(0, df.shape[0])):
         # for each trading period, after trading delete folder contents
         # get predictions here
@@ -227,7 +228,6 @@ def intraday_trading(pf, model_path):
         if trading_time and not closing:
             if os.path.exists('assets/models/joey_cnn_intraday/live_test'):
                 shutil.rmtree('assets/models/joey_cnn_intraday/live_test')
-            tickers = ['SPY', 'QQQ', 'NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA']
             plotted_tickers = []
             timed_df = df.iloc[:time + 1].copy()
             for symb in tickers:
