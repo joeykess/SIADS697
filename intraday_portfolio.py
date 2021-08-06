@@ -211,7 +211,7 @@ class intraday_portfolio:
         self.hist_cash_df.to_csv(os.path.join(path, 'hist_cash.csv'))
 
 
-def intraday_trading(pf, model_path):
+def intraday_trading(pf, model_path, test_time):
     model = keras.models.load_model(model_path)
     path = 'assets/models/joey_cnn_intraday/live_test'
     start_date = '2020-07-20 04:05:00'
@@ -223,7 +223,7 @@ def intraday_trading(pf, model_path):
         # for each trading period, after trading delete folder contents
         # get predictions here
         curr_time = df.iloc[time].name
-        trading_time = curr_time.hour >= 5 and curr_time.minute % 5 == 0
+        trading_time = curr_time.hour >= 5 and curr_time.minute % test_time == 0
         closing = curr_time.minute >= 0 and curr_time.hour >= 20
         if trading_time and not closing:
             if os.path.exists('assets/models/joey_cnn_intraday/live_test'):
@@ -260,15 +260,17 @@ def intraday_trading(pf, model_path):
                     img = np.expand_dims(img, axis=0)
                     images.append(img)
                 images = np.vstack(images)
-                preds = np.argmax(model.predict(images), axis=-1)  # will output 0 for buy and 1 for hold
+                # preds = np.argmax(model.predict(images), axis=-1)  # will output 0 for buy and 1 for hold
+                preds = model.predict(x=images)
+                preds = [0 if item[0] >= 0.75 else 1 for item in preds]
                 preds_buy = [plotted_tickers[i] for i, x in enumerate(preds) if x == 0]
                 pf.sell_all(curr_time)
                 cash = pf.current_cash
                 buy_order = {}
                 # test to see if holding cash reduces losses (should only see minor changes to be honest)
                 # with holding will be riskier because we're saving our earnings
-                if cash > 100000:
-                    cash = 100000
+                # if cash > 100000:
+                #     cash = 100000
                 max_cost = cash * 0.8
                 if len(preds_buy) > 0:
                     cost_per = max_cost / len(preds_buy)
@@ -280,13 +282,13 @@ def intraday_trading(pf, model_path):
         if closing:
             pf.sell_all(df.iloc[time].name)
             print("${:,.2f}".format(pf.current_cash))
-    pf.save_all_to_csvs('assets/models/joey_cnn_intraday/5m_50percent_confidence_holding')
+    pf.save_all_to_csvs('assets/models/joey_cnn_intraday/75percent_confidence_no_holding_15m')
 
 
 if __name__ == '__main__':
     # commence example portfolio with $100k on 2020-07-20
-    model = 'assets/models/joey_cnn_intraday/cnn_model_5m_100epochs_2classes.h5'
+    model = 'assets/models/joey_cnn_intraday/cnn_model_100epochs_2classes.h5'
     ptflio = intraday_portfolio(start_date='2020-07-20', value=100000)
-    intraday_trading(ptflio, model_path=model)
+    intraday_trading(ptflio, model_path=model, test_time=15)
     print(ptflio.current_cash)
     print(ptflio.calculate_daily_returns())
