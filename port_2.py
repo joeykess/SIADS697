@@ -50,7 +50,7 @@ def create_running_df():
     return df.set_index(['Date'])
 
 # Helper function to allow user to create list of tickers sell (Note: All positions are sold)
-def create_sell_dict(ticker_preds,open_positions_dict,sell_threshold = -0.05):
+def create_sell_dict(ticker_preds,open_positions_df,sell_threshold = -0.05):
 
     # Establish weights for selling stocks - Not working, only selling full positions
     # How do we deal with cascading price reductions (e.g. only lose 5%, but time after time)
@@ -61,7 +61,7 @@ def create_sell_dict(ticker_preds,open_positions_dict,sell_threshold = -0.05):
     for ticker in sell_stocks.ticker.unique():
         try: 
             # Sell all open positions
-            sell_dict[ticker] = open_positions_dict[ticker]
+            sell_dict[ticker] = open_positions_df[open_positions_df['Ticker']==ticker]['Quantity'].sum()
 
         except: # or pass if they do not exist
             pass
