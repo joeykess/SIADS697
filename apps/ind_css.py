@@ -67,3 +67,16 @@ portfolio_style_b = {'display': 'inline-block',
                 'float':'left',
                 'border':'thin lightgrey solid',
                 'height':200}
+
+sentiment_style = {'display': 'inline-block',
+                'textAlign':'center',
+                'vertical-align':'top',
+                'width':'20%',
+                'float':'right',
+                'border':'thin lightgrey solid',
+                'margin':'10px',
+                'height':300,
+                'overflowY':'scroll',
+                'overflowX':'hidden',
+                'color':'white',
+                'borderRadius': '.4rem'}

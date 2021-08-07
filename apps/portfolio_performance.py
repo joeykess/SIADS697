@@ -48,6 +48,7 @@ stock_df = pd.concat(li, axis=0, ignore_index=True,sort=True)
 stock_df['Date'] = pd.to_datetime(stock_df['Date'])
 
 sector_df = stock_df.groupby(['sector','Date']).mean()['Close'].reset_index()
+sentiment_df = pd.read_csv('assets/models/tyler_rf_daily_update/sentiment_analysis.csv')
 
 layout = html.Div([
 
@@ -101,7 +102,7 @@ layout = html.Div([
                     html.Div([
                         html.H2('Sector Mix (Pie Chart?)',style=portfolio_style),
                         dcc.Graph(id='chart-2',style=chart_style),
-                        html.H2('Twitter Sentiment',style=news_style_b)
+                        html.Div(id='sentiment',style=sentiment_style)
                         ])
                     ])
 
@@ -200,7 +201,7 @@ def update_news(ticker_filter,ticker):
         seeking_alpha = fn.SeekingAlpha(topics=['$'+ticker])
         news = seeking_alpha.get_news()
 
-    return html.Div([html.H2(f'News for {ticker}',style={'backgroundColor':'gray','color':'white','fontSize':14,'border-bottom':'3px solid white'}),\
+    return html.Div([html.H2(f'News for {ticker}',style={'color':'white','fontSize':14,'border-bottom':'3px solid white'}),\
                 dbc.ListGroup(
                     [dbc.ListGroupItem(
                         [html.Div([
@@ -268,3 +269,39 @@ def update_ticker(ticker,btn1,btn2,btn3,btn4):
                          xaxis_rangeslider_visible=False)
 
     return fig
+
+# Creating callback for twitter sentiment
+@app.callback(dash.dependencies.Output('sentiment','children'),
+    [dash.dependencies.Input('data_filter','value')])
+# Step 3: Define the graph with plotly express
+def update_sentiment(ticker_filter):
+
+    if ticker_filter == 'Sector':
+        sector = ticker
+    else:
+        sector = stock_df[stock_df['ticker']==ticker_filter]['sector'].unique()[0]
+
+    df = sentiment_df[sentiment_df['sector']==sector]\
+                    .nlargest(10,'Mentions')[['Ticker','Sentiment','Trend']]
+
+    table = dash_table.DataTable(
+        id='sentiment_table',
+        data=df.to_dict('records'),
+        columns=[{"name": i, "id": i} for i in df.columns],
+        style_cell=dict(textAlign='center'),
+        style_header=dict(backgroundColor="#191970",color='white'),
+        style_data=dict(backgroundColor="gray",color='black'),
+
+        # Setting conditional styles for sentiment and trends
+         style_data_conditional=[
+            {'if': {'filter_query': '{Sentiment} = "good" || {Sentiment} = "very good"','column_id': 'Sentiment'},
+                'color': '#03CD1E'},
+            {'if': {'filter_query': '{Trend} = "down"','column_id': 'Trend'},
+                'color': '#FF0000'},
+            {'if': {'filter_query': '{Trend} = "up"','column_id': 'Trend'},
+                'color': '#03CD1E'}],
+
+        style_as_list_view=True
+    )
+
+    return html.Div([html.A(f'Top Sentiment for Sector: {sector}',style={'color':'white','fontsize':8}),table])
