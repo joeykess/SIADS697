@@ -25,6 +25,7 @@ def get_short_stock_info():
             new_df = pd.read_csv(csv_url, header=0)
             ticker_df = ticker_df.append(new_df)
         ticker_df.to_csv('assets/short_term_symbols/{}.csv'.format(ticker))
+        # sleeps 15 seconds just to make sure no timeout is incurred
         time.sleep(15)
     print("Done!")
 

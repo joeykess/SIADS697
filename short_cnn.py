@@ -11,11 +11,14 @@ import os
 import pickle
 
 
-# HAS TO BE RUN ON CLI in UBUNTU 20.04 to use CUDA - venv and windows CUDA broken on my PC
-# - Joey
-
-
 def train_cnn_model(width, height, num_samples, needs_split=False):
+    """
+    This trains a cnn model and outputs the model to the specified location below
+    :param width: width of image
+    :param height: height of image
+    :param num_samples: total number of samples that are being split
+    :param needs_split: if the samples are split into the output folder or not
+    """
     start = time.time()
     if needs_split:
         splitfolders.ratio("assets/cnn_images_5m/", output="assets/cnn_images_5m/output",
@@ -30,15 +33,11 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     epochs = 75
     validation_steps = 300
     batch_size = 32
-    num_train_samples = int(num_samples * 0.8)
-    num_val_samples = int(num_samples * 0.1)
     classes_num = 2
     nb_filters1 = 16
     nb_filters2 = 32
-    nb_filters3 = 64
     conv1_size = 4
     conv2_size = 2
-    conv3_size = 6
     pool_size = 2
 
     model = Sequential()
