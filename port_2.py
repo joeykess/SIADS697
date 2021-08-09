@@ -170,121 +170,105 @@ class portfolio:
         :param order: dictonary that includes tickers as keys and shares as the items
         :param date: date of the trade in string format YYYY-MM-DD
         :param t_type: trade type (buy or sell)"""
-        
-        blotter = pd.DataFrame(order, index =[0]).T.reset_index().rename(columns = {'index': 'Ticker', 0: 'Quantity'}) ###creates a trade blotter
-        blotter['Transaction'] = t_type.upper() ###uniform info
-        trade_tickers = list(blotter['Ticker']) ###Stocks I am buying
-        trade_shares = list(blotter['Quantity']) ###No of Shares
-        port = self.open_positions_df ###my portfolio before trades
-        holdings = list(port['Ticker']) ###stocks in my portfolio before trades
-        px = [self.get_price(date, i) for i in trade_tickers] ####Prices for stocks I am buying
-        dates = [date for i in trade_tickers] ###date of record for each trade
-        blotter['Last'] = px
-        if t_type.upper() == 'BUY': ###Run Buys
-            if len(holdings) == 0: ###If the portfolio is empty
-                df_to_positions = pd.DataFrame({'Date':dates, 'Ticker':trade_tickers, 'Quantity':trade_shares,'Purchase Price':px,"Last":px}) ###enter trades
-                df_to_positions['Current Value'] = df_to_positions['Quantity'] * df_to_positions['Last'] ### establish the current value of a transaction
-                df_to_positions['Basis'] = df_to_positions['Quantity'] * df_to_positions['Purchase Price'] ###establish the cost basis - this is the same as current value on day one for new stocks 
-                df_to_positions['% Gain'] = round(((df_to_positions['Current Value']/df_to_positions['Basis'])-1),4)*100 ###calculates gain for each stock - will be 0% for new stocks
-                df_to_positions = df_to_positions.filter(['Date', 'Ticker', 'Quantity','Basis','Purchase Price', "Current Value", "Last", "% Gain"])
-                if df_to_positions['Basis'].sum()> self.current_cash: ####Ensures that you can execute your trade in its entirety.
-                    print("You do not have Enough Cash to execute these trades, Please adjust and resubmit") ###If you dont have enough cash this will appear
-                else:
-                    print("Trades Executed")### if trades are validated this will appear
-                    self.open_positions_df = df_to_positions ### if the portfolio is empty the new positions df becomes the open positions df
-                    cash_impact = [] ### the loop accounts for the change in cash for each trade for the historical transactions blotter.
-                    remaining = self.current_cash
-                    for i in list(df_to_positions['Basis']):
-                        x = remaining - i
-                        remaining = x
-                        cash_impact.append(x)
-                    self.current_cash -= df_to_positions['Basis'].sum() ###cash is adjusted for trades
-                    df_to_hist = df_to_positions.filter(['Date', 'Ticker', 'Quantity', 'Purchase Price', 'Basis']) 
-                    df_to_hist['Order Type'] = t_type.upper() 
-                    df_to_hist['Remaining Cash'] = cash_impact
-                    df_to_hist = df_to_hist.rename(columns={'Purchase Price': 'Ticker Value', 'Basis':'Total Trade Value'})
-                    df_to_hist.filter(['Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'])
-                    self.hist_trades_df = df_to_hist #transaction history is updated
-                    
-            else: ###If the portfolio is not empty 
-                df_to_positions = pd.DataFrame({'Date':dates, 'Ticker':trade_tickers, 'Quantity':trade_shares,'Purchase Price':px,"Last":px}) ###enter trades
-                df_to_positions['Current Value'] = df_to_positions['Quantity'] * df_to_positions['Last'] ###establish value of a trade
-                df_to_positions['Basis'] = df_to_positions['Quantity'] * df_to_positions['Purchase Price'] ###establish basis of the new positions
-                df_to_positions['% Gain'] = round(((df_to_positions['Current Value']/df_to_positions['Basis'])-1),4)*100 ###gain here should also be 0
-                df_to_positions = df_to_positions.filter(['Date', 'Ticker', 'Quantity','Basis','Purchase Price', "Current Value", "Last", "% Gain"]) ###set up trade df
-                if df_to_positions['Basis'].sum()> self.current_cash: ###Ensures you can execute                    
-                    print("You do not have Enough Cash to execute these trades, Please adjust and resubmit")
-                else:
-                    print("Trades Executed")                
-                    self.open_positions_df = pd.concat([self.open_positions_df, df_to_positions]) ###Executes trades and add to EXISTING Portfolio
-                    cash_impact = [] ###loop accounts for change in cash for transactions
-                    remaining = self.current_cash
-                    for i in list(df_to_positions['Basis']):
-                        x = remaining - i
-                        remaining = x
-                        cash_impact.append(x)
-                    self.current_cash -= df_to_positions['Basis'].sum() ###cash is adjusted for trades
-                    df_to_hist = df_to_positions.filter(['Date', 'Ticker', 'Quantity', 'Purchase Price', 'Basis'])
-                    df_to_hist['Order Type'] = t_type.upper()
-                    df_to_hist['Remaining Cash'] = cash_impact
-                    df_to_hist = df_to_hist.rename(columns={'Purchase Price': 'Ticker Value', 'Basis':'Total Trade Value'})
-                    df_to_hist.filter(['Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'])
-                    self.hist_trades_df = pd.concat([self.hist_trades_df, df_to_hist])###History is updated
-            ### consolidate lots 
-            consolidated = pd.DataFrame() ###will store consolidated data for each trade
-            self.open_positions_df= self.open_positions_df.reset_index(drop = True)###reset index
-            for stock in list(self.open_positions_df['Ticker'].unique()): ### grabs a stock from the portfolio
-                lots = self.open_positions_df[self.open_positions_df['Ticker']==stock] ### Isolates all rows in the portfolio with that stock
-                if len(lots)==1: ### Checks if there is only one row
-                    consolidated = pd.concat([consolidated, lots]) ### if there is only one row of data for that stock add to the consolidate df
-                else: ### if there are more than one
-                    dt = lots['Date'].min()### the first trade date
-                    q = lots['Quantity'].sum()### the total number of shares that I now have
-                    basis = lots['Basis'].sum()### my new Basis for the stock
-                    ppx = basis/q ### my average price 
-                    cv = ppx * lots['Last'].iloc[-1] ### my current value 
-                    gain = round((cv/basis)-1,4)*100 ### my adjusted gain
-                    cons_lots = pd.DataFrame({'Date':dt, 'Ticker':stock, 'Quantity':q,'Basis':basis,
-                                              'Purchase Price':ppx, "Current Value":cv, "Last":lots['Last'].iloc[-1], "% Gain":gain}, index = [0])### set the afore mentioned data up in a DF
-                    consolidated = pd.concat([consolidated, cons_lots]) ###add the consolidated row to the consolidated df
-            self.open_positions_df = consolidated ###overwrite the portfolio as the consolidated df
+        if t_type.upper() == "SELL" and len(self.open_positions_df)==0: #### if selling before any positions are in the port just exit the func
+            return 
         else:
-            port = self.open_positions_df ### grabs current portfolio
-            stocks_in_port = list(port['Ticker']) ### grabs stocks in portfolio
-            stocks_to_sell = list(blotter['Ticker']) ### grabs stocks in trade blotter
-            for stock in stocks_to_sell: ### loop checks if stocks not in portfolio 
-                if stock not in stocks_in_port:
-                    print("Trade Rejected - Short Sell not allowd") ### if the stock is not in the portfolio the trade is rejected
-                elif port[port['Ticker']==stock]['Quantity'].iloc[0]< blotter[blotter['Ticker']==stock]['Quantity'].iloc[0]:
-                    print("Trade Rejected - Short Sell not allowd") ### if selling more than you own trade is rejected
-                else:
-                    trade_request = blotter[blotter['Ticker']==stock]### isolate the trade in the blotter
-                    q_to_sell = trade_request['Quantity'].iloc[0] ### ammount selling
-                    sell_px = trade_request['Last'].iloc[0] ### Last price for the stock
-                    transaction = q_to_sell * sell_px ### Trade Value
-                    self.current_cash+=transaction ### add value of the trade back to cash
-                    current_pos = port[port['Ticker']==stock] ### isolate this stock in the portfolio
-                    current_pos['Quantity'] = current_pos['Quantity'].iloc[0]-q_to_sell ### reduce the quantity owned
-                    current_pos['Current Value'] = current_pos['Current Value'].iloc[0] - transaction ### Reduce the value in the portfolio
-                    current_pos['Basis'] = current_pos['Purchase Price'] * current_pos['Quantity'] ### recalculate basis using new quantity
-                    current_pos['Last'] = sell_px ### last price
-                    current_pos["% Gain"] = round((current_pos['Current Value']/current_pos['Basis'])-1, 4) *100 ###calculate % gain in stock after adjustment.
-                    self.open_positions_df = self.open_positions_df[self.open_positions_df['Ticker']!=stock] ### remove old line from portfolio
-                    self.open_positions_df = pd.concat([self.open_positions_df, current_pos]) ### add new line into portfolio
-        self.open_positions_df = self.open_positions_df[self.open_positions_df['Quantity']!=0] ### remove any lines where quantity is 0 (just in case)
-        update_px = [self.get_price(date, i) for i in  self.open_positions_df['Ticker']] ###get updated prices for each stock
-        self.open_positions_df['Last'] = update_px ###update price columns
-        self.open_positions_df['Current Value'] = self.open_positions_df['Last'] * self.open_positions_df['Quantity'] ### update current value 
-        self.open_positions_df["% Gain"] = round(((self.open_positions_df['Current Value']/self.open_positions_df['Basis'])-1),4)*100 ### update gain
-        self.open_positions_df= self.open_positions_df.reset_index(drop = True)###clean up the index
-        self.snapshots['Positions_{}'.format(date)] = self.open_positions_df.copy() ### update snapshot
-        self.snapshots['cash_{}'.format(date)] = self.current_cash.copy() ### update snapshot
-        val = self.open_positions_df['Current Value'].sum() + self.current_cash ### calculate portfolio value
-        val_ex = self.open_positions_df['Current Value'].sum() ### calculate portfolio value EX cash
-        self.snapshots['val_{}'.format(date)] = val # update Snapshot
-        tr = pd.DataFrame({'Date':date, 'Value':val, 'Val_ex_cash': val_ex}, index = [0]) # update trackrecord
-        self.track_record = pd.concat([self.track_record, tr]).reset_index(drop = True) # update trackrecord
-        return 
+            ###steo 0: update portfolio data:
+            if len(self.open_positions_df)==0:
+                pass
+            else:
+                nyse = mcal.get_calendar('NYSE')
+                last_update = self.track_record['Date'].iloc[-1]
+                today = date
+                update_range = list(nyse.valid_days(start_date= last_update, end_date = date))
+                update_range = update_range[1:-1]
+                for d in update_range:
+                    dt = d.strftime('%Y-%m-%d')
+                    px = [self.get_price(dt, t) for t in list(self.open_positions_df['Ticker'])] ### gets prices needed for portfolio
+                    self.open_positions_df['Last'] = px ### replaces old prices with new prices
+                    self.open_positions_df['Current Value'] = self.open_positions_df['Last'] * self.open_positions_df['Quantity'] ### updates value of positions
+                    self.open_positions_df[ "% Gain"] = round((self.open_positions_df['Current Value'] / self.open_positions_df['Basis'])-1, 4)*100 ### calculates new returns
+                    self.snapshots['Positions_{}'.format(dt)] = self.open_positions_df.copy() ### update snapshot
+                    self.snapshots['cash_{}'.format(dt)] = self.current_cash.copy() ### update snapshot
+                    val = self.open_positions_df['Current Value'].sum() + self.current_cash ### calculate portfolio value
+                    val_ex = self.open_positions_df['Current Value'].sum() ### calculate portfolio value EX cash
+                    self.snapshots['val_{}'.format(dt)] = val # update Snapshot
+                    tr = pd.DataFrame({'Date':dt, 'Value':val, 'Val_ex_cash': val_ex}, index = [0]) # update trackrecord
+                    self.track_record = pd.concat([self.track_record, tr]).reset_index(drop = True) # update trackrecord
+                    self.track_record = self.track_record.reset_index(drop = True)
+            ###step 1: create an order ticket from the inputs
+            trade_ticket= pd.DataFrame(order, index =[0]).T.reset_index().rename(columns = {'index': 'Ticker', 0: 'Quantity'}) ### inserts tickers and quantities into a df
+            transaction = [t_type.upper() for i in range(len(trade_ticket))] ### adds transaction type to the trade_ticket df
+            px = [self.get_price(date, i) for i in list(trade_ticket['Ticker'])] ### get order prices
+            trade_ticket['Last'] = px ### add order prices to trade ticket
+            trade_ticket['Trade Type'] = transaction ### add transaction types to trade ticket
+            ###step 2: validate orders in trade tickets and add to blotter
+            blotter = pd.DataFrame()
+            cash_ref = self.current_cash### create a cash counter 
+            for t in list(trade_ticket['Ticker']): ###loop through orders
+                if t_type.upper() == 'SELL': ### if its an order to sell
+                    positions = self.open_positions_df ### pull the portfolio's current positions
+                    open_lot = positions[positions['Ticker']==t] ### Isolate the stock in question in the portfolio
+                    if len(open_lot)==0: ### If the stock is not in the portfolio - reject
+                        print("Rejected Trade: You do not have {} in your portfolio".format(t))
+                    elif len(open_lot)>0 and open_lot['Quantity'].iloc[0]< trade_ticket[trade_ticket['Ticker']==t]['Quantity'].iloc[0]: ### check if we are selling more than we own
+                        print("Rejected Trade: You do not enough shares of {} in your portfolio".format(t)) ### if so - reject trade
+                    else:
+                        blotter = pd.concat([blotter, trade_ticket[trade_ticket['Ticker']==t]]) ### if trade checks out print validation
+                        trade = blotter[blotter['Ticker'] == t]
+                        print("Order to SELL {} shares of {} validated and approved".format(trade['Quantity'].iloc[0], t)) ### add to blotter
+                else: #### for BUY Orders
+                    trade = trade_ticket[trade_ticket['Ticker']==t] ### Isolate a trade
+                    if trade['Quantity'].iloc[0] * trade['Last'].iloc[0] > cash_ref: ### check trade against cash
+                        print("Rejected Trade: you do not have enough cash to buy {} shares of {}".format(trade['Quantity'].iloc[0], t)) # If not enough cash reject the trade
+                    else:
+                        print("Order to BUY {} shares of {} validated and approved".format(trade['Quantity'].iloc[0], t)) #otherwise validate 
+                        blotter = pd.concat([blotter, trade]) #add to blotter
+                        cash_ref -= (trade['Quantity'].iloc[0] * trade['Last'].iloc[0]) ### adjust for cash 
+            blotter['Date'] = [date for i in range(len(blotter))]
+            ###step 3: stage and execute trades
+            if t_type.upper() == 'SELL':
+                blotter['Quantity'] = blotter['Quantity']*-1 ### convert sells negative quantities 
+            else:
+                pass
+            staged_trades = pd.DataFrame() ### executed trades df
+            for t in list(blotter['Ticker']): ### loop through orders
+                ex_trade = blotter[blotter['Ticker']==t] ### grab an order
+                ex_trade['Basis'] = ex_trade['Quantity'] * ex_trade['Last'] ### establish cost basis
+                ex_trade['Current Value'] = ex_trade['Quantity'] * ex_trade['Last'] ### establish current value
+                ex_trade['Purchase Price'] = ex_trade['Last'] ### lock in purchase price for this lot
+                staged_trades = pd.concat([staged_trades, ex_trade]) ### add to staged trades 
+            self.hist_trades_df = pd.concat([self.hist_trades_df, staged_trades]) ### record trades in historic activity
+            staged_trades = staged_trades.drop('Trade Type', axis = 1) ### Prep for execution
+            self.open_positions_df = pd.concat([self.open_positions_df, staged_trades]) ### Buy/Sell
+            self.current_cash -= staged_trades['Basis'].sum() ### Adjust cash
+            self.open_positions_df['% Gain'] = round((self.open_positions_df['Current Value']/self.open_positions_df['Basis'])-1,4)*100 ### current gain 
+            ###step 3: consolidate open_positions:
+            exp_portfolio = self.open_positions_df
+            consolidated_port = pd.DataFrame()
+            for t in exp_portfolio['Ticker'].unique():
+                open_lots = exp_portfolio[exp_portfolio['Ticker']==t]
+                dt = open_lots['Date'].min()
+                quant = open_lots['Quantity'].sum()
+                basis = open_lots['Basis'].sum()
+                ppx = basis/quant
+                last = self.get_price(date = date, ticker = t)
+                cv = quant * last
+                gain = round((cv/basis)-1,4)*100
+                consolidated_line = pd.DataFrame({'Date':dt,'Ticker':t, 'Quantity':quant,'Basis':basis,'Purchase Price':ppx, "Current Value":cv, "Last":last, "% Gain":gain}, index = [0])
+                consolidated_port = pd.concat([consolidated_port, consolidated_line])
+            consolidated_port = consolidated_port[consolidated_port['Quantity']!=0]
+            self.open_positions_df = consolidated_port.reset_index(drop = True)
+            val = self.open_positions_df["Current Value"].sum()+self.current_cash
+            val_ex = self.open_positions_df["Current Value"].sum()
+            tr = pd.DataFrame({'Date':date, 'Value':val, 'Val_ex_cash': val_ex}, index = [0])
+            self.track_record = pd.concat([self.track_record, tr]).reset_index(drop=True)
+            self.snapshots['Positions_{}'.format(date)] = self.open_positions_df ### update snapshot
+            self.snapshots['cash_{}'.format(date)] = self.current_cash ### update snapshot
+            self.snapshots['val_{}'.format(date)] = val # update Snapshot
+            print('Trades Executed')
+
+            return  
 
 
     def get_price(self, date, ticker):
@@ -301,18 +285,25 @@ class portfolio:
         :param date: date of price needed in string format YYYY-MM-DD
         :param cash_add: adds or subtracts cash from the portfolio on the date specified    
         '''
-        px = [self.get_price(date, t) for t in list(self.open_positions_df['Ticker'])] ### gets prices needed for portfolio
-        self.open_positions_df['Last'] = px ### replaces old prices with new prices
-        self.open_positions_df['Current Value'] = self.open_positions_df['Last'] * self.open_positions_df['Quantity'] ### updates value of positions
-        self.open_positions_df[ "% Gain"] = round((self.open_positions_df['Current Value'] / self.open_positions_df['Basis'])-1, 4)*100 ### calculates new returns
-        if cash_add != None: 
-            self.cash_add(date = date, amount = cash_add) ### adds cash if needed
-        self.snapshots['Positions_{}'.format(date)] = self.open_positions_df.copy() ### update snapshot
-        self.snapshots['cash_{}'.format(date)] = self.current_cash.copy() ### update snapshot
-        val = self.open_positions_df['Current Value'].sum() + self.current_cash ### calculate portfolio value
-        val_ex = self.open_positions_df['Current Value'].sum() ### calculate portfolio value EX cash
-        self.snapshots['val_{}'.format(date)] = val # update Snapshot
-        tr = pd.DataFrame({'Date':date, 'Value':val, 'Val_ex_cash': val_ex}, index = [0]) # update trackrecord
-        self.track_record = pd.concat([self.track_record, tr]).reset_index(drop = True) # update trackrecord
+        nyse = mcal.get_calendar('NYSE')
+        last_update = self.track_record['Date'].iloc[-1]
+        today = date
+        update_range = list(nyse.valid_days(start_date= last_update, end_date = date))
+        update_range = update_range[1:-1]
+        for d in update_range:
+            dt = d.strftime('%Y-%m-%d')
+            px = [self.get_price(dt, t) for t in list(self.open_positions_df['Ticker'])] ### gets prices needed for portfolio
+            self.open_positions_df['Last'] = px ### replaces old prices with new prices
+            self.open_positions_df['Current Value'] = self.open_positions_df['Last'] * self.open_positions_df['Quantity'] ### updates value of positions
+            self.open_positions_df[ "% Gain"] = round((self.open_positions_df['Current Value'] / self.open_positions_df['Basis'])-1, 4)*100 ### calculates new returns
+            self.snapshots['Positions_{}'.format(dt)] = self.open_positions_df.copy() ### update snapshot
+            self.snapshots['cash_{}'.format(dt)] = self.current_cash.copy() ### update snapshot
+            val = self.open_positions_df['Current Value'].sum() + self.current_cash ### calculate portfolio value
+            val_ex = self.open_positions_df['Current Value'].sum() ### calculate portfolio value EX cash
+            self.snapshots['val_{}'.format(dt)] = val # update Snapshot
+            tr = pd.DataFrame({'Date':dt, 'Value':val, 'Val_ex_cash': val_ex}, index = [0]) # update trackrecord
+            self.track_record = pd.concat([self.track_record, tr]).reset_index(drop = True) # update trackrecord
+            self.track_record = self.track_record.reset_index(drop = True)
+        return 
     
 
