@@ -183,15 +183,16 @@ class portfolio:
                 update_range = list(nyse.valid_days(start_date= last_update, end_date = date))
                 update_range = update_range[1:-1]
                 for d in update_range:
+                    snap_pos = self.open_positions_df.copy()
                     dt = d.strftime('%Y-%m-%d')
-                    px = [self.get_price(dt, t) for t in list(self.open_positions_df['Ticker'])] ### gets prices needed for portfolio
-                    self.open_positions_df['Last'] = px ### replaces old prices with new prices
-                    self.open_positions_df['Current Value'] = self.open_positions_df['Last'] * self.open_positions_df['Quantity'] ### updates value of positions
-                    self.open_positions_df[ "% Gain"] = round((self.open_positions_df['Current Value'] / self.open_positions_df['Basis'])-1, 4)*100 ### calculates new returns
-                    self.snapshots['Positions_{}'.format(dt)] = self.open_positions_df.copy() ### update snapshot
-                    self.snapshots['cash_{}'.format(dt)] = self.current_cash.copy() ### update snapshot
-                    val = self.open_positions_df['Current Value'].sum() + self.current_cash ### calculate portfolio value
-                    val_ex = self.open_positions_df['Current Value'].sum() ### calculate portfolio value EX cash
+                    px = [self.get_price(dt, t) for t in list(snap_pos['Ticker'])] ### gets prices needed for portfolio
+                    snap_pos['Last'] = px ### replaces old prices with new prices
+                    snap_pos['Current Value'] = snap_pos['Last'] * snap_pos['Quantity'] ### updates value of positions
+                    snap_pos[ "% Gain"] = round((snap_pos['Current Value'] / snap_pos['Basis'])-1, 4)*100 ### calculates new returns
+                    self.snapshots['Positions_{}'.format(dt)] = snap_pos.copy() ### update snapshot
+                    self.snapshots['cash_{}'.format(dt)] = self.current_cash ### update snapshot
+                    val = snap_pos['Current Value'].sum() + self.current_cash ### calculate portfolio value
+                    val_ex = snap_pos['Current Value'].sum() ### calculate portfolio value EX cash
                     self.snapshots['val_{}'.format(dt)] = val # update Snapshot
                     tr = pd.DataFrame({'Date':dt, 'Value':val, 'Val_ex_cash': val_ex}, index = [0]) # update trackrecord
                     self.track_record = pd.concat([self.track_record, tr]).reset_index(drop = True) # update trackrecord
