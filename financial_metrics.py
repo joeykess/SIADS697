@@ -59,7 +59,7 @@ def calmer(dailys):
     """
     ex = np.mean(dailys)*365
     dd = max_drawdow(dailys)
-    calm = ex/dd
+    calm = ex/-dd
     return calm
 
 
