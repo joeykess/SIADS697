@@ -20,6 +20,12 @@ import plotly.graph_objects as go
 
 from apps.ind_css import *
 from app import app
+from yahoo_fin import stock_info as si
+import financial_metrics as fm
+from port_charts import *
+import pickle
+
+port_2 = pickle.load(open( "RF_Reg_target_120_rebal_30_2017-01-01.pkl", "rb" ))
 
 layout = html.Div([
 
@@ -33,13 +39,31 @@ layout = html.Div([
             dbc.Row(
                 [
                 dbc.Col(html.Div("R^2,ROI, etc"),width=3,style={'border': 'thin black solid','margin':'5px'}),
-                dbc.Col(html.Div("Model Performance Line Chart"),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
+                dbc.Col(dcc.Graph(id='perf_chart'),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
                 dbc.Col(html.Div("Model Description"),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
                 ]),
             dbc.Row(
                 [
                 dbc.Col(html.Div("Stock Mix"),width=3,style={'border': 'thin black solid','margin':'5px'}),
-                dbc.Col(html.Div("% Mix by Sector"),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
+                dbc.Col(dcc.Graph(id='sector_chart'),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
                 dbc.Col(html.Div("Confusion Matrix or table comparing metrics to benchmarks (e.g. sharpe ratio)"),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
                 ])
             ])
+
+@app.callback(dash.dependencies.Output('perf_chart','figure'),
+    [dash.dependencies.Input('model_filter','value')])
+
+def perf_chart_func(model_filter):
+
+    fig = performance_chart(port_2, 'spy')
+
+    return fig
+
+@app.callback(dash.dependencies.Output('sector_chart','figure'),
+    [dash.dependencies.Input('model_filter','value')])
+
+def sector_chart_func(model_filter):
+
+    fig = sector_plot(port_2, '2021-03-03')
+
+    return fig

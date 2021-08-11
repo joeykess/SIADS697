@@ -24,7 +24,6 @@ from plotly.subplots import make_subplots
 
 # In[6]:
 
-
 def performance_chart(port, BM):
     '''
     :param port: an instance of the port_2 class 
@@ -44,14 +43,14 @@ def performance_chart(port, BM):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x = plot_dat.index, y = plot_dat['Port_Performance'], name = 'Model', mode = 'lines', line = dict(color = color_codes[0])))
     fig.add_trace(go.Scatter(x = plot_dat.index, y = plot_dat['{} Performance'.format(BM)], name = '{}'.format(BM), mode = 'lines', line = dict(color = color_codes[1])))
-    fig.update_layout(width = 950, height = 500,
+    fig.update_layout(#width = 950, height = 500,
                             margin=dict(l=20, r=20, t=50, b=10),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
                             legend=dict( orientation="h"),
                             yaxis_tickformat = '.2%',
-                            title= dict(text='Performace Chart', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
-    return fig.show()
+                            title= dict(text='Performance Chart', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
+    return fig
 
 
 # In[7]:
@@ -99,7 +98,7 @@ def risk_adjusted_metrics(port, BM):
                         legend=dict( orientation="h"),
                         yaxis_tickformat = '.2f',
                         title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
-    return fig_2.show()
+    return fig_2
 
 
 # In[8]:
@@ -150,8 +149,7 @@ def risk_to_ret(port, BM):
                             yaxis = dict(title =  'Annualized Return'),
                             title= dict(text='Risk vs Reward', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
 
-    return fig_3.show()  
-
+    return fig_3
 
 # In[9]:
 
@@ -182,10 +180,7 @@ def sector_plot(port, date):
                             paper_bgcolor='white',
                             plot_bgcolor='white',
                             title= dict(text='Portfolio Allocation as of {}'.format(date), font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))
-    return fig_4.show()
-
-
-# In[10]:
+    return fig_4
 
 
 def capm_res(port, BM):
@@ -241,5 +236,5 @@ def capm_res(port, BM):
                             plot_bgcolor='white',
                             title= dict(text='Capital Asset Pricing Model', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))    
     
-    return fig.show()    
+    return fig
 
