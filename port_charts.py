@@ -16,7 +16,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from sklearn.linear_model import LinearRegression
-pd.options.mode.chained_assignment = None 
+pd.options.mode.chained_assignment = None
 from yahoo_fin import stock_info as si
 import financial_metrics as fm
 from plotly.subplots import make_subplots
@@ -26,7 +26,7 @@ from plotly.subplots import make_subplots
 
 def performance_chart(port, BM):
     '''
-    :param port: an instance of the port_2 class 
+    :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     s_date = port.track_record['Date'].iloc[0]
@@ -46,10 +46,11 @@ def performance_chart(port, BM):
     fig.update_layout(#width = 950, height = 500,
                             margin=dict(l=20, r=20, t=50, b=10),
                             paper_bgcolor='white',
-                            plot_bgcolor='white',
+                            plot_bgcolor='rgba(0,0,0,0)',
+                            yaxis_title="Return on Investment (ROI)",
                             legend=dict( orientation="h"),
-                            yaxis_tickformat = '.2%',
-                            title= dict(text='Performance Chart', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
+                            yaxis_tickformat = '.0%',
+                            title= dict(text='Performance Chart', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
     return fig
 
 
@@ -58,7 +59,7 @@ def performance_chart(port, BM):
 
 def risk_adjusted_metrics(port, BM):
     '''
-    :param port: an instance of the port_2 class 
+    :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
@@ -90,14 +91,14 @@ def risk_adjusted_metrics(port, BM):
         go.Bar(name = '{}_daily'.format(BM), x = metrics,  y = sp,  marker_color =color_codes[4]),
     ])
 
-    fig_2.update_layout(width = 950, height = 400,
+    fig_2.update_layout( #width = 950, height = 400,
                         barmode='group',
                         margin=dict(l=20, r=20, t=50, b=10),
                         paper_bgcolor='white',
                         plot_bgcolor='white',
                         legend=dict( orientation="h"),
                         yaxis_tickformat = '.2f',
-                        title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
+                        title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
     return fig_2
 
 
@@ -106,7 +107,7 @@ def risk_adjusted_metrics(port, BM):
 
 def risk_to_ret(port, BM):
     '''
-    :param port: an instance of the port_2 class 
+    :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
@@ -128,26 +129,26 @@ def risk_to_ret(port, BM):
     names = ['Model', '{}_daily'.format(BM)]
     fig_3 = go.Figure()
     fig_3.add_trace(go.Scatter(
-        x = np.array(x[0]), y = np.array(y[0]), 
-        mode  = 'markers', 
-        marker = dict(color = color_codes[0], 
-                      size = (z[0]*5)**2), name = "Model"))
+        x = np.array(x[0]), y = np.array(y[0]),
+        mode  = 'markers',
+        marker = dict(color = color_codes[0],
+                      size = (z[0]*2)**2), name = "Model"))
     fig_3.add_trace(go.Scatter(
-        x = np.array(x[1]), y = np.array(y[1]), 
-        mode  = 'markers', 
-        marker = dict(color = color_codes[1], 
-                      size = (z[1]*5)**2), name = '{}_daily'.format(BM)))
-    fig_3.update_layout(width = 700, height = 400,
+        x = np.array(x[1]), y = np.array(y[1]),
+        mode  = 'markers',
+        marker = dict(color = color_codes[1],
+                      size = (z[1]*2)**2), name = '{}_daily'.format(BM)))
+    fig_3.update_layout(#width = 700, height = 400,
                             margin=dict(l=20, r=20, t=50, b=10),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
                             legend=dict( orientation="v"),
-                            yaxis_tickformat = '.2%',
-                            xaxis_tickformat = '.2%',
+                            yaxis_tickformat = '.0%',
+                            xaxis_tickformat = '.0%',
                             legend_title_text=('Size = Sharpe Ratio'),
                             xaxis = dict(title =  'Annualized Volatility'),
                             yaxis = dict(title =  'Annualized Return'),
-                            title= dict(text='Risk vs Reward', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.96))
+                            title= dict(text='Risk vs Reward', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
 
     return fig_3
 
@@ -156,7 +157,7 @@ def risk_to_ret(port, BM):
 
 def sector_plot(port, date):
     '''
-    :param port: an instance of the port_2 class 
+    :param port: an instance of the port_2 class
     :param date: the date of the desired allocation breakdown
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
@@ -175,17 +176,17 @@ def sector_plot(port, date):
     fig_4.update_traces(hoverinfo='label+percent', textinfo='label + percent', textfont_size=10,textposition='inside',
                           marker=dict(colors=color_codes, line=dict(color='#000000', width=2)))
     fig_4.update_layout(showlegend=False,
-                            width = 475, height = 500,
-                            margin=dict(l=10, r=10, t=15, b=5),
+                            # width = 475, height = 500,
+                            margin=dict(l=10, r=10, t=35, b=5),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
-                            title= dict(text='Portfolio Allocation as of {}'.format(date), font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))
+                            title= dict(text='Portfolio Allocation as of {}'.format(date), font = dict(size = 20, color = 'white'), x = 0.5, y = 0.98))
     return fig_4
 
 
 def capm_res(port, BM):
     '''
-    :param port: an instance of the port_2 class 
+    :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
@@ -234,7 +235,6 @@ def capm_res(port, BM):
                             margin=dict(l=10, r=10, t=60, b=5),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
-                            title= dict(text='Capital Asset Pricing Model', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))    
-    
-    return fig
+                            title= dict(text='Capital Asset Pricing Model', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))
 
+    return fig

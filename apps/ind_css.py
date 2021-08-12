@@ -80,3 +80,21 @@ sentiment_style = {'display': 'inline-block',
                 'overflowX':'hidden',
                 'color':'white',
                 'borderRadius': '.4rem'}
+
+chart_style_dbc = {'display':'inline-block',
+               'textAlign':'center',
+               'vertical-align':'top',
+               'width':'100%',
+               'margin':'10px',
+               'float':'middle',
+               'textAlign':'center',
+               'height':300}
+
+chart_style_dbc = {'display':'inline-block',
+               'textAlign':'center',
+               'vertical-align':'top',
+               'width':'100%',
+               'margin':'10px',
+               'float':'middle',
+               'textAlign':'center',
+               'height':300}
