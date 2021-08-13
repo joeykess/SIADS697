@@ -24,15 +24,16 @@ from plotly.subplots import make_subplots
 
 # In[6]:
 
-def performance_chart(port, BM):
+def performance_chart(tr, BM):
     '''
     :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
-    s_date = port.track_record['Date'].iloc[0]
-    e_date = port.track_record['Date'].iloc[-1]
+    tr = tr.drop_duplicates()
+    s_date = tr['Date'].iloc[0]
+    e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM.upper(), start_date = s_date, end_date = e_date)['close']
-    tr = port.track_record.drop_duplicates()
+    #tr = port.track_record.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
     plot_dat = tr.set_index('Date').join(spy)
     plot_dat = plot_dat.filter(['Value', 'close']).dropna()
@@ -57,16 +58,16 @@ def performance_chart(port, BM):
 # In[7]:
 
 
-def risk_adjusted_metrics(port, BM):
+def risk_adjusted_metrics(tr, BM):
     '''
     :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    s_date = port.track_record['Date'].iloc[0]
-    e_date = port.track_record['Date'].iloc[-1]
+    s_date = tr['Date'].iloc[0]
+    e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM, start_date = s_date, end_date = e_date)['close']
-    tr = port.track_record.drop_duplicates()
+    tr = tr.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
     plot_dat = tr.set_index('Date').join(spy)
     plot_dat = plot_dat.filter(['Value', 'close']).dropna()
@@ -105,16 +106,16 @@ def risk_adjusted_metrics(port, BM):
 # In[8]:
 
 
-def risk_to_ret(port, BM):
+def risk_to_ret(tr, BM):
     '''
     :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    s_date = port.track_record['Date'].iloc[0]
-    e_date = port.track_record['Date'].iloc[-1]
+    s_date = tr['Date'].iloc[0]
+    e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM, start_date = s_date, end_date = e_date)['close']
-    tr = port.track_record.drop_duplicates()
+    tr = tr.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
     plot_dat = tr.set_index('Date').join(spy)
     plot_dat = plot_dat.filter(['Value', 'close']).dropna()
@@ -155,7 +156,7 @@ def risk_to_ret(port, BM):
 # In[9]:
 
 
-def sector_plot(port, date):
+def sector_plot(snap_port, snap_cash, date):
     '''
     :param port: an instance of the port_2 class
     :param date: the date of the desired allocation breakdown
@@ -163,15 +164,14 @@ def sector_plot(port, date):
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
     sectors = pd.read_csv("assets/fundamentals/sectors.csv", index_col = 0)
     sectors = sectors.rename(columns = {"Instrument": "Ticker"})
-    snap = port.snapshots['Positions_{}'.format(date)]
-    snap = snap.merge(sectors, on = 'Ticker', how= 'inner')
-    snap = snap.groupby("GICS Sector").sum().filter(["Current Value"])
-    snap['% of Portfolio'] = snap["Current Value"]/(snap["Current Value"].sum() + port.snapshots['cash_{}'.format(date)])
+    snap_port = snap_port.merge(sectors, on = 'Ticker', how= 'inner')
+    snap_port = snap_port.groupby("GICS Sector").sum().filter(["Current Value"])
+    snap_port['% of Portfolio'] = snap_port["Current Value"]/(snap_port["Current Value"].sum() + snap_cash)
     gics = "Cash"
-    pr_of_port = 1-snap["% of Portfolio"].sum()
-    curv = port.snapshots['cash_{}'.format(date)]
+    pr_of_port = 1-snap_port["% of Portfolio"].sum()
+    curv = snap_cash
     cash_pos = pd.DataFrame({"Current Value": curv, "% of Portfolio": pr_of_port}, index = [gics])
-    snap = pd.concat([cash_pos, snap])
+    snap = pd.concat([cash_pos, snap_port])
     fig_4 = go.Figure(data = [go.Pie(labels = snap.index, values = snap['% of Portfolio'], hole = 0.3)])
     fig_4.update_traces(hoverinfo='label+percent', textinfo='label + percent', textfont_size=10,textposition='inside',
                           marker=dict(colors=color_codes, line=dict(color='#000000', width=2)))
@@ -184,16 +184,16 @@ def sector_plot(port, date):
     return fig_4
 
 
-def capm_res(port, BM):
+def capm_res(tr, BM):
     '''
     :param port: an instance of the port_2 class
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    s_date = port.track_record['Date'].iloc[0]
-    e_date = port.track_record['Date'].iloc[-1]
+    s_date = tr['Date'].iloc[0]
+    e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM, start_date = s_date, end_date = e_date)['close']
-    tr = port.track_record.drop_duplicates()
+    tr = tr.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
     plot_dat = tr.set_index('Date').join(spy)
     plot_dat = plot_dat.filter(['Value', 'close']).dropna()
