@@ -25,7 +25,27 @@ import financial_metrics as fm
 from port_charts import *
 import pickle
 
-port_2 = pickle.load(open( "RF_Reg_target_120_rebal_30_2017-01-01.pkl", "rb" ))
+from sqlalchemy import create_engine
+import psycopg2
+from psycopg2 import connect
+
+def import_track_record():
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM track_record"
+    data = pd.read_sql_query(query,conn)
+    data = data.sort_values(['Date', 'model'])
+    return data
+track_df = import_track_record().drop('index',axis=1)
+
+def import_open_positions():
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM open_positions"
+    data = pd.read_sql_query(query,conn)
+    data = data.sort_values(['key', 'model'])
+    return data
+open_pos_df = import_open_positions().drop('index',axis=1)
 
 layout = html.Div([
 
@@ -59,7 +79,7 @@ layout = html.Div([
 
 def perf_chart_func(model_filter):
 
-    fig = performance_chart(port_2, 'spy')
+    fig = performance_chart(track_df, 'spy')
 
     fig.update_layout(template="ggplot2",
                       hovermode="x unified",
@@ -75,7 +95,7 @@ def perf_chart_func(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def sector_chart_func(model_filter):
 
-    fig = sector_plot(port_2, '2021-03-03')
+    fig = sector_plot(open_pos_df[open_pos_df['Date']=='2021-03-03'], '2021-03-03')
 
     fig.update_layout(template="ggplot2",
                       paper_bgcolor='rgba(0,0,0,0)')
@@ -86,7 +106,7 @@ def sector_chart_func(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def risk_adj_func(model_filter):
 
-    fig = risk_adjusted_metrics(port_2,'spy')
+    fig = risk_adjusted_metrics(track_df,'spy')
 
     fig.update_layout(template="ggplot2",
                       paper_bgcolor='rgba(0,0,0,0)',
@@ -102,7 +122,7 @@ def risk_adj_func(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def risk_return_func(model_filter):
 
-    fig = risk_to_ret(port_2,'spy')
+    fig = risk_to_ret(track_df,'spy')
 
     fig.update_layout(template="ggplot2",
                       paper_bgcolor='rgba(0,0,0,0)',

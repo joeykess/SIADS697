@@ -42,9 +42,10 @@ title_link_style = {'display': 'inline-block',
 tabs_style = {
              'textAlign':'center',
              'verticalAlign':'top',
-             'width':'50%',
+             'width':'100%',
              'height':50,
              'backgroundColor':'gray',
+             'display': 'inline-block',
              # 'border': 'thin lightgrey solid',
              'fontSize':15}
              # 'height':15}
@@ -96,12 +97,21 @@ app.layout = html.Div([
         ],style=title_link_style)
         ],style={'height':75,'margin-bottom':10}),
 
-    dcc.Tabs(id='tabs-example', value='tab-1', children=[
-        dcc.Tab(label='Portfolio Performance', value='tab-1',style=tab_style,selected_style=tab_selected_style),
-        dcc.Tab(label='Model Performance', value='tab-2',style=tab_style,selected_style=tab_selected_style),
-        dcc.Tab(label='Tab three', value='tab-3',style=tab_style,selected_style=tab_selected_style)
-    ],style=tabs_style),
-    # html.H2('Hello!',style={'border': 'thin lightgrey solid'})
+    html.Div([
+        html.Div([
+            dcc.Tabs(id='tabs-example', value='tab-1', children=[
+                dcc.Tab(label='Portfolio Performance', value='tab-1',style=tab_style,selected_style=tab_selected_style),
+                dcc.Tab(label='Model Performance', value='tab-2',style=tab_style,selected_style=tab_selected_style),
+                dcc.Tab(label='Tab three', value='tab-3',style=tab_style,selected_style=tab_selected_style)
+                ],style=tabs_style)],style={'display':'inline-block','width':'50%'}),
+        html.Div([
+            html.A('Pick a Model:',style={'color':'white','display':'inline-block','width':'25%','verticalAlign':'middle','textAlign':'right','marginRight':'10px'}),
+            dcc.Dropdown(id='model_filter',
+                options=[{'label': i, 'value': i} for i in ['Random Forest Regressor','Next Model']],
+                value='Random Forest Regressor',style={'display': 'inline-block','width':'70%','verticalAlign':'top'}
+                )],style={'display':'inline-block','width':'40%','height':'100%','verticalAlign':'top','float':'right'})
+        ],style={'width':'100%'}),
+
     html.Div(id='tabs-example-content',style={'border': 'thin lightgrey solid'})
 ])
 
