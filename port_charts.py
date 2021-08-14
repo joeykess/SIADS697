@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[5]:
-
-
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -22,15 +16,18 @@ import financial_metrics as fm
 from plotly.subplots import make_subplots
 
 
-# In[6]:
-
 def performance_chart(tr, BM):
     '''
-    :param port: an instance of the port_2 class
+    :param tr: track record dataframe
     :param BM: the ticker for a desired benchmark ETF
     '''
     tr = tr.drop_duplicates()
-    s_date = tr['Date'].iloc[0]
+    if 'Date' in tr.columns:
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
+    else:
+        tr = tr.reset_index()
+        s_date = tr['Date'].iloc[0]
     e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM.upper(), start_date = s_date, end_date = e_date)['close']
     #tr = port.track_record.drop_duplicates()
@@ -55,17 +52,19 @@ def performance_chart(tr, BM):
     return fig
 
 
-# In[7]:
-
-
 def risk_adjusted_metrics(tr, BM):
     '''
-    :param port: an instance of the port_2 class
+    :param tr: track record dataframe
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    s_date = tr['Date'].iloc[0]
-    e_date = tr['Date'].iloc[-1]
+    if 'Date' in tr.columns:
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
+    else:
+        tr = tr.reset_index()
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM, start_date = s_date, end_date = e_date)['close']
     tr = tr.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
@@ -103,17 +102,19 @@ def risk_adjusted_metrics(tr, BM):
     return fig_2
 
 
-# In[8]:
-
-
 def risk_to_ret(tr, BM):
     '''
-    :param port: an instance of the port_2 class
+    :param tr: track record dataframe
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    s_date = tr['Date'].iloc[0]
-    e_date = tr['Date'].iloc[-1]
+    if 'Date' in tr.columns:
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
+    else:
+        tr = tr.reset_index()
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM, start_date = s_date, end_date = e_date)['close']
     tr = tr.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
@@ -153,12 +154,11 @@ def risk_to_ret(tr, BM):
 
     return fig_3
 
-# In[9]:
-
 
 def sector_plot(snap_port, snap_cash, date):
     '''
-    :param port: an instance of the port_2 class
+    :param snap_port: 
+    :param snap_cash: 
     :param date: the date of the desired allocation breakdown
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
@@ -186,12 +186,17 @@ def sector_plot(snap_port, snap_cash, date):
 
 def capm_res(tr, BM):
     '''
-    :param port: an instance of the port_2 class
+    :param tr: track record dataframe
     :param BM: the ticker for a desired benchmark ETF
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    s_date = tr['Date'].iloc[0]
-    e_date = tr['Date'].iloc[-1]
+    if 'Date' in tr.columns:
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
+    else:
+        tr = tr.reset_index()
+        s_date = tr['Date'].iloc[0]
+        e_date = tr['Date'].iloc[-1]
     spy = si.get_data(BM, start_date = s_date, end_date = e_date)['close']
     tr = tr.drop_duplicates()
     tr['Date'] = pd.to_datetime(tr['Date'])
