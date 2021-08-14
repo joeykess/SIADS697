@@ -11,34 +11,33 @@ import os
 import pickle
 
 
-# HAS TO BE RUN ON CLI in UBUNTU 20.04 to use CUDA - venv and windows CUDA broken on my PC
-# - Joey
-
-
 def train_cnn_model(width, height, num_samples, needs_split=False):
+    """
+    This trains a cnn model and outputs the model to the specified location below
+    :param width: width of image
+    :param height: height of image
+    :param num_samples: total number of samples that are being split
+    :param needs_split: if the samples are split into the output folder or not
+    """
     start = time.time()
     if needs_split:
-        splitfolders.ratio("assets/cnn_images/", output="assets/cnn_images/output",
+        splitfolders.ratio("assets/cnn_images_5m/", output="assets/cnn_images_5m/output",
                            seed=0, ratio=(0.8, 0.1, 0.1), group_prefix=None)
 
     model_metrics = ['accuracy', metrics.BinaryCrossentropy(), metrics.Precision(),
                      metrics.Recall(), metrics.BinaryAccuracy()]
     img_width, img_height = width, height
-    train_data_dir = 'assets/cnn_images/output/train'
-    val_data_dir = 'assets/cnn_images/output/val'
-    test_data_dir = 'assets/cnn_images/output/test'
-    epochs = 100
+    train_data_dir = 'assets/cnn_images_5m/output/train'
+    val_data_dir = 'assets/cnn_images_5m/output/val'
+    test_data_dir = 'assets/cnn_images_5m/output/test'
+    epochs = 75
     validation_steps = 300
     batch_size = 32
-    num_train_samples = int(num_samples * 0.8)
-    num_val_samples = int(num_samples * 0.1)
     classes_num = 2
     nb_filters1 = 16
     nb_filters2 = 32
-    nb_filters3 = 64
     conv1_size = 4
     conv2_size = 2
-    conv3_size = 6
     pool_size = 2
 
     model = Sequential()
@@ -93,10 +92,10 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
     target_dir = './models/'
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
-    model.save(f'assets/models/joey_cnn_intraday/cnn_model_{epochs}epochs_{classes_num}classes.h5')
-    model.save_weights(f'assets/models/joey_cnn_intraday/cnn_weights_{epochs}epochs_{classes_num}classes.h5')
+    model.save(f'assets/models/joey_cnn_intraday/cnn_model_5m_{epochs}epochs_{classes_num}classes.h5')
+    model.save_weights(f'assets/models/joey_cnn_intraday/cnn_weights_5m_{epochs}epochs_{classes_num}classes.h5')
 
-    with open(f'assets/models/joey_cnn_intraday/history_{epochs}epochs_{classes_num}classes.pkl', 'wb') as f:
+    with open(f'assets/models/joey_cnn_intraday/history_5m_{epochs}epochs_{classes_num}classes.pkl', 'wb') as f:
         pickle.dump(history.history, f)
 
     print('binary_accuracy', history.history['val_binary_accuracy'])
@@ -119,6 +118,6 @@ def train_cnn_model(width, height, num_samples, needs_split=False):
 
 if __name__ == '__main__':
     needs_split = True
-    if os.path.exists('assets/cnn_images/output'):
+    if os.path.exists('assets/cnn_images_5m/output'):
         needs_split = False
-    train_cnn_model(width=203, height=202, num_samples=35664, needs_split=needs_split)
+    train_cnn_model(width=203, height=202, num_samples=64947, needs_split=needs_split)

@@ -21,6 +21,10 @@ warnings.simplefilter(action='ignore', category=[FutureWarning, UserWarning])
 
 
 def create_tracking_df():
+    """
+    Creates a dataframe with all tickers specified in the for loop at 5m intraday intervals
+    :return: returns dataframe with format {stock}_{open/high/low/close/volume} for each stock
+    """
     if os.path.exists('assets/short_term_symbols/total.csv'):
         results = pd.read_csv('assets/short_term_symbols/total.csv')
         results['time'] = pd.to_datetime(results['time'])
@@ -92,7 +96,6 @@ class intraday_portfolio:
         self.init_cash = value
         self.current_cash = value
         self.open_positions_dict = {}
-        self.open_positions_df = pd.DataFrame(columns=['Date', 'Ticker', 'Quantity', 'Price'])
         self.hist_trades_df = pd.DataFrame(columns=[
             'Date', 'Order Type', 'Ticker', 'Quantity', 'Ticker Value', 'Total Trade Value', 'Remaining Cash'
         ])
@@ -180,12 +183,12 @@ class intraday_portfolio:
         d_range = mcal.date_range(early, frequency='1D').normalize().date
         end_date = datetime.strptime(end_date, '%Y-%m-%d')
         start_date = datetime.strptime(self.start_date, '%Y-%m-%d')
-        cash_df = self.hist_cash_df.set_index('Date').iloc[1:]
+        cash_df = self.hist_cash_df.set_index('Date')
+        cash_df = cash_df.reset_index()
+        cash_df = cash_df.append({'Date': '2020-07-19', 'Cash Available to Trade': self.init_cash}, ignore_index=True)
+        cash_df = cash_df.set_index('Date')
         cash_df.index = pd.to_datetime(cash_df.index)
-        print(cash_df)
         cash_df = cash_df.groupby(pd.Grouper(freq='D')).last()
-        # cash_df = cash_df.reindex(pd.date_range(self.start_date, end_date, freq='B')).ffill()
-
         cash_df['Total Portfolio Value'] = cash_df['Cash Available to Trade']
         cash_df['Rate of Return'] = cash_df['Total Portfolio Value'].apply(lambda x: (x - self.init_cash) / x)
         cash_df['Rate of Return'] = cash_df['Rate of Return'].apply(lambda x: "{0:.2f}%".format(x * 100))
@@ -205,40 +208,54 @@ class intraday_portfolio:
         returns_fig.show()
         return cash_df
 
+    def save_all_to_csvs(self, path):
+        if not os.path.exists(path):
+            os.mkdir(path)
+        self.hist_trades_df.to_csv(os.path.join(path, 'hist_trades.csv'))
+        self.hist_cash_df.to_csv(os.path.join(path, 'hist_cash.csv'))
 
-def intraday_trading(pf, model_path):
+
+def intraday_trading(pf, model_path, trade_interval):
+    """
+    Backtesting performance measurements here. Results in ROI and contains all trades and tracks the cash present
+    :param pf: portfolio class used to initiate trading
+    :param model_path: path to CNN model being used
+    :param trade_interval: how often to run the CNN model - 5m, 15m, etc
+    """
     model = keras.models.load_model(model_path)
     path = 'assets/models/joey_cnn_intraday/live_test'
     start_date = '2020-07-20 04:05:00'
     test_end_date = '2020-12-31 20:00:00'
     # loop through array above in portfolio (pf)
-    df = pf.tracking_df.loc[start_date:test_end_date]
+    df = pf.tracking_df.loc[start_date:]
+    tickers = ['SPY', 'QQQ', 'NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA']
     for time in tqdm(range(0, df.shape[0])):
-        # for each trading period, after trading delete folder contents
-        # get predictions here
-        trading_time = df.iloc[time].name.hour >= 5 and df.iloc[time].name.minute % 15 == 0
-        test = df.iloc[time].name
-        closing = df.iloc[time].name.minute >= 0 and df.iloc[time].name.hour >= 20
+        curr_time = df.iloc[time].name
+        # trading time is when time isn't within the first hour of opening and prior to closing
+        trading_time = curr_time.hour >= 5 and curr_time.minute % trade_interval == 0
+        closing = curr_time.minute >= 0 and curr_time.hour >= 20
+        # for each trading period, before trading delete folder contents so model sees right candlestick plots
         if trading_time and not closing:
             if os.path.exists('assets/models/joey_cnn_intraday/live_test'):
                 shutil.rmtree('assets/models/joey_cnn_intraday/live_test')
-            tickers = ['SPY', 'QQQ', 'NVDA', 'AMD', 'JPM', 'JNJ', 'MRNA', 'F', 'TSLA', 'MSFT', 'BAC', 'BABA']
             plotted_tickers = []
             timed_df = df.iloc[:time + 1].copy()
             for symb in tickers:
+                # separating dataframes and creating candlesticks
                 symbol_df = timed_df[[f'{symb}_open', f'{symb}_high', f'{symb}_low', f'{symb}_close', f'{symb}_volume']]
                 symbol_df = symbol_df.rename(columns={f'{symb}_open': 'open', f'{symb}_high': 'high',
                                                       f'{symb}_low': 'low', f'{symb}_close': 'close',
                                                       f'{symb}_volume': 'volume'})
                 symbol_df['MA12'] = symbol_df['close'].rolling(window=12).mean()
-                symbol_df['upper_bb'], symbol_df['lower_bb'] = bollinger_bands(symbol_df['close'], symbol_df['MA12'],
-                                                                               12)
+                symbol_df['upper_bb'], symbol_df['lower_bb'] = bollinger_bands(symbol_df['close'], symbol_df['MA12'], 12)
                 symbol_df['ema12'] = symbol_df['close'].ewm(span=12).mean()
                 if time > 12:
                     symbol_df = symbol_df.iloc[-12:]
                 if symbol_df['MA12'].isna().sum() > 1:
                     continue
                 if 0.0 in symbol_df['volume'].value_counts():
+                    # ensuring that we're not using too many points if volume is 0 at specified times
+                    # (no trading done so no volatility)
                     if symbol_df['volume'].value_counts()[0.0] <= 4:
                         create_candles(plot_df=symbol_df, file=str(tickers.index(symb)))
                         plotted_tickers.append(symb)
@@ -256,12 +273,19 @@ def intraday_trading(pf, model_path):
                     img = np.expand_dims(img, axis=0)
                     images.append(img)
                 images = np.vstack(images)
-                preds = np.argmax(model.predict(images), axis=-1)  # will output 0 for buy and 1 for hold
-                pf.sell_all(df.iloc[time].name)
-                cash = pf.current_cash
+                # 50 percent confidence in trade - if value is over 0.5 it will become no buy, if below 0.5 it is buy
+                # preds = np.argmax(model.predict(images), axis=-1)  # will output 0 for buy and 1 for hold
+                preds = model.predict(x=images)
+                preds = [0 if item[0] >= 0.75 else 1 for item in preds]
                 preds_buy = [plotted_tickers[i] for i, x in enumerate(preds) if x == 0]
+                pf.sell_all(curr_time)
+                cash = pf.current_cash
                 buy_order = {}
-                max_cost = cash * 0.75
+                # test to see if holding cash reduces losses (should only see minor changes to be honest)
+                # with holding will be riskier because we're saving our earnings
+                # if cash > 100000:
+                #     cash = 100000
+                max_cost = cash * 0.8
                 if len(preds_buy) > 0:
                     cost_per = max_cost / len(preds_buy)
                     for item in preds_buy:
@@ -270,14 +294,17 @@ def intraday_trading(pf, model_path):
                         buy_order[item] = int(np.floor(cost_per / price))
                     pf.buy(purchase_order=buy_order, date=df.iloc[time].name)
         if closing:
+            # sells all stock at closing to prevent potential losses with volatility of opening hour
             pf.sell_all(df.iloc[time].name)
-            print(pf.current_cash)
+            print("${:,.2f}".format(pf.current_cash))
+    pf.save_all_to_csvs('assets/models/joey_cnn_intraday/75percent_confidence_no_holding_15m')
 
 
 if __name__ == '__main__':
     # commence example portfolio with $100k on 2020-07-20
+    # running this file can take up to 9 hours if trading at 15 minute intervals
     model = 'assets/models/joey_cnn_intraday/cnn_model_100epochs_2classes.h5'
     ptflio = intraday_portfolio(start_date='2020-07-20', value=100000)
-    intraday_trading(ptflio, model_path=model)
+    intraday_trading(ptflio, model_path=model, trade_interval=15)
     print(ptflio.current_cash)
     print(ptflio.calculate_daily_returns())
