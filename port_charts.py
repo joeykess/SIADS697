@@ -49,6 +49,8 @@ def performance_chart(tr, BM):
                             legend=dict( orientation="h"),
                             yaxis_tickformat = '.0%',
                             title= dict(text='Performance Chart', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
+    fig.update_yaxes(range=[-.3, .8])
+
     return fig
 
 
@@ -98,7 +100,10 @@ def risk_adjusted_metrics(tr, BM):
                         plot_bgcolor='white',
                         legend=dict( orientation="h"),
                         yaxis_tickformat = '.0f',
+                        yaxis_title="Ratio",
                         title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
+    fig_2.update_yaxes(range=[-3, 15])
+
     return fig_2
 
 
@@ -128,7 +133,7 @@ def risk_to_ret(tr, BM):
     x = [np.std(list(plot_dat['Port_daily']))*np.sqrt(365), np.std(list(plot_dat['{}_daily'.format(BM)]))*np.sqrt(365)]
     y = [np.mean(list(plot_dat['Port_daily']))*365, np.mean(list(plot_dat['{}_daily'.format(BM)]))*365]
     z = [port_sharpe, spy_sharpe]
-    names = ['Model', '{}_daily'.format(BM)]
+    names = ['Model', '{}'.format(BM)]
     fig_3 = go.Figure()
     fig_3.add_trace(go.Scatter(
         x = np.array(x[0]), y = np.array(y[0]),
@@ -144,16 +149,17 @@ def risk_to_ret(tr, BM):
                             margin=dict(l=20, r=20, t=50, b=10),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
-                            legend=dict( orientation="v"),
+                            legend=dict(orientation="v",yanchor="top",y=2),
                             yaxis_tickformat = '.0%',
                             xaxis_tickformat = '.0%',
                             legend_title_text=('Size = Sharpe Ratio'),
                             xaxis = dict(title =  'Annualized Volatility'),
                             yaxis = dict(title =  'Annualized Return'),
-                            title= dict(text='Risk vs Reward', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
+                            title= dict(text='Risk vs Return', font = dict(size = 20, color = 'white'), x = 0.55, y = 0.96))
+    fig_3.update_yaxes(range=[0, 2])
+    fig_3.update_xaxes(range=[0, .5])
 
     return fig_3
-
 
 def sector_plot(snap_port, snap_cash, date):
     '''

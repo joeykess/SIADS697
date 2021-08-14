@@ -60,23 +60,25 @@ cash_df = import_cash_record().drop('index',axis=1)
 model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017-01-01',
               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
               'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
-              'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+              'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
+              'Multi Factor Multi-Layer Preceptron': 'MF_MLP'
+              # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 model_list = [key for key in model_dict.keys()]
 
 layout = html.Div([
 
-            dbc.Row(
-                [
-                dbc.Col(html.A('What Models Do You Want to Compare?',style={'margin':'5px','lineHeight':2}),width=2),
-                dbc.Col(dcc.Dropdown(id='model_filter',
-                    options=[{'label': i, 'value': i} for i in model_list],
-                    value='Random Forest Regressor 120/30'),width=3,style={'margin':'5px','lineHeight':2}),
-                dbc.Col(html.A('Pick Date to Analyze',style={'margin':'5px','lineHeight':2}),width=1.5),
-                dbc.Col(dcc.Dropdown(id='date_filter',
-                    options=[{'label': i, 'value': i} for i in ['2021-03-03','2021-03-01']],
-                    value='2021-03-03'),width=2,style={'margin':'5px','lineHeight':2})
-                ]),
+            # dbc.Row(
+            #     [
+            #     dbc.Col(html.A('What Models Do You Want to Compare?',style={'margin':'5px','lineHeight':2}),width=2),
+            #     dbc.Col(dcc.Dropdown(id='model_filter2',
+            #         options=[{'label': i, 'value': i} for i in model_list],
+            #         value='Random Forest Regressor 120/30',clearable=False),width=3,style={'margin':'5px','lineHeight':2}),
+            #     dbc.Col(html.A('Pick Date to Analyze',style={'margin':'5px','lineHeight':2}),width=1.5),
+            #     dbc.Col(dcc.Dropdown(id='date_filter',
+            #         options=[{'label': i, 'value': i} for i in ['2021-03-03','2021-03-01']],
+            #         value='2021-03-03'),width=2,style={'margin':'5px','lineHeight':2})
+            #     ]),
             dbc.Row(
                 [
                 dbc.Col(html.Div("R^2,ROI, etc"),width=3,style={'border': 'thin black solid','margin':'5px'}),
@@ -99,11 +101,10 @@ def test_store(data,data2):
     return data2['model_to_filter']
 
 @app.callback(dash.dependencies.Output('perf_chart','figure'),
-             [dash.dependencies.Input('memory-output','data')])
-def perf_chart_func(session_data):
+             [dash.dependencies.Input('model_filter','value')])
+def perf_chart_func(model_filter):
 
     # Getting model from session (or index page)
-    model_filter = session_data['model_to_filter']
     mod_filter = model_dict[model_filter]
 
     chart_df = track_df[track_df['model']==mod_filter]
@@ -132,7 +133,7 @@ def sector_chart_func(model_filter):
     cash_df_chart = cash_df[cash_df['model']==mod_filter]
 
     # Getting max date for input, may make configurable later
-    date = open_pos_df.Date.max()
+    date = open_pos_df_chart['key'].values[-1][-10:]
     pos_key = f'Positions_{date}'
     cash_key = f'cash_{date}'
 
@@ -190,7 +191,7 @@ def model_desc(model_filter):
 
     layout2 = desc_dict[model_filter]
 
-    # [html.H2('Random Forest Regressor Model',style={'color':'white'}),
+    #layout2 =  [html.H2('Random Forest Regressor Model',style={'color':'white'}),
     #             html.P('Description:',style={'color':'white','fontWeight':'bold'}),
     #             html.P("""
     #                     This model uses a GridSearch optimized Random Forest Regressor to predict
