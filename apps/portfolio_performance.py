@@ -21,33 +21,42 @@ import plotly.graph_objects as go
 from apps.ind_css import *
 from app import app
 
+from psycopg2 import connect
+
 # Not using separate callback files
 # from apps.portfolio_performance_cbs import *
 
 # Getting all file paths
 
 import pathlib
+# PATH = pathlib.Path(__file__).parent
+# DATA_PATH = str(PATH.joinpath('../assets/historical-symbols'))
+#
+# # path = r'../assets/historical-symbols' # use your path
+# all_files = glob.glob(DATA_PATH + "/*.csv")
+#
+# # Creating list to append all ticker dfs to
+# li = []
+# for filename in all_files:
+#     df = pd.read_csv(filename, index_col=None, header=0)
+#     li.append(df)
+# # Concat all ticker dfs
+# stock_df = pd.concat(li, axis=0, ignore_index=True,sort=True)
+# stock_df['Date'] = pd.to_datetime(stock_df['Date'])
 
-PATH = pathlib.Path(__file__).parent
+def import_technical_features():
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = 'SELECT "Date","sector","ticker","Close","Open","High","Low" FROM technical_features_daily'
+    data = pd.read_sql_query(query,conn)
+    data = data.sort_values(['ticker', 'Date'])
+    data['Date'] = pd.to_datetime(data['Date'])
+    data = data.set_index('Date')
+    return data
+stock_df = import_technical_features()
 
-DATA_PATH = str(PATH.joinpath('../assets/historical-symbols'))
 
-# path = r'../assets/historical-symbols' # use your path
-all_files = glob.glob(DATA_PATH + "/*.csv")
-
-# Creating list to append all ticker dfs to
-li = []
-
-for filename in all_files:
-    df = pd.read_csv(filename, index_col=None, header=0)
-    li.append(df)
-
-# Concat all ticker dfs
-stock_df = pd.concat(li, axis=0, ignore_index=True,sort=True)
-
-stock_df['Date'] = pd.to_datetime(stock_df['Date'])
-
-sector_df = stock_df.groupby(['sector','Date']).mean()['Close'].reset_index()
+sector_df = stock_df.reset_index().groupby(['sector','Date']).mean()['Close'].reset_index()
 sentiment_df = pd.read_csv('assets/models/tyler_rf_daily_update/sentiment_analysis.csv')
 
 layout = html.Div([
@@ -126,7 +135,7 @@ def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
     if ticker_filter == 'Ticker':
 
         df = stock_df[stock_df['ticker']==ticker]
-        df = df.set_index('Date')
+        # df = df.set_index('Date')
 
     else:
         df = sector_df[sector_df['sector']==ticker]
@@ -241,7 +250,7 @@ def update_ticker(ticker,btn1,btn2,btn3,btn4):
     fig = go.Figure()
 
     df = stock_df[stock_df['ticker']==ticker]
-    df = df.set_index('Date')
+    # df = df.set_index('Date')
 
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
 

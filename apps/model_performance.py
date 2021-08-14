@@ -23,7 +23,8 @@ from app import app
 from yahoo_fin import stock_info as si
 import financial_metrics as fm
 from port_charts import *
-import pickle
+from model_descriptions import *
+
 
 from sqlalchemy import create_engine
 import psycopg2
@@ -47,14 +48,30 @@ def import_open_positions():
     return data
 open_pos_df = import_open_positions().drop('index',axis=1)
 
+def import_cash_record():
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM cash_record"
+    data = pd.read_sql_query(query,conn)
+    data = data.sort_values(['model','key'])
+    return data
+cash_df = import_cash_record().drop('index',axis=1)
+
+model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017-01-01',
+              'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
+              'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
+              'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+             }
+model_list = [key for key in model_dict.keys()]
+
 layout = html.Div([
 
             dbc.Row(
                 [
                 dbc.Col(html.A('What Models Do You Want to Compare?',style={'margin':'5px','lineHeight':2}),width=2),
                 dbc.Col(dcc.Dropdown(id='model_filter',
-                    options=[{'label': i, 'value': i} for i in ['Random Forest Regressor','Next Model']],
-                    value='Random Forest Regressor'),width=3,style={'margin':'5px','lineHeight':2}),
+                    options=[{'label': i, 'value': i} for i in model_list],
+                    value='Random Forest Regressor 120/30'),width=3,style={'margin':'5px','lineHeight':2}),
                 dbc.Col(html.A('Pick Date to Analyze',style={'margin':'5px','lineHeight':2}),width=1.5),
                 dbc.Col(dcc.Dropdown(id='date_filter',
                     options=[{'label': i, 'value': i} for i in ['2021-03-03','2021-03-01']],
@@ -71,15 +88,27 @@ layout = html.Div([
                 dbc.Col(dcc.Graph(id='sector_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','margin':'5px'}),
                 dbc.Col(dcc.Graph(id='risk_adj_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
                 dbc.Col(dcc.Graph(id='risk_return_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
-                ])
+                ]),
+            dbc.Row([html.H2(id='store_callback')])
             ])
 
+@app.callback(dash.dependencies.Output('store_callback','children'),
+             [dash.dependencies.Input('memory-output','data')],
+             [dash.dependencies.State('memory-output','data')])
+def test_store(data,data2):
+    return data2['model_to_filter']
+
 @app.callback(dash.dependencies.Output('perf_chart','figure'),
-    [dash.dependencies.Input('model_filter','value')])
+             [dash.dependencies.Input('memory-output','data')])
+def perf_chart_func(session_data):
 
-def perf_chart_func(model_filter):
+    # Getting model from session (or index page)
+    model_filter = session_data['model_to_filter']
+    mod_filter = model_dict[model_filter]
 
-    fig = performance_chart(track_df, 'spy')
+    chart_df = track_df[track_df['model']==mod_filter]
+
+    fig = performance_chart(chart_df, 'spy')
 
     fig.update_layout(template="ggplot2",
                       hovermode="x unified",
@@ -95,18 +124,34 @@ def perf_chart_func(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def sector_chart_func(model_filter):
 
-    fig = sector_plot(open_pos_df[open_pos_df['Date']=='2021-03-03'], '2021-03-03')
+    # Getting model from session (or index page)
+    # model_filter = session_data['model_to_filter']
+    mod_filter = model_dict[model_filter]
+
+    open_pos_df_chart = open_pos_df[open_pos_df['model']==mod_filter]
+    cash_df_chart = cash_df[cash_df['model']==mod_filter]
+
+    # Getting max date for input, may make configurable later
+    date = open_pos_df.Date.max()
+    pos_key = f'Positions_{date}'
+    cash_key = f'cash_{date}'
+
+    fig = sector_plot(open_pos_df_chart[open_pos_df_chart['key']==pos_key],\
+            cash_df_chart[cash_df_chart['key']==cash_key].cash.values[0],date)
 
     fig.update_layout(template="ggplot2",
-                      paper_bgcolor='rgba(0,0,0,0)')
-
+                      paper_bgcolor='rgba(0,0,0,0)'
+                      )
     return fig
 
 @app.callback(dash.dependencies.Output('risk_adj_chart','figure'),
     [dash.dependencies.Input('model_filter','value')])
 def risk_adj_func(model_filter):
 
-    fig = risk_adjusted_metrics(track_df,'spy')
+    mod_filter = model_dict[model_filter]
+    chart_df = track_df[track_df['model']==mod_filter]
+
+    fig = risk_adjusted_metrics(chart_df,'spy')
 
     fig.update_layout(template="ggplot2",
                       paper_bgcolor='rgba(0,0,0,0)',
@@ -122,7 +167,10 @@ def risk_adj_func(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def risk_return_func(model_filter):
 
-    fig = risk_to_ret(track_df,'spy')
+    mod_filter = model_dict[model_filter]
+    chart_df = track_df[track_df['model']==mod_filter]
+
+    fig = risk_to_ret(chart_df,'spy')
 
     fig.update_layout(template="ggplot2",
                       paper_bgcolor='rgba(0,0,0,0)',
@@ -132,6 +180,7 @@ def risk_return_func(model_filter):
                       margin=dict(l=10, r=10, t=50, b=10))
 
     fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01))
+    fig.update_yaxes(tickangle=-45)
 
     return fig
 
@@ -139,18 +188,20 @@ def risk_return_func(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def model_desc(model_filter):
 
-    layout2 = [html.H1('Random Forest Regressor Model',style={'color':'white'}),
-                html.P('Description:',style={'color':'white','fontWeight':'bold'}),
-                html.P("""
-                        This model uses a GridSearch optimized Random Forest Regressor to predict
-                        stock prices for the top 5 traded stocks in each sector 120 days in the future.
-                        The model re-trains itself daily after recieving new data about trades from that day,
-                        and buys/sells the next available trading day.
-                        """,style={'color':'white','fontSize':12,'lineHeight':1.2,'marginBottom':'5px'}),
-                html.P('Feature Representation:',style={'color':'white','fontWeight':'bold'}),
-                html.P("""
-                        Currently, the model uses a collection of Technical Trading Indicators, that are commonly
-                        used by day traders to predict price movement.
-                        """,style={'color':'white','fontSize':12,'lineHeight':1.2})
-                        ]
+    layout2 = desc_dict[model_filter]
+
+    # [html.H2('Random Forest Regressor Model',style={'color':'white'}),
+    #             html.P('Description:',style={'color':'white','fontWeight':'bold'}),
+    #             html.P("""
+    #                     This model uses a GridSearch optimized Random Forest Regressor to predict
+    #                     stock prices for the top 5 traded stocks in each sector 120 days in the future.
+    #                     The model re-trains itself daily after recieving new data about trades from that day,
+    #                     and buys/sells the next available trading day.
+    #                     """,style={'color':'white','fontSize':12,'lineHeight':1.2,'marginBottom':'5px'}),
+    #             html.P('Feature Representation:',style={'color':'white','fontWeight':'bold'}),
+    #             html.P("""
+    #                     Currently, the model uses a collection of Technical Trading Indicators, that are commonly
+    #                     used by day traders to predict price movement.
+    #                     """,style={'color':'white','fontSize':12,'lineHeight':1.2})
+    #                     ]
     return layout2
