@@ -97,7 +97,7 @@ def risk_adjusted_metrics(tr, BM):
                         paper_bgcolor='white',
                         plot_bgcolor='white',
                         legend=dict( orientation="h"),
-                        yaxis_tickformat = '.2f',
+                        yaxis_tickformat = '.0f',
                         title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
     return fig_2
 
@@ -157,8 +157,8 @@ def risk_to_ret(tr, BM):
 
 def sector_plot(snap_port, snap_cash, date):
     '''
-    :param snap_port: 
-    :param snap_cash: 
+    :param snap_port:
+    :param snap_cash:
     :param date: the date of the desired allocation breakdown
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]

@@ -81,7 +81,7 @@ tab_selected_style = {
     'fontSize':15
 }
 
-app.layout = html.Div([
+app.layout = html.Div([dcc.Store(id='memory-output',data='Next Model'),
 
     html.Div([
         html.H1('Financial Modeling Exploration Dashboard',style=title_style),
@@ -107,8 +107,8 @@ app.layout = html.Div([
         html.Div([
             html.A('Pick a Model:',style={'color':'white','display':'inline-block','width':'25%','verticalAlign':'middle','textAlign':'right','marginRight':'10px'}),
             dcc.Dropdown(id='model_filter',
-                options=[{'label': i, 'value': i} for i in ['Random Forest Regressor','Next Model']],
-                value='Random Forest Regressor',style={'display': 'inline-block','width':'70%','verticalAlign':'top'}
+                options=[{'label': i, 'value': i} for i in ['Random Forest Regressor 120/30','Next Model']],
+                value='Next Model',style={'display': 'inline-block','width':'70%','verticalAlign':'top'}
                 )],style={'display':'inline-block','width':'40%','height':'100%','verticalAlign':'top','float':'right'})
         ],style={'width':'100%'}),
 
@@ -129,6 +129,7 @@ def render_content(tab):
             html.H3('Tab 3 content')
         ])
 
+# Callback to open disclaimer modal
 @app.callback(
     Output("modal", "is_open"),
     [Input("open", "n_clicks"), Input("close", "n_clicks")],
@@ -139,6 +140,12 @@ def toggle_modal(n1, n2, is_open):
         return not is_open
     return is_open
 
+# Callback to add filter details to memory
+@app.callback(dash.dependencies.Output('memory-output','data'),
+              [dash.dependencies.Input('model_filter', 'value')])
+def filter_model(value):
+
+    return {'model_to_filter': value}
 
 if __name__ == '__main__':
     app.run_server(debug=True)
