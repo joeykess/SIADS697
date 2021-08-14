@@ -67,3 +67,34 @@ portfolio_style_b = {'display': 'inline-block',
                 'float':'left',
                 'border':'thin lightgrey solid',
                 'height':200}
+
+sentiment_style = {'display': 'inline-block',
+                'textAlign':'center',
+                'vertical-align':'top',
+                'width':'20%',
+                'float':'right',
+                'border':'thin lightgrey solid',
+                'margin':'10px',
+                'height':300,
+                'overflowY':'scroll',
+                'overflowX':'hidden',
+                'color':'white',
+                'borderRadius': '.4rem'}
+
+chart_style_dbc = {'display':'inline-block',
+               'textAlign':'center',
+               'vertical-align':'top',
+               'width':'100%',
+               'margin':'10px',
+               'float':'middle',
+               'textAlign':'center',
+               'height':300}
+
+chart_style_dbc = {'display':'inline-block',
+               'textAlign':'center',
+               'vertical-align':'top',
+               'width':'100%',
+               'margin':'10px',
+               'float':'middle',
+               'textAlign':'center',
+               'height':300}
