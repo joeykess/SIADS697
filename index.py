@@ -13,6 +13,7 @@ from app import server
 # Import pages creates separately
 from apps import portfolio_performance
 from apps import model_performance
+from apps import model_stats
 from apps.ind_css import *
 
 title_style = {'display': 'inline-block',
@@ -162,4 +163,4 @@ def filter_model(value):
     return {'model_to_filter': value}
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0',debug=True)

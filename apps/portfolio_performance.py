@@ -17,6 +17,7 @@ import dash_html_components as html
 from jupyter_dash import JupyterDash
 import plotly.express as px
 import plotly.graph_objects as go
+from dash.exceptions import PreventUpdate
 
 from apps.ind_css import *
 from app import app
@@ -79,7 +80,7 @@ layout = html.Div([
                         html.A('Filter Data:'),
                         dcc.Dropdown(id='data_filter',
                             options=[{'label': '', 'value': ''}],
-                            value='CSCO'), # the default is code_module AAA
+                            value='CSCO',clearable=False), # the default is code_module AAA
                             ],style={'margin':'5px','width':'30%','border':'thin lightgrey solid','display':'inline-block'}),
 
                     # Adding date filter buttons for charts
@@ -115,7 +116,9 @@ layout = html.Div([
                         html.H2('Placeholder',style=portfolio_style),
                         dcc.Graph(id='chart-2',style=chart_style),
                         html.Div(id='sentiment',style=sentiment_style)
-                        ])
+                        ]),
+                    html.Div([html.P('Note: News and Sentiment will not update if not available.',\
+                                    style={'fontSize':10,'color':'gray','float':'right','marginRight':'10px'})])
                     ])
 
 # Callback to connect input(s) to output(s) for Tab 1
@@ -213,17 +216,20 @@ def update_news(ticker_filter,ticker):
         seeking_alpha = fn.SeekingAlpha(topics=['$'+ticker])
         news = seeking_alpha.get_news()
 
-    return html.Div([html.H2(f'News for {ticker}',style={'color':'white','fontSize':14,'border-bottom':'3px solid white'}),\
-                dbc.ListGroup(
-                    [dbc.ListGroupItem(
-                        [html.Div([
-                            html.A(html.P(item['title'],style=news_style),\
-                            href=(item['link']),target="_blank"),\
-                            html.A(html.P(item['published'],style=news_style_c))
-                            ])
-                        ],color='gray') for item in news]
-                ,flush=True)
-            ])
+    if len(news) == 0:
+        raise PreventUpdate
+    else:
+        return html.Div([html.H2(f'News for {ticker}',style={'color':'white','fontSize':14,'border-bottom':'3px solid white'}),\
+                    dbc.ListGroup(
+                        [dbc.ListGroupItem(
+                            [html.Div([
+                                html.A(html.P(item['title'],style=news_style),\
+                                href=(item['link']),target="_blank"),\
+                                html.A(html.P(item['published'],style=news_style_c))
+                                ])
+                            ],color='gray') for item in news]
+                    ,flush=True)
+                ])
 
 # Creating callback to get conditially set options in dropdown filter
 @app.callback(
@@ -237,7 +243,7 @@ def update_dropdown(filter_option):
         col_labels = [{'label' :k, 'value' :k} for k in list(stock_df['sector'].unique())]
         return col_labels
 
-# Callback to connect input(s) to output(s) for Tab 1
+# Adding date filter buttons to charts
 @app.callback(dash.dependencies.Output('chart-2','figure'),
     [dash.dependencies.Input('data_filter','value'),
     dash.dependencies.Input('btn-nclicks-1', 'n_clicks'),
@@ -284,14 +290,18 @@ def update_ticker(ticker,btn1,btn2,btn3,btn4):
 
 # Creating callback for twitter sentiment
 @app.callback(dash.dependencies.Output('sentiment','children'),
-    [dash.dependencies.Input('data_filter','value')])
+    [dash.dependencies.Input('ticker_filter','value'),
+     dash.dependencies.Input('data_filter', 'value')])
 # Step 3: Define the graph with plotly express
-def update_sentiment(ticker_filter):
+def update_sentiment(ticker_filter,ticker):
 
     if ticker_filter == 'Sector':
         sector = ticker
     else:
-        sector = stock_df[stock_df['ticker']==ticker_filter]['sector'].unique()[0]
+        try:
+            sector = stock_df[stock_df['ticker']==ticker]['sector'].unique()[0]
+        except:
+            raise PreventUpdate
 
     df = sentiment_df[sentiment_df['sector']==sector]\
                     .nlargest(10,'Mentions')[['Ticker','Sentiment','Trend']]
@@ -318,6 +328,7 @@ def update_sentiment(ticker_filter):
 
     return html.Div([html.A(f'Top Sentiment for Sector: {sector}',style={'color':'white','fontsize':8}),table])
 
+# Creating Total Portfolio Performance indicator
 @app.callback(dash.dependencies.Output('indicator-graph', 'figure'),
               [dash.dependencies.Input('data_filter','value'),
                dash.dependencies.Input('model_filter','value')])
@@ -348,7 +359,7 @@ def update_port_value(value,model):
 
     return fig
 
-# Creating callback for twitter sentiment
+# Creating callback for portfolio performance
 @app.callback(dash.dependencies.Output('portfolio-table','children'),
     [dash.dependencies.Input('data_filter','value'),
      dash.dependencies.Input('model_filter','value')])

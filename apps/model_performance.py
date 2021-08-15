@@ -24,6 +24,7 @@ from yahoo_fin import stock_info as si
 import financial_metrics as fm
 from port_charts import *
 from model_descriptions import *
+from apps.model_stats import *
 
 
 from sqlalchemy import create_engine
@@ -81,15 +82,15 @@ layout = html.Div([
             #     ]),
             dbc.Row(
                 [
-                dbc.Col(html.Div("R^2,ROI, etc"),width=3,style={'border': 'thin black solid','margin':'5px'}),
-                dbc.Col(dcc.Graph(id='perf_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
-                dbc.Col(html.Div(id='mod_desc'),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
+                dbc.Col(html.Div(id='model-stats'),width=3,style={'border': 'thin black solid','margin':'5px','height':350}),
+                dbc.Col(dcc.Graph(id='perf_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px','height':350}),
+                dbc.Col(html.Div(id='mod_desc'),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px','overflowY':'auto','height':350}),
                 ]),
             dbc.Row(
                 [
-                dbc.Col(dcc.Graph(id='sector_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','margin':'5px'}),
-                dbc.Col(dcc.Graph(id='risk_adj_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px'}),
-                dbc.Col(dcc.Graph(id='risk_return_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px'}),
+                dbc.Col(dcc.Graph(id='sector_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','margin':'5px','height':350}),
+                dbc.Col(dcc.Graph(id='risk_adj_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px','height':350}),
+                dbc.Col(dcc.Graph(id='risk_return_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px','height':350}),
                 ]),
             dbc.Row([html.H2(id='store_callback')])
             ])
@@ -191,18 +192,12 @@ def model_desc(model_filter):
 
     layout2 = desc_dict[model_filter]
 
-    #layout2 =  [html.H2('Random Forest Regressor Model',style={'color':'white'}),
-    #             html.P('Description:',style={'color':'white','fontWeight':'bold'}),
-    #             html.P("""
-    #                     This model uses a GridSearch optimized Random Forest Regressor to predict
-    #                     stock prices for the top 5 traded stocks in each sector 120 days in the future.
-    #                     The model re-trains itself daily after recieving new data about trades from that day,
-    #                     and buys/sells the next available trading day.
-    #                     """,style={'color':'white','fontSize':12,'lineHeight':1.2,'marginBottom':'5px'}),
-    #             html.P('Feature Representation:',style={'color':'white','fontWeight':'bold'}),
-    #             html.P("""
-    #                     Currently, the model uses a collection of Technical Trading Indicators, that are commonly
-    #                     used by day traders to predict price movement.
-    #                     """,style={'color':'white','fontSize':12,'lineHeight':1.2})
-    #                     ]
     return layout2
+
+@app.callback(dash.dependencies.Output('model-stats','children'),
+    [dash.dependencies.Input('model_filter','value')])
+def model_stats(model_filter):
+
+    if model_filter == 'Random Forest Regressor 120/30':
+
+        return model_stats.layout_1
