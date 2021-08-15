@@ -47,15 +47,17 @@ def import_open_positions():
     return data
 open_pos_df = import_open_positions().drop('index',axis=1)
 
-# For testing portfolio
-model = 'RF Reg_target_60_rebal_30_2017-01-01'
-date_filter = '2020-09-04'
-test_df = open_pos_df[(open_pos_df['model']==model)&\
-                      (open_pos_df['key']==f'Positions_{date_filter}')]
-
 
 sector_df = stock_df.reset_index().groupby(['sector','Date']).mean()['Close'].reset_index()
 sentiment_df = pd.read_csv('assets/models/tyler_rf_daily_update/sentiment_analysis.csv')
+
+model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017-01-01',
+              'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
+              'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
+              'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
+              'Multi Factor Multi-Layer Preceptron': 'MF_MLP'
+              # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+             }
 
 layout = html.Div([
 
@@ -317,8 +319,21 @@ def update_sentiment(ticker_filter):
     return html.Div([html.A(f'Top Sentiment for Sector: {sector}',style={'color':'white','fontsize':8}),table])
 
 @app.callback(dash.dependencies.Output('indicator-graph', 'figure'),
-              [dash.dependencies.Input('data_filter','value')])
-def update_port_value(value):
+              [dash.dependencies.Input('data_filter','value'),
+               dash.dependencies.Input('model_filter','value')])
+def update_port_value(value,model):
+
+    # For testing portfolio
+    mod_filter = model_dict[model]
+
+    open_pos_df_chart = open_pos_df[open_pos_df['model']==mod_filter]
+    # Getting max date for input, may make configurable later
+    date = open_pos_df_chart['key'].values[-1][-10:]
+
+    # date_filter = '2020-09-04'
+    date_filter = date
+    test_df = open_pos_df[(open_pos_df['model']==mod_filter)&\
+                          (open_pos_df['key']==f'Positions_{date_filter}')]
 
     fig = go.Figure(go.Indicator(
     mode = "number+delta",
@@ -335,14 +350,22 @@ def update_port_value(value):
 
 # Creating callback for twitter sentiment
 @app.callback(dash.dependencies.Output('portfolio-table','children'),
-    [dash.dependencies.Input('data_filter','value')])
+    [dash.dependencies.Input('data_filter','value'),
+     dash.dependencies.Input('model_filter','value')])
 # Step 3: Define the graph with plotly express
-def portfolio_table(value):
+def portfolio_table(value,model):
 
-    model = 'RF Reg_target_60_rebal_30_2017-01-01'
-    date_filter = '2020-09-04'
+    # For testing portfolio
+    mod_filter = model_dict[model]
 
-    df = open_pos_df[(open_pos_df['model']==model)&\
+    open_pos_df_chart = open_pos_df[open_pos_df['model']==mod_filter]
+    # Getting max date for input, may make configurable later
+    date = open_pos_df_chart['key'].values[-1][-10:]
+
+    # date_filter = '2020-09-04'
+    date_filter = date
+
+    df = open_pos_df[(open_pos_df['model']==mod_filter)&\
                       (open_pos_df['key']==f'Positions_{date_filter}')][['Ticker','Current Value','% Gain']]
 
     table = DataTable(
