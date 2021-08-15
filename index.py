@@ -112,13 +112,19 @@ app.layout = html.Div([dcc.Store(id='memory-output',storage_type='local'),
                 dcc.Tab(label='Portfolio Performance', value='tab-1',style=tab_style,selected_style=tab_selected_style),
                 dcc.Tab(label='Model Performance', value='tab-2',style=tab_style,selected_style=tab_selected_style),
                 dcc.Tab(label='Tab three', value='tab-3',style=tab_style,selected_style=tab_selected_style)
-                ],style=tabs_style)],style={'display':'inline-block','width':'50%'}),
+                ],style=tabs_style)],style={'display':'inline-block','width':'45%'}),
         html.Div([
             html.A('Pick a Model:',style={'color':'white','display':'inline-block','width':'25%','verticalAlign':'middle','textAlign':'right','marginRight':'10px'}),
             dcc.Dropdown(id='model_filter',
                 options=[{'label': i, 'value': i} for i in model_list],
                 value='Random Forest Regressor 120/30',clearable=False,style={'display': 'inline-block','width':'70%','verticalAlign':'top'}
-                )],style={'display':'inline-block','width':'40%','height':'100%','verticalAlign':'top','float':'right'})
+                )],style={'display':'inline-block','width':'30%','height':'100%','verticalAlign':'top','float':'middle'}),
+        html.Div([
+            html.A('Pick a Date:',style={'color':'white','display':'inline-block','width':'25%','verticalAlign':'middle','textAlign':'right','marginRight':'10px'}),
+            dcc.Dropdown(id='date_filter',
+                options=[{'label': i, 'value': i} for i in ['2021-03-03','2021-03-01']],value='2021-03-03',
+                        style={'display': 'inline-block','verticalAlign':'top','width':'70%'})
+                ],style={'display':'inline-block','width':'25%','height':'100%','verticalAlign':'top','float':'right'})
         ],style={'width':'100%'}),
 
     html.Div(id='tabs-example-content',style={'border': 'thin lightgrey solid'})
