@@ -15,6 +15,7 @@ portfolio_style = {'display': 'inline-block',
                 'margin':'10px',
                 'float':'left',
                 'border':'thin lightgrey solid',
+                'overflowX':'hidden',
                 'height':300}
 
 news_style_b = {'display': 'inline-block',

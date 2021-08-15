@@ -81,7 +81,16 @@ tab_selected_style = {
     'fontSize':15
 }
 
-app.layout = html.Div([dcc.Store(id='memory-output',data='Next Model'),
+model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017-01-01',
+              'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
+              'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
+              'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
+              'Multi Factor Multi-Layer Preceptron': 'MF_MLP'
+              # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+             }
+model_list = [key for key in model_dict.keys()]
+
+app.layout = html.Div([dcc.Store(id='memory-output',storage_type='local'),
 
     html.Div([
         html.H1('Financial Modeling Exploration Dashboard',style=title_style),
@@ -107,8 +116,8 @@ app.layout = html.Div([dcc.Store(id='memory-output',data='Next Model'),
         html.Div([
             html.A('Pick a Model:',style={'color':'white','display':'inline-block','width':'25%','verticalAlign':'middle','textAlign':'right','marginRight':'10px'}),
             dcc.Dropdown(id='model_filter',
-                options=[{'label': i, 'value': i} for i in ['Random Forest Regressor 120/30','Next Model']],
-                value='Next Model',style={'display': 'inline-block','width':'70%','verticalAlign':'top'}
+                options=[{'label': i, 'value': i} for i in model_list],
+                value='Random Forest Regressor 120/30',clearable=False,style={'display': 'inline-block','width':'70%','verticalAlign':'top'}
                 )],style={'display':'inline-block','width':'40%','height':'100%','verticalAlign':'top','float':'right'})
         ],style={'width':'100%'}),
 
@@ -144,7 +153,6 @@ def toggle_modal(n1, n2, is_open):
 @app.callback(dash.dependencies.Output('memory-output','data'),
               [dash.dependencies.Input('model_filter', 'value')])
 def filter_model(value):
-
     return {'model_to_filter': value}
 
 if __name__ == '__main__':

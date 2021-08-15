@@ -10,7 +10,7 @@ import pathlib
 
 # Dash modules
 import dash
-import dash_table
+from dash_table import DataTable, FormatTemplate
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
@@ -26,23 +26,6 @@ from psycopg2 import connect
 # Not using separate callback files
 # from apps.portfolio_performance_cbs import *
 
-# Getting all file paths
-
-import pathlib
-# PATH = pathlib.Path(__file__).parent
-# DATA_PATH = str(PATH.joinpath('../assets/historical-symbols'))
-#
-# # path = r'../assets/historical-symbols' # use your path
-# all_files = glob.glob(DATA_PATH + "/*.csv")
-#
-# # Creating list to append all ticker dfs to
-# li = []
-# for filename in all_files:
-#     df = pd.read_csv(filename, index_col=None, header=0)
-#     li.append(df)
-# # Concat all ticker dfs
-# stock_df = pd.concat(li, axis=0, ignore_index=True,sort=True)
-# stock_df['Date'] = pd.to_datetime(stock_df['Date'])
 
 def import_technical_features():
     conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
@@ -54,6 +37,21 @@ def import_technical_features():
     data = data.set_index('Date')
     return data
 stock_df = import_technical_features()
+
+def import_open_positions():
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM open_positions"
+    data = pd.read_sql_query(query,conn)
+    data = data.sort_values(['key', 'model'])
+    return data
+open_pos_df = import_open_positions().drop('index',axis=1)
+
+# For testing portfolio
+model = 'RF Reg_target_60_rebal_30_2017-01-01'
+date_filter = '2020-09-04'
+test_df = open_pos_df[(open_pos_df['model']==model)&\
+                      (open_pos_df['key']==f'Positions_{date_filter}')]
 
 
 sector_df = stock_df.reset_index().groupby(['sector','Date']).mean()['Close'].reset_index()
@@ -67,7 +65,7 @@ layout = html.Div([
                         html.A('Pick How You Want to  Analyze Data:'),
                         dcc.Dropdown(id='ticker_filter',
                             options=[{'label': i, 'value': i} for i in ['Ticker','Sector']],
-                            value='Ticker'), # the default is code_module AAA
+                            value='Ticker',clearable=False), # the default is code_module AAA
 
                         # dcc.Dropdown(id='industry_ticker',
                         #     options=[{'label': i, 'value': i} for i in list(stock_df['sector'].unique())],
@@ -101,7 +99,10 @@ layout = html.Div([
 
                     # Line two: portoflio and ticker info
                     html.Div([
-                        html.H2('Portfolio Performance and Model Recommendations',style=portfolio_style),
+                        html.Div([
+                            dcc.Graph(id='indicator-graph',style={'height':'25%','float':'top'}),
+                            html.Div(id='portfolio-table')
+                        ],style=portfolio_style),
                         dcc.Graph(id='chart-1',style=chart_style),
                         html.Div(id='news_list',style=news_style_b)
                         # html.Div(id='news_list',children=news_info,style=news_style_b)
@@ -109,7 +110,7 @@ layout = html.Div([
 
                     # Line three: other info, notyet defined
                     html.Div([
-                        html.H2('Sector Mix (Pie Chart?)',style=portfolio_style),
+                        html.H2('Placeholder',style=portfolio_style),
                         dcc.Graph(id='chart-2',style=chart_style),
                         html.Div(id='sentiment',style=sentiment_style)
                         ])
@@ -293,7 +294,7 @@ def update_sentiment(ticker_filter):
     df = sentiment_df[sentiment_df['sector']==sector]\
                     .nlargest(10,'Mentions')[['Ticker','Sentiment','Trend']]
 
-    table = dash_table.DataTable(
+    table = DataTable(
         id='sentiment_table',
         data=df.to_dict('records'),
         columns=[{"name": i, "id": i} for i in df.columns],
@@ -314,3 +315,58 @@ def update_sentiment(ticker_filter):
     )
 
     return html.Div([html.A(f'Top Sentiment for Sector: {sector}',style={'color':'white','fontsize':8}),table])
+
+@app.callback(dash.dependencies.Output('indicator-graph', 'figure'),
+              [dash.dependencies.Input('data_filter','value')])
+def update_port_value(value):
+
+    fig = go.Figure(go.Indicator(
+    mode = "number+delta",
+    value = test_df['Current Value'].sum(),
+    title = {"text": "Current Portfolio Value<br>",'font':{'size':18,'color':'white'}},
+    number = {'prefix': "$",'font':{'size':18,'color':'white'}},
+    domain = {'x': [0, 1], 'y': [0, 1]},
+    delta = {'reference': test_df['Basis'].sum(), 'relative': True,'font':{'size':14},'position' : "right"}
+        ))
+
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)')
+
+    return fig
+
+# Creating callback for twitter sentiment
+@app.callback(dash.dependencies.Output('portfolio-table','children'),
+    [dash.dependencies.Input('data_filter','value')])
+# Step 3: Define the graph with plotly express
+def portfolio_table(value):
+
+    model = 'RF Reg_target_60_rebal_30_2017-01-01'
+    date_filter = '2020-09-04'
+
+    df = open_pos_df[(open_pos_df['model']==model)&\
+                      (open_pos_df['key']==f'Positions_{date_filter}')][['Ticker','Current Value','% Gain']]
+
+    table = DataTable(
+        id='portfolio_table',
+        data=df.to_dict('records'),
+        columns = [
+            dict(id='Ticker', name='Ticker'),
+            dict(id='Current Value', name='Current Value', type='numeric', format=FormatTemplate.money(2)),
+            dict(id='% Gain', name='% Gain', type='numeric', format=FormatTemplate.percentage(0))
+            ],
+        style_cell=dict(textAlign='center',fontSize=12),
+        style_header=dict(backgroundColor="#191970",color='white'),
+        style_data=dict(backgroundColor="gray",color='black'),
+
+        # Setting conditional styles for sentiment and trends
+         style_data_conditional=[
+            {'if': {'filter_query': '{% Gain} > 0','column_id': '% Gain'},
+                'color': '#03CD1E'},
+            {'if': {'filter_query': '{% Gain} <= 0','column_id': '% Gain'},
+                'color': '#FF0000'}],
+        page_action='none',
+        style_table={'height': '225px', 'overflowY': 'auto'},
+
+        style_as_list_view=True
+    )
+
+    return table
