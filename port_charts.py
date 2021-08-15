@@ -243,3 +243,64 @@ def capm_res(tr, BM):
                             title= dict(text='Capital Asset Pricing Model', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))
 
     return fig
+
+def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
+    '''function to call fundamental charts onto dashboard
+    :param metric: (string) p_e, p_b, ev_sales, ev_ebitda
+    :param stock_sector: (string) a stock ticker or the name of a GICS sector
+    :param date: (optional - string) a reference date must be in YYYY-MM-DD format 
+    '''
+    sectors = pd.read_csv("assets/fundamentals/sectors.csv", index_col = 0)
+    sectors = sectors.rename(columns = {"Instrument": "Ticker"})
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM raw_data WHERE date = '{}'".format(date)
+    data = pd.read_sql_query(query,conn).filter(['Instrument','3m_avg_mkt_cap', '{}'.format(metric)]).rename(columns = {"Instrument": "Ticker"})
+    data = data.merge(sectors, on = 'Ticker')
+    sector_list = sectors['GICS Sector'].unique()
+    colors = ['#570408','#b28600',]
+    if stock_sector in sector_list:
+        plot_df = data[data['GICS Sector']==stock_sector]
+        if len(plot_df)>10:
+            plot_df = plot_df.sort_values(['3m_avg_mkt_cap']).iloc[0:10]
+        else:
+            plot_df = plot_df.sort_values(['3m_avg_mkt_cap'])
+        plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
+        
+    else:
+        stk = data[data['Ticker']==stock_sector.upper()]['GICS Sector'].iloc[0]
+        plot_df = data[data['GICS Sector']==stk]
+        stock_line = plot_df[plot_df['Ticker']==stock_sector.upper()]
+        if len(plot_df)>10:
+            plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()].sort_values(['3m_avg_mkt_cap'], ascending = False).iloc[0:9]
+            plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
+            stock_line['color'] = colors[1]
+            plot_df = pd.concat([plot_df, stock_line])
+        else:
+            plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()].sort_values(['3m_avg_mkt_cap'], ascending = False)
+            plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
+            stock_line['color'] = color[1]
+            plot_df = pd.concat([plot_df, stock_line])
+    plot_df = plot_df.sort_values(['{}'.format(metric)], ascending = False)
+    
+    metric_title = metric.replace('_','/').upper()
+    fig = go.Figure(go.Bar(
+        y = plot_df['Ticker'],
+        x = plot_df['{}'.format(metric)],
+        text = ['{:.2f}x'.format(i) for i in list(plot_df['{}'.format(metric)])],
+        textfont = {'size':8},
+        textposition="inside",
+        marker_color = plot_df['color'],
+        orientation = 'h'))
+    
+    fig.update_xaxes(showticklabels=False)
+    fig.update_yaxes(tickfont = {'size':8})
+    fig.update_layout(width = 400, height = 400,
+                      xaxis_tickformat = '.2f',
+                            margin=dict(l=10, r=10, t=20, b=5),
+                            paper_bgcolor='white',
+                            plot_bgcolor='white',
+                            title= dict(text='{} Ratio Comparison for {}'.format(metric_title, stock_sector), font = dict(size = 15, color = 'black'), x = 0.5, y = 0.98))
+    
+        
+    return fig 
