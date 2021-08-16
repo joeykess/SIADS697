@@ -128,7 +128,7 @@ app.layout = html.Div([dcc.Store(id='memory-output',storage_type='local'),
                 ],style={'display':'inline-block','width':'25%','height':'100%','verticalAlign':'top','float':'right'})
         ],style={'width':'100%'}),
 
-    html.Div(id='tabs-example-content',style={'borderTop': 'thin lightgrey solid'})
+    html.Div(id='tabs-example-content',style={'borderTop': 'thin lightgrey solid','width':'100%'})
 ])
 
 @app.callback(dash.dependencies.Output('tabs-example-content', 'children'),
