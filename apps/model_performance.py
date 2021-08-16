@@ -24,7 +24,7 @@ from yahoo_fin import stock_info as si
 import financial_metrics as fm
 from port_charts import *
 from model_descriptions import *
-from apps.model_stats import *
+from apps import model_stats
 
 
 from sqlalchemy import create_engine
@@ -62,8 +62,8 @@ model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017
               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
               'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
               'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
-              'Multi Factor Multi-Layer Preceptron': 'MF_MLP'
-              # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+              'Multi Factor Multi-Layer Preceptron': 'MF_MLP',
+              'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 model_list = [key for key in model_dict.keys()]
 
@@ -82,18 +82,17 @@ layout = html.Div([
             #     ]),
             dbc.Row(
                 [
-                dbc.Col(html.Div(id='model-stats'),width=3,style={'border': 'thin black solid','margin':'5px','height':350}),
-                dbc.Col(dcc.Graph(id='perf_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px','height':350}),
-                dbc.Col(html.Div(id='mod_desc'),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px','overflowY':'auto','height':350}),
+                dbc.Col(html.Div(id='model-stats'),width=3,style={'margin':'5px','height':300}),
+                dbc.Col(dcc.Graph(id='perf_chart',style=chart_style_dbc),style={'width':'45%','vertical-align':'top','float':'middle','margin':'5px','height':300}),
+                dbc.Col(html.Div(id='mod_desc',style={'border':'thin lightgrey solid','borderRadius': '.4rem','padding':'5px','width':'100%'}),width=3,style={'border':'thin black solid','margin':'5px','overflowY':'auto','height':300}),
                 ]),
             dbc.Row(
                 [
-                dbc.Col(dcc.Graph(id='sector_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','margin':'5px','height':350}),
-                dbc.Col(dcc.Graph(id='risk_adj_chart',style=chart_style_dbc),style={'border': 'thin black solid','width':'45%','float':'middle','margin':'5px','height':350}),
-                dbc.Col(dcc.Graph(id='risk_return_chart',style=chart_style_dbc),width=3,style={'border': 'thin black solid','width':'25%','float':'right','margin':'5px','height':350}),
-                ]),
-            dbc.Row([html.H2(id='store_callback')])
-            ])
+                dbc.Col(dcc.Graph(id='sector_chart',style=chart_style_dbc),width=3,style={'margin':'5px','height':300}),
+                dbc.Col(dcc.Graph(id='risk_adj_chart',style=chart_style_dbc),style={'width':'45%','float':'middle','margin':'5px','height':300}),
+                dbc.Col(dcc.Graph(id='risk_return_chart',style=chart_style_dbc),width=3,style={'width':'25%','float':'right','margin':'5px','height':300}),
+                ])
+            ],style={'width':'100%'})
 
 @app.callback(dash.dependencies.Output('store_callback','children'),
              [dash.dependencies.Input('memory-output','data')],
@@ -196,8 +195,12 @@ def model_desc(model_filter):
 
 @app.callback(dash.dependencies.Output('model-stats','children'),
     [dash.dependencies.Input('model_filter','value')])
-def model_stats(model_filter):
+def model_stat(model_filter):
 
-    if model_filter == 'Random Forest Regressor 120/30':
+    if model_filter[:6] == 'Random':
 
-        return model_stats.layout_1
+        return model_stats.layout_tyler
+
+    if model_filter == 'Multi Factor Multi-Layer Preceptron':
+
+        return model_stats.layout_jeff

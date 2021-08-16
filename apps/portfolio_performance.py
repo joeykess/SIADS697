@@ -21,6 +21,7 @@ from dash.exceptions import PreventUpdate
 
 from apps.ind_css import *
 from app import app
+from port_charts import *
 
 from psycopg2 import connect
 
@@ -56,8 +57,8 @@ model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017
               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
               'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
               'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
-              'Multi Factor Multi-Layer Preceptron': 'MF_MLP'
-              # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+              'Multi Factor Multi-Layer Preceptron': 'MF_MLP',
+              'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 
 layout = html.Div([
@@ -73,7 +74,7 @@ layout = html.Div([
                         # dcc.Dropdown(id='industry_ticker',
                         #     options=[{'label': i, 'value': i} for i in list(stock_df['sector'].unique())],
                         #     value='Technology',style={'margin':'5px','display':'inline-block'}) # the default is code_module AAA
-                            ],style={'margin':'5px','width':'30%','border':'thin lightgrey solid','display':'inline-block'}),
+                            ],style={'margin':'5px','width':'30%','display':'inline-block'}),
 
                     html.Div([
                         # Adding drop down to filter by ticker
@@ -81,7 +82,7 @@ layout = html.Div([
                         dcc.Dropdown(id='data_filter',
                             options=[{'label': '', 'value': ''}],
                             value='CSCO',clearable=False), # the default is code_module AAA
-                            ],style={'margin':'5px','width':'30%','border':'thin lightgrey solid','display':'inline-block'}),
+                            ],style={'margin':'5px','width':'30%','display':'inline-block'}),
 
                     # Adding date filter buttons for charts
                     html.Div([
@@ -95,8 +96,8 @@ layout = html.Div([
                             html.Div([dcc.Dropdown(id='MA_filter',
                                         options=[{'label': i, 'value': i} for i in ['60 Day MA','200 Day MA']],
                                         multi=True)])
-                            ],style={'margin':'5px','width':'35%','border':'thin lightgrey solid','display':'inline-block','float':'right'})
-                        ],style={'margin':'5px','width':'99%','border':'thin lightgrey solid'}),
+                            ],style={'margin':'5px','width':'35%','display':'inline-block','float':'right'})
+                        ],style={'margin':'5px','width':'99%'}),
 
                     # Add dropdown for category (stock name, industry, etc) and do conditional formatting for second dropdown
 
@@ -104,7 +105,8 @@ layout = html.Div([
                     html.Div([
                         html.Div([
                             dcc.Graph(id='indicator-graph',style={'height':'25%','float':'top'}),
-                            html.Div(id='portfolio-table')
+                            html.Div(id='portfolio-table',style={
+                            'width':'100%','table-layout':'fixed','overflowX':'hidden'})
                         ],style=portfolio_style),
                         dcc.Graph(id='chart-1',style=chart_style),
                         html.Div(id='news_list',style=news_style_b)
@@ -113,8 +115,10 @@ layout = html.Div([
 
                     # Line three: other info, notyet defined
                     html.Div([
-                        html.H2('Placeholder',style=portfolio_style),
-                        dcc.Graph(id='chart-2',style=chart_style),
+                        dcc.Graph(id='chart-3',style=portfolio_style),
+                        dcc.Graph(id='chart-4',style=portfolio_style_small),
+                        dcc.Graph(id='chart-5',style=portfolio_style_small),
+                        dcc.Graph(id='chart-6',style=portfolio_style_small),
                         html.Div(id='sentiment',style=sentiment_style)
                         ]),
                     html.Div([html.P('Note: News and Sentiment will not update if not available.',\
@@ -171,7 +175,7 @@ def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
                         name='Closing Price'))
 
     fig.update_layout(title=dict(text=f'{ticker} Closing Price',font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96),
-                         template="ggplot2",font=dict(size=10,color='white'),xaxis_showgrid=False,
+                         plot_bgcolor="#A9A9A9",font=dict(size=10,color='white'),xaxis_showgrid=False,
                          paper_bgcolor='rgba(0,0,0,0)',
                          yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10},
                          showlegend=False)
@@ -227,7 +231,7 @@ def update_news(ticker_filter,ticker):
                                 href=(item['link']),target="_blank"),\
                                 html.A(html.P(item['published'],style=news_style_c))
                                 ])
-                            ],color='gray') for item in news]
+                            ]) for item in news]
                     ,flush=True)
                 ])
 
@@ -274,6 +278,7 @@ def update_ticker(ticker,btn1,btn2,btn3,btn4):
     else:
         tick_df = df
 
+    # Currently not in use, but updates dates for Candlestick chart
     fig.add_trace(go.Candlestick(x=tick_df.index,
                     open=tick_df['Open'],
                     high=tick_df['High'],
@@ -404,3 +409,62 @@ def portfolio_table(value,model):
     )
 
     return table
+
+# Creating callback for portfolio performance - P/E
+@app.callback(dash.dependencies.Output('chart-3','figure'),
+    [dash.dependencies.Input('data_filter','value')])
+# Step 3: Define the graph with plotly express
+def portfolio_table(value):
+
+    metric = 'p_e'
+
+    fig = fundamental_chart(metric,value,date='2021-06-30')
+
+    # Removing background colors
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
+
+    return fig
+
+# Creating callback for portfolio performance - E/B
+@app.callback(dash.dependencies.Output('chart-4','figure'),
+    [dash.dependencies.Input('data_filter','value')])
+# Step 3: Define the graph with plotly express
+def portfolio_table(value):
+
+    metric = 'p_b'
+
+    fig = fundamental_chart(metric,value,date='2021-06-30')
+
+    # Removing background colors
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
+
+    return fig
+
+# Creating callback for portfolio performance - ev_sales
+@app.callback(dash.dependencies.Output('chart-5','figure'),
+    [dash.dependencies.Input('data_filter','value')])
+# Step 3: Define the graph with plotly express
+def portfolio_table(value):
+
+    metric = 'ev_sales'
+
+    fig = fundamental_chart(metric,value,date='2021-06-30')
+
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
+
+    return fig
+
+# Creating callback for portfolio performance - ev_ebitda
+@app.callback(dash.dependencies.Output('chart-6','figure'),
+    [dash.dependencies.Input('data_filter','value')])
+# Step 3: Define the graph with plotly express
+def portfolio_table(value):
+
+    metric = 'ev_ebitda'
+
+    fig = fundamental_chart(metric,value,date='2021-06-30')
+
+    # Removing background colors
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
+
+    return fig

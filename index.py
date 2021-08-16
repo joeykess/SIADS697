@@ -86,8 +86,8 @@ model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017
               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
               'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
               'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
-              'Multi Factor Multi-Layer Preceptron': 'MF_MLP'
-              # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
+              'Multi Factor Multi-Layer Preceptron': 'MF_MLP',
+              'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 model_list = [key for key in model_dict.keys()]
 
@@ -112,7 +112,7 @@ app.layout = html.Div([dcc.Store(id='memory-output',storage_type='local'),
             dcc.Tabs(id='tabs-example', value='tab-1', children=[
                 dcc.Tab(label='Portfolio Performance', value='tab-1',style=tab_style,selected_style=tab_selected_style),
                 dcc.Tab(label='Model Performance', value='tab-2',style=tab_style,selected_style=tab_selected_style),
-                dcc.Tab(label='Tab three', value='tab-3',style=tab_style,selected_style=tab_selected_style)
+                dcc.Tab(label='Jupyter Notebook', value='tab-3',style=tab_style,selected_style=tab_selected_style)
                 ],style=tabs_style)],style={'display':'inline-block','width':'45%'}),
         html.Div([
             html.A('Pick a Model:',style={'color':'white','display':'inline-block','width':'25%','verticalAlign':'middle','textAlign':'right','marginRight':'10px'}),
@@ -128,7 +128,7 @@ app.layout = html.Div([dcc.Store(id='memory-output',storage_type='local'),
                 ],style={'display':'inline-block','width':'25%','height':'100%','verticalAlign':'top','float':'right'})
         ],style={'width':'100%'}),
 
-    html.Div(id='tabs-example-content',style={'border': 'thin lightgrey solid'})
+    html.Div(id='tabs-example-content',style={'borderTop': 'thin lightgrey solid'})
 ])
 
 @app.callback(dash.dependencies.Output('tabs-example-content', 'children'),
