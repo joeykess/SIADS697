@@ -5,7 +5,7 @@ chart_style = {'display':'inline-block',
                'margin':'10px',
                'float':'middle',
                'textAlign':'center',
-               'border':'thin lightgrey solid',
+               # 'border':'thin lightgrey solid',
                'height':300}
 
 portfolio_style = {'display': 'inline-block',
@@ -14,7 +14,18 @@ portfolio_style = {'display': 'inline-block',
                 'width':'20%',
                 'margin':'10px',
                 'float':'left',
-                'border':'thin lightgrey solid',
+                # 'border':'thin lightgrey solid',
+                'overflowX':'hidden',
+                'height':300}
+
+portfolio_style_small = {'display': 'inline-block',
+                'textAlign':'center',
+                'vertical-align':'top',
+                'width':'17.2%',
+                'margin':'10px',
+                'float':'left',
+                # 'border':'thin lightgrey solid',
+                'overflowX':'hidden',
                 'height':300}
 
 news_style_b = {'display': 'inline-block',
@@ -56,7 +67,7 @@ chart_style_b = {'display':'inline-block',
                # 'margin':'10px',
                'float':'middle',
                'textAlign':'center',
-               'border':'thin lightgrey solid',
+               # 'border':'thin lightgrey solid',
                'height':200}
 
 portfolio_style_b = {'display': 'inline-block',
@@ -65,7 +76,7 @@ portfolio_style_b = {'display': 'inline-block',
                 'vertical-align':'top',
                 'width':'20%',
                 'float':'left',
-                'border':'thin lightgrey solid',
+                # 'border':'thin lightgrey solid',
                 'height':200}
 
 sentiment_style = {'display': 'inline-block',
@@ -80,15 +91,6 @@ sentiment_style = {'display': 'inline-block',
                 'overflowX':'hidden',
                 'color':'white',
                 'borderRadius': '.4rem'}
-
-chart_style_dbc = {'display':'inline-block',
-               'textAlign':'center',
-               'vertical-align':'top',
-               'width':'100%',
-               'margin':'10px',
-               'float':'middle',
-               'textAlign':'center',
-               'height':300}
 
 chart_style_dbc = {'display':'inline-block',
                'textAlign':'center',

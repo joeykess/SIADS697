@@ -15,6 +15,7 @@ from yahoo_fin import stock_info as si
 import financial_metrics as fm
 from plotly.subplots import make_subplots
 
+from psycopg2 import connect
 
 def performance_chart(tr, BM):
     '''
@@ -49,6 +50,8 @@ def performance_chart(tr, BM):
                             legend=dict( orientation="h"),
                             yaxis_tickformat = '.0%',
                             title= dict(text='Performance Chart', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
+    fig.update_yaxes(range=[-.3, .8])
+
     return fig
 
 
@@ -97,8 +100,11 @@ def risk_adjusted_metrics(tr, BM):
                         paper_bgcolor='white',
                         plot_bgcolor='white',
                         legend=dict( orientation="h"),
-                        yaxis_tickformat = '.2f',
+                        yaxis_tickformat = '.0f',
+                        yaxis_title="Ratio",
                         title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
+    fig_2.update_yaxes(range=[-3, 15])
+
     return fig_2
 
 
@@ -128,7 +134,7 @@ def risk_to_ret(tr, BM):
     x = [np.std(list(plot_dat['Port_daily']))*np.sqrt(365), np.std(list(plot_dat['{}_daily'.format(BM)]))*np.sqrt(365)]
     y = [np.mean(list(plot_dat['Port_daily']))*365, np.mean(list(plot_dat['{}_daily'.format(BM)]))*365]
     z = [port_sharpe, spy_sharpe]
-    names = ['Model', '{}_daily'.format(BM)]
+    names = ['Model', '{}'.format(BM)]
     fig_3 = go.Figure()
     fig_3.add_trace(go.Scatter(
         x = np.array(x[0]), y = np.array(y[0]),
@@ -141,24 +147,25 @@ def risk_to_ret(tr, BM):
         marker = dict(color = color_codes[1],
                       size = (z[1]*2)**2), name = '{}_daily'.format(BM)))
     fig_3.update_layout(#width = 700, height = 400,
-                            margin=dict(l=20, r=20, t=50, b=10),
+                            margin=dict(l=20, r=20, t=35, b=10),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
-                            legend=dict( orientation="v"),
+                            legend=dict(orientation="v",yanchor="top",y=2),
                             yaxis_tickformat = '.0%',
                             xaxis_tickformat = '.0%',
                             legend_title_text=('Size = Sharpe Ratio'),
                             xaxis = dict(title =  'Annualized Volatility'),
                             yaxis = dict(title =  'Annualized Return'),
-                            title= dict(text='Risk vs Reward', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
+                            title= dict(text='Risk vs Return', font = dict(size = 20, color = 'white'), x = 0.55, y = 0.96))
+    fig_3.update_yaxes(range=[0, 2])
+    fig_3.update_xaxes(range=[0, .5])
 
     return fig_3
 
-
 def sector_plot(snap_port, snap_cash, date):
     '''
-    :param snap_port: 
-    :param snap_cash: 
+    :param snap_port:
+    :param snap_cash:
     :param date: the date of the desired allocation breakdown
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
@@ -180,7 +187,7 @@ def sector_plot(snap_port, snap_cash, date):
                             margin=dict(l=10, r=10, t=35, b=5),
                             paper_bgcolor='white',
                             plot_bgcolor='white',
-                            title= dict(text='Portfolio Allocation as of {}'.format(date), font = dict(size = 20, color = 'white'), x = 0.5, y = 0.98))
+                            title= dict(text='Portfolio Allocation'.format(date), font = dict(size = 20, color = 'white'), x = 0.5, y = 0.98))
     return fig_4
 
 
@@ -242,4 +249,97 @@ def capm_res(tr, BM):
                             plot_bgcolor='white',
                             title= dict(text='Capital Asset Pricing Model', font = dict(size = 20, color = 'black'), x = 0.5, y = 0.98))
 
+    return fig
+
+def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
+    '''function to call fundamental charts onto dashboard
+    :param metric: (string) p_e, p_b, ev_sales, ev_ebitda
+    :param stock_sector: (string) a stock ticker or the name of a GICS sector
+    :param date: (optional - string) a reference date must be in YYYY-MM-DD format
+    '''
+    sectors = pd.read_csv("assets/fundamentals/sectors.csv", index_col = 0)
+    sectors = sectors.rename(columns = {"Instrument": "Ticker"})
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM raw_data WHERE date = '{}'".format(date)
+    data = pd.read_sql_query(query,conn).filter(['Instrument','3m_avg_mkt_cap', '{}'.format(metric)]).rename(columns = {"Instrument": "Ticker"})
+    data = data.merge(sectors, on = 'Ticker')
+    sector_list = sectors['GICS Sector'].unique()
+    colors = ['#4e5d6c','#191970']
+    if stock_sector in sector_list:
+        plot_df = data[data['GICS Sector']==stock_sector]
+        if len(plot_df)>10:
+            plot_df = plot_df.sort_values(['3m_avg_mkt_cap']).iloc[0:10]
+        else:
+            plot_df = plot_df.sort_values(['3m_avg_mkt_cap'])
+        plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
+
+    else:
+        stk = data[data['Ticker']==stock_sector.upper()]['GICS Sector'].iloc[0]
+        plot_df = data[data['GICS Sector']==stk]
+        stock_line = plot_df[plot_df['Ticker']==stock_sector.upper()]
+        if len(plot_df)>10:
+            plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()].sort_values(['3m_avg_mkt_cap'], ascending = False).iloc[0:9]
+            plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
+            stock_line['color'] = colors[1]
+            plot_df = pd.concat([plot_df, stock_line])
+        else:
+            plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()].sort_values(['3m_avg_mkt_cap'], ascending = False)
+            plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
+            stock_line['color'] = color[1]
+            plot_df = pd.concat([plot_df, stock_line])
+    plot_df = plot_df.sort_values(['{}'.format(metric)], ascending = False)
+
+    metric_title = metric.replace('_','/').upper()
+    fig = go.Figure(go.Bar(
+        y = plot_df['Ticker'],
+        x = plot_df['{}'.format(metric)],
+        text = ['{:.2f}x'.format(i) for i in list(plot_df['{}'.format(metric)])],
+        textfont = {'size':8},
+        textposition="inside",
+        marker_color = plot_df['color'],
+        orientation = 'h'))
+
+    fig.update_xaxes(showticklabels=False,showgrid=False)
+    fig.update_yaxes(tickfont = {'size':8})
+    fig.update_layout(#width = 400, height = 400,
+                      xaxis_tickformat = '.2f',
+                            margin=dict(l=10, r=10, t=20, b=5),
+                            paper_bgcolor='white',
+                            plot_bgcolor='white',
+                            font=dict(color='white'),
+                            title= dict(text='{} Ratio Comparison for {}'.format(metric_title, stock_sector), font = dict(size = 10, color = 'white'), x = 0.5, y = 0.98))
+
+    return fig
+
+def mlp_stat_chart(csv_path, stat = 'loss'):
+    '''
+    plots training and validation plots for MF_MLP model
+    :param csv_path: (str) path to csv file containing epoch results from MF_MLP model
+    :param stat: (str) one of the metrics used to evaluate the model (loss, binary_accuracy, precision, or recall)
+    '''
+    color_list = ['#6929c4', '#1192e8', '#005d5d', '#9f1853', '#fa4d56', '#570408', '#198038', '#002d9c', '#ee538b', '#b28600', '#009d9a', '#012749']
+    df = pd.read_csv(csv_path)
+    filts = [i for i in df.columns if stat in i]
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
+                                 y = list(df[filts[0]]),
+                                 name = 'Train',
+                                 line = {'color':'#1192e8'}))
+    fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
+                                 y = list(df[filts[1]]),
+                                 name = 'Train',
+                                 mode = 'lines+markers',
+                                 marker = {'color':'#002d9c'}))
+    fig.update_layout(
+                paper_bgcolor='white',
+                plot_bgcolor= 'white',
+                margin=dict(l=0, r=0, t=15, b=5),
+                # height = 250,
+                # width = 500,
+                font=dict(color='white',size=10),
+                showlegend=False,
+                title = dict(text = 'Multifactor MLP {} Results'.format(stat), x = 0.5, y = 0.97, font = {'size': 10,'color':'white'})
+                )
+    fig.update_layout(hovermode="x unified")
     return fig
