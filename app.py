@@ -7,4 +7,7 @@ app = dash.Dash(__name__, suppress_callback_exceptions=True,
                             'content': 'width=device-width, initial-scale=1.0'}],
                 external_stylesheets=[dbc.themes.SUPERHERO]  ##https://bootswatch.com/superhero/
                 )
+
+app.title = 'Financial Modeling Exploration Dashboard'
+app._favicon = ("Block_M-Hex.png")
 server = app.server
