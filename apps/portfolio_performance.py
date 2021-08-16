@@ -61,6 +61,8 @@ model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017
               'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 
+tech_feature_filters = ['5 Day MA','15 Day MA','60 Day MA','200 Day MA','Upper Band','Lower Band']
+
 layout = html.Div([
 
                 html.Div([
@@ -94,7 +96,7 @@ layout = html.Div([
                             html.Button('1 Year', id='btn-nclicks-3',n_clicks=0,style={'width':'23.7%','margin':'2px'}),
                             html.Button('All', id='btn-nclicks-4',n_clicks=0,style={'width':'23.7%','margin':'2px'})]),
                             html.Div([dcc.Dropdown(id='MA_filter',
-                                        options=[{'label': i, 'value': i} for i in ['60 Day MA','200 Day MA']],
+                                        options=[{'label': i, 'value': i} for i in tech_feature_filters],
                                         multi=True)])
                             ],style={'margin':'5px','width':'35%','display':'inline-block','float':'right'})
                         ],style={'margin':'5px','width':'99%'}),
@@ -151,9 +153,17 @@ def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
         df = sector_df[sector_df['sector']==ticker]
         df = df.set_index('Date')
 
-    # Adding 60 Day Moving Average
+    # Adding Moving Averages
+    df['SMA_5'] = df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window=5).mean())
+    df['SMA_15'] = df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window=15).mean())
+    # df['SMA_ratio'] = df['SMA_15'] / df['SMA_5'] - Not used, needs secondary axis added
     df['60 Day MA'] = df.Close.rolling(window=60).mean()
     df['200 Day MA'] = df.Close.rolling(window=200).mean()
+
+    # Bollinger bands
+    df['SD'] = df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window=15).std())
+    df['upperband'] = df['SMA_15'] + 2 * df['SD']
+    df['lowerband'] = df['SMA_15'] - 2 * df['SD']
 
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
 
@@ -180,23 +190,69 @@ def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
                          yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10},
                          showlegend=False)
 
+    # Will add 5 Day MA
+    try:
+        if '5 Day MA' in ma_filters:
+            fig.add_trace(go.Scatter(x=tick_df.index,
+                                 y=tick_df['SMA_5'],
+                                line={"color": "red","width":1},
+                                mode="lines",
+                                name='5 Day Moving Avg'))
+    except:
+        pass
+
+    # Will add 15 Day MA
+    try:
+        if '15 Day MA' in ma_filters:
+            fig.add_trace(go.Scatter(x=tick_df.index,
+                                 y=tick_df['SMA_15'],
+                                line={"color": "green","width":1},
+                                mode="lines",
+                                name='15 Day Moving Avg'))
+    except:
+        pass
+
+    # Will add 60 Day MA
     try:
         if '60 Day MA' in ma_filters:
             fig.add_trace(go.Scatter(x=tick_df.index,
                                  y=tick_df['60 Day MA'],
-                                line={"color": "gray","width":1},
+                                line={"color": "gray","width":1,'dash':'dash'},
                                 mode="lines",
                                 name='60 Day Moving Avg'))
     except:
         pass
 
+    # Will add 200 Day MA
     try:
         if '200 Day MA' in ma_filters:
             fig.add_trace(go.Scatter(x=tick_df.index,
                                  y=tick_df['200 Day MA'],
-                                line={"color": "black","width":1},
+                                line={"color": "black","width":1,'dash':'dash'},
                                 mode="lines",
                                 name='200 Day Moving Avg'))
+    except:
+        pass
+
+    # Will add Upper Band
+    try:
+        if 'Upper Band' in ma_filters:
+            fig.add_trace(go.Scatter(x=tick_df.index,
+                                 y=tick_df['upperband'],
+                                line={"color": "purple","width":1},
+                                mode="lines",
+                                name='Upper Band (Bollinger)'))
+    except:
+        pass
+
+    # Will add Lower Band
+    try:
+        if 'Lower Band' in ma_filters:
+            fig.add_trace(go.Scatter(x=tick_df.index,
+                                 y=tick_df['lowerband'],
+                                line={"color": "yellow","width":1},
+                                mode="lines",
+                                name='Lower Band (Bollinger)'))
     except:
         pass
 

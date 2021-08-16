@@ -84,14 +84,14 @@ layout = html.Div([
                 [
                 dbc.Col(html.Div(id='model-stats'),width=3,style={'margin':'5px','height':300}),
                 dbc.Col(dcc.Graph(id='perf_chart',style=chart_style_dbc),style={'width':'45%','vertical-align':'top','float':'middle','margin':'5px','height':300}),
-                dbc.Col(html.Div(id='mod_desc',style={'border':'thin lightgrey solid','borderRadius': '.4rem','padding':'5px','width':'100%'}),width=3,style={'border':'thin black solid','margin':'5px','overflowY':'auto','height':300}),
-                ]),
+                dbc.Col(html.Div(id='mod_desc',style={'padding':'5px','width':'100%'}),width=3,style={'border':'thin lightgrey solid','borderRadius':'.4rem','margin':'5px','overflowY':'auto','height':300}),
+                ],style={'width':'100%'}),
             dbc.Row(
                 [
                 dbc.Col(dcc.Graph(id='sector_chart',style=chart_style_dbc),width=3,style={'margin':'5px','height':300}),
                 dbc.Col(dcc.Graph(id='risk_adj_chart',style=chart_style_dbc),style={'width':'45%','float':'middle','margin':'5px','height':300}),
                 dbc.Col(dcc.Graph(id='risk_return_chart',style=chart_style_dbc),width=3,style={'width':'25%','float':'right','margin':'5px','height':300}),
-                ])
+                ],style={'width':'100%'})
             ],style={'width':'100%'})
 
 @app.callback(dash.dependencies.Output('store_callback','children'),
