@@ -52,4 +52,5 @@ python index.py
 ```
 
 <H3>Snapshot of Dashboard Portfolio Tab</H3>
+ 
 ![alt text](assets/dashboard_portfolio_performance.png)
