@@ -77,7 +77,23 @@ desc_dict = {'Random Forest Regressor 120/30':
                                              we still had fairly high correlation for reduced features.
                                             """,style={'color':'white','fontSize':12,'lineHeight':1.2})
                                         ],
-                'CNN Visual Pattern Recognition':['TBD'],
+                'CNN Image Pattern Recognition':
+                                    [html.H4('CNN Image Pattern Recognition',style={'color':'white','fontWeight':'bold'}),
+                                        html.P('Description:',style={'color':'white','fontWeight':'bold','fontSize':14}),
+                                        html.P("""
+                                            This model uses a Convolutional Neural Network to recognize patterns in images to predict
+                                            how the market will perform within the upcoming few minutes. The model is trained on the
+                                            previous 1 year to when back-testing begins. The trading strategy in this model is based on
+                                            trades every 15 minutes, and not trading with any money greater than the initial value, as
+                                            to decrease losses.
+                                            """,style={'color':'white','fontSize':12,'lineHeight':1.2,'marginBottom':'5px'}),
+                                        html.P('Feature Representation:',style={'color':'white','fontWeight':'bold','fontSize':14}),
+                                        html.P("""
+                                            The model uses images of intraday price candlestick charts, included with moving averages and
+                                            Bollinger bands to display trends for pattern detection to classify price movements for the next
+                                            15 minutes.
+                                            """,style={'color':'white','fontSize':12,'lineHeight':1.2})
+                                        ],
                 'Multi Factor Multi-Layer Preceptron':
                                 [html.H4('Multi Factor MLP',style={'color':'white','fontWeight':'bold'}),
                                     html.P('Description:',style={'color':'white','fontWeight':'bold','fontSize':14}),
@@ -95,7 +111,7 @@ desc_dict = {'Random Forest Regressor 120/30':
                                             Within Volatility the model uses rolling standard deviations of a stock over various time frames.
                                             Within Momentum - The model uses exponentially weighted moving averages for a stock price over multiple timeframes as well as historic returns over multiple time frames.
                                             The Size factor - is represented average market cap.
-                                            """,style={'color':'white','fontSize':12,'lineHeight':1.2})
+                                            """,style={'color':'white','fontSize':12})
                                         ]
 
                 }
