@@ -9,14 +9,7 @@
 <b>Multiple scripts will be utilized to pull raw data:</b>
 * Data used by the <b>Random Forest Regressor</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`, then data is loaded to postgres using `Creating Technical Features Data.ipynb`
 * Data used by the <b>Multi-Factor MLP</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: 
-* Data used by the <b>CNN Image Pattern Recognition</b>....
-* `historical_stocks.py` will be utilized to get dailies from select symbols utilizing package yfinance
-* `short_term_stocks.py` will be utilized to get intraday 5m interval utilizing AlphaVantage API
-  * to run this code you must have an API key from AlphaVantage
-
-Steps for creating data used for analysis:  ---What do we do with this
-1. From project home directory, run `historical_stocks.py` or `short_term_stocks.py`, which downloads daily closing data for all S&P 500 tickers or select high volume stocks not listed on the NASDAQ (AlphaVantage does not offer this data)
-3. `short_chart_creator.py` to get training and validation data for neural network
+* Data used by the <b>CNN Image Pattern Recognition</b> model is stored locally and can be grabbed using `short_term_stocks.py` if you have an Alpha Vantage API key. Following the use of `short_term_stocks.py` is the use of `short_chart_creator.py` and then `short_cnn.py` to train the model.
 
 <b>Other Helper Functions:</b>
 * Utilize `port_2.py` or `intraday_portfolio.py` classes to trade stocks and track performance, trades, and other metrics. These are python classes built to manage your portfolio as you buy and sell
