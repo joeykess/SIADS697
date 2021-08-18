@@ -12,6 +12,7 @@ import pickle
 from threading import Event
 
 
+# Currently not used, as the ta library is used to provide all technical features
 def daily_features():
     path = r'assets/historical-symbols'  # use your path
     all_files = glob.glob(path + "/*.csv")
