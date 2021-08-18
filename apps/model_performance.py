@@ -58,28 +58,16 @@ def import_cash_record():
     return data
 cash_df = import_cash_record().drop('index',axis=1)
 
-model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017-01-01',
-              'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
-              'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
-              'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
+model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2018-01-01',
+              'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2018-01-01',
+              'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2018-01-01',
+              'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2018-01-01',
               'Multi Factor Multi-Layer Preceptron': 'MF_MLP',
               'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 model_list = [key for key in model_dict.keys()]
 
 layout = html.Div([
-
-            # dbc.Row(
-            #     [
-            #     dbc.Col(html.A('What Models Do You Want to Compare?',style={'margin':'5px','lineHeight':2}),width=2),
-            #     dbc.Col(dcc.Dropdown(id='model_filter2',
-            #         options=[{'label': i, 'value': i} for i in model_list],
-            #         value='Random Forest Regressor 120/30',clearable=False),width=3,style={'margin':'5px','lineHeight':2}),
-            #     dbc.Col(html.A('Pick Date to Analyze',style={'margin':'5px','lineHeight':2}),width=1.5),
-            #     dbc.Col(dcc.Dropdown(id='date_filter',
-            #         options=[{'label': i, 'value': i} for i in ['2021-03-03','2021-03-01']],
-            #         value='2021-03-03'),width=2,style={'margin':'5px','lineHeight':2})
-            #     ]),
             dbc.Row(
                 [
                 dbc.Col(html.Div(id='model-stats'),width=3,style={'margin':'5px','height':300}),
@@ -204,3 +192,7 @@ def model_stat(model_filter):
     if model_filter == 'Multi Factor Multi-Layer Preceptron':
 
         return model_stats.layout_jeff
+
+    if model_filter == 'CNN Image Pattern Recognition':
+
+        return model_stats.layout_joey

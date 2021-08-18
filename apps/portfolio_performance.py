@@ -49,6 +49,15 @@ def import_open_positions():
     return data
 open_pos_df = import_open_positions().drop('index',axis=1)
 
+def import_cash_positions():
+    conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
+    cur = conn.cursor()
+    query = "SELECT * FROM cash_record"
+    data = pd.read_sql_query(query,conn)
+    data = data.sort_values(['key', 'model'])
+    return data
+cash_df = import_cash_positions().drop('index',axis=1)
+
 
 sector_df = stock_df.reset_index().groupby(['sector','Date']).mean()['Close'].reset_index()
 sentiment_df = pd.read_csv('assets/models/tyler_rf_daily_update/sentiment_analysis.csv')
@@ -398,14 +407,24 @@ def update_port_value(value,model):
     # For testing portfolio
     mod_filter = model_dict[model]
 
-    open_pos_df_chart = open_pos_df[open_pos_df['model']==mod_filter]
-    # Getting max date for input, may make configurable later
-    date = open_pos_df_chart['key'].values[-1][-10:]
+    if model != 'CNN Image Pattern Recognition':
+        open_pos_df_chart = open_pos_df[open_pos_df['model']==mod_filter]
+        # Getting max date for input, may make configurable later
+        date = open_pos_df_chart['key'].values[-1][-10:]
 
-    # date_filter = '2020-09-04'
-    date_filter = date
-    test_df = open_pos_df[(open_pos_df['model']==mod_filter)&\
+        # date_filter = '2020-09-04'
+        date_filter = date
+
+        test_df = open_pos_df[(open_pos_df['model']==mod_filter)&\
                           (open_pos_df['key']==f'Positions_{date_filter}')]
+
+    # Adding logic to pull in Joey's portfolio as he "cashes out" everyday
+    else:
+        date_filter = '2021-07-23'
+        test_df = cash_df[(cash_df['model']==mod_filter)&\
+                          (cash_df['key']==f'cash_{date_filter}')]
+        test_df['Current Value'] = test_df['cash']
+        test_df['Basis'] = 100000
 
     fig = go.Figure(go.Indicator(
     mode = "number+delta",
@@ -413,7 +432,8 @@ def update_port_value(value,model):
     title = {"text": "Current Portfolio Value<br>",'font':{'size':18,'color':'white'}},
     number = {'prefix': "$",'font':{'size':18,'color':'white'}},
     domain = {'x': [0, 1], 'y': [0, 1]},
-    delta = {'reference': test_df['Basis'].sum(), 'relative': True,'font':{'size':14},'position' : "right"}
+    delta = {'reference': test_df['Basis'].sum(),'relative': True,'font':{'size':14},
+                        'valueformat':'.2%','position':"right"}
         ))
 
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)')
@@ -440,13 +460,19 @@ def portfolio_table(value,model):
     df = open_pos_df[(open_pos_df['model']==mod_filter)&\
                       (open_pos_df['key']==f'Positions_{date_filter}')][['Ticker','Current Value','% Gain']]
 
+    if model == 'CNN Image Pattern Recognition':
+        df['% Gain'] = df['% Gain']*-1
+        df['Current Value'] = 0
+    else:
+        df['% Gain'] = df['% Gain'] / 100
+
     table = DataTable(
         id='portfolio_table',
         data=df.to_dict('records'),
         columns = [
             dict(id='Ticker', name='Ticker'),
             dict(id='Current Value', name='Current Value', type='numeric', format=FormatTemplate.money(2)),
-            dict(id='% Gain', name='% Gain', type='numeric', format=FormatTemplate.percentage(0))
+            dict(id='% Gain', name='% Gain', type='numeric', format=FormatTemplate.percentage(1))
             ],
         style_cell=dict(textAlign='center',fontSize=12),
         style_header=dict(backgroundColor="#191970",color='white'),

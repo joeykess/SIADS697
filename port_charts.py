@@ -326,11 +326,21 @@ def mlp_stat_chart(csv_path, stat = 'loss'):
                                  y = list(df[filts[0]]),
                                  name = 'Train',
                                  line = {'color':'#1192e8'}))
-    fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
-                                 y = list(df[filts[1]]),
-                                 name = 'Train',
-                                 mode = 'lines+markers',
-                                 marker = {'color':'#002d9c'}))
+    # fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
+    #                              y = list(df[filts[1]]),
+    #                              name = 'Train',
+    #                              mode = 'lines+markers',
+    #                              marker = {'color':'#002d9c'}))
+
+    # Adding IF statement to handle Jeff and Joey's different vizzes
+    if len(filts) > 1:
+        fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
+                                     y = list(df[filts[1]]),
+                                     name = 'Train',
+                                     mode = 'lines+markers',
+                                     marker = {'color':'#002D9C'}))
+
+
     fig.update_layout(
                 paper_bgcolor='white',
                 plot_bgcolor= 'white',

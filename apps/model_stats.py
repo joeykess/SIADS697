@@ -36,20 +36,27 @@ corr_df = pd.read_csv('assets/models/tyler_rf_daily_update/corr.csv',index_col=0
 # Creating layout for Tyler's model metrics
 layout_tyler = html.Div([
                 dcc.Graph(id='model-metrics',style={'width':'100%','borderBottom':'thin lightgrey solid',
-                                    'height':'25%','float':'top','marginBottom':'5px'}),
+                                    'marginBottom':'20px','height':'20%','float':'top'}),
                 # dcc.Graph(id='corr-chart',style={'width':'100%','display':'inline-block'}),
-                dcc.Graph(id='feature-chart',style={'width':'100%','marginTop':'5px'})
-            ],style={'width':'100%','height':350,'overflowY':'auto'})
+                dcc.Graph(id='feature-chart',style={'width':'100%','marginTop':'5px','height':'55%'})
+            ],style={'width':'100%','height':350,'overflowY':'auto','paddingTop':'15px'})
 
 # Loading model stat data for Jeff
 csv_path = 'assets/models/jeff_multi_factor/mf_mlp.csv'
+csv_path2 = 'assets/models/joey_cnn_intraday/cnn_training.csv'
 
 # Creating layout for Jeff's model metrics
 layout_jeff = html.Div([
                 dcc.Graph(id='model-metrics-jeff',style={'width':'100%','height':'45%','marginBottom':'5px'}),
                 dcc.Graph(id='model-metrics-jeff2',style={'width':'100%','height':'45%','marginBottom':'5px'})
 
-                ],style={'width':'100%','height':'350','overflowY':'auto'})
+                ],style={'width':'100%','height':'350','overflowY':'auto','paddingLeft':'5px','paddingBottom':'5px'})
+
+# Creating layout for Joey's model metrics
+layout_joey = html.Div([
+                dcc.Graph(id='model-metrics-joey',style={'width':'100%','height':'80%','marginBottom':'5px'})
+
+                ],style={'width':'100%','height':'350','verticalAlign':'center','paddingLeft':'5px','paddingTop':'10px'})
 
 
 @app.callback(dash.dependencies.Output('model-metrics','figure'),
@@ -57,7 +64,7 @@ layout_jeff = html.Div([
 def model_metrics(model_filter):
 
     if model_filter == 'Random Forest Regressor 60/30':
-        target = 'Feats 60' # May come back and fix...
+        target = 'Target 60'
     if model_filter == 'Random Forest Regressor 7/7':
         target = 'Target 7'
     else:
@@ -99,6 +106,7 @@ def model_metrics(model_filter):
             font=dict(color='white',size=10),
             height = 200)
     fig.update_yaxes(showgrid=False)
+    fig.update_xaxes(showticklabels=False)
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
 
     return fig
@@ -136,5 +144,19 @@ def model_metrics_jeff(model_filter):
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='#A9A9A9')
     fig.update_yaxes(showgrid=False)
     fig.update_xaxes(showgrid=False,range=[0, 155])
+
+    return fig
+
+# Creating figure for Joey's model
+@app.callback(dash.dependencies.Output('model-metrics-joey','figure'),
+    [dash.dependencies.Input('model_filter','value')])
+def model_metrics_joey(model_filter):
+
+    fig = mlp_stat_chart(csv_path2, stat = 'Precision')
+
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='#A9A9A9')
+    fig.update_yaxes(showgrid=False)
+    fig.update_xaxes(showgrid=False,range=[0, 100])
+    fig.update_layout(title = dict(text = 'CNN Image Pattern Recognition {} Results'.format('Precision'), x = 0.5, y = .99, font = {'size': 10,'color':'white'}))
 
     return fig
