@@ -8,7 +8,7 @@
 
 <b>Multiple scripts will be utilized to pull raw data:</b>
 * Data used by the <b>Random Forest Regressor</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`, then data is loaded to postgres using `Creating Technical Features Data.ipynb`
-* Data used by the <b>Multi-Factor MLP</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: 
+* Data used by the <b>Multi-Factor MLP</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`,`data_collection_five_factor.ipynb`, The functions in `data_collection_five_factor.ipynb`, all require subscriptions to Refinitive Eikon or Datastream Web Services as well as a running Eikon terminal. All ready to use features are stored in a postgres database, executing the `run_feature_engine()` function inside the model notebook will pull raw features from the database and go through all feature engineering and preparation steps but will take up to an hour.  
 * Data used by the <b>CNN Image Pattern Recognition</b> model is stored locally and can be grabbed using `short_term_stocks.py` if you have an Alpha Vantage API key. Following the use of `short_term_stocks.py` is the use of `short_chart_creator.py` and then `short_cnn.py` to train the model.
 
 <b>Other Helper Functions:</b>
