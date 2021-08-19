@@ -10,3 +10,5 @@ This modeling process was meant to test techniques that approximate a target pri
 2. Data was truncated to 2016 forward to account for space and performance limitations
 3. Data features were created using the Technical Analysis python library, but we also created our own functions to create technical features
 
+#### Future Consideration:
+<p> Prophet could be used to create economic cycle features that help understand the general direction of the market. This can be quite useful as it opens the prediction process up to more than just technical feature representation</b>
