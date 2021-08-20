@@ -2,7 +2,7 @@
 
 #### Intent:
 <p>
-This modeling process was meant to test techniques that approximate a target price of multiple stocks in the S&P 500 at some point in the future. The intent is to include technical and fundamental indicators, both of which are used by traders to uncover trends into future stock performance.
+This modeling process was meant to test techniques that approximate a target price of multiple stocks in the S&P 500 at some point in the future. The intent is to include technical indicators, which are used by traders to uncover trends into future stock performance.
 </p>
 
 #### Hypothesis:
