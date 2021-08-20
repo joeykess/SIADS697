@@ -65,7 +65,7 @@ model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017
               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01',
               'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01',
               'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2017-01-01',
-              'Multi Factor Multi-Layer Preceptron': 'MF_MLP',
+              'Multi Factor Multi-Layer Perceptron': 'MF_MLP',
               'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 
