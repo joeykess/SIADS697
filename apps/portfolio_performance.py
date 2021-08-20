@@ -58,7 +58,6 @@ def import_cash_positions():
     return data
 cash_df = import_cash_positions().drop('index',axis=1)
 
-
 sector_df = stock_df.reset_index().groupby(['sector','Date']).mean()['Close'].reset_index()
 sentiment_df = pd.read_csv('assets/models/tyler_rf_daily_update/sentiment_analysis.csv')
 
@@ -161,6 +160,8 @@ def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
     else:
         df = sector_df[sector_df['sector']==ticker]
         df = df.set_index('Date')
+
+    df['ticker'] = ticker
 
     # Adding Moving Averages
     df['SMA_5'] = df.groupby('ticker')['Close'].transform(lambda x: x.rolling(window=5).mean())

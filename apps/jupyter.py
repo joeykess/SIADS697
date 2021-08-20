@@ -56,10 +56,10 @@ def html_filter(model_filter):
 
     if model_filter == 'Multi Factor Multi-Layer Preceptron':
 
-        # return html.Div([html.Iframe(src='assets/mf_mlp.html',
-        #                         style={'width':'100%','height':1000,'display':'flex'})
-        #                     ])
-        return None # Returning None for now, as Jeff's file is too large
+        return html.Div([html.Iframe(src='assets/mf_mlp.html',
+                                style={'width':'100%','height':1000,'display':'flex'})
+                            ])
+        # return None # Returning None for now, as Jeff's file is too large
 
     if model_filter == 'CNN Image Pattern Recognition':
 

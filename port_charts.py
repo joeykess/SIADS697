@@ -257,17 +257,19 @@ def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
     :param stock_sector: (string) a stock ticker or the name of a GICS sector
     :param date: (optional - string) a reference date must be in YYYY-MM-DD format
     '''
-    sectors = pd.read_csv("assets/fundamentals/sectors.csv", index_col = 0)
-    sectors = sectors.rename(columns = {"Instrument": "Ticker"})
+
+    sectors = pd.read_csv("assets/fundamentals/ms_sectors.csv", index_col = 0)
+    sectors = sectors.rename(columns = {"ticker": "Ticker"})
+
     conn = connect(dbname = '697_temp', user = 'postgres', host = 'databasesec.cvhiyxfodl3e.us-east-2.rds.amazonaws.com', password = 'poRter!5067')
     cur = conn.cursor()
     query = "SELECT * FROM raw_data WHERE date = '{}'".format(date)
     data = pd.read_sql_query(query,conn).filter(['Instrument','3m_avg_mkt_cap', '{}'.format(metric)]).rename(columns = {"Instrument": "Ticker"})
     data = data.merge(sectors, on = 'Ticker')
-    sector_list = sectors['GICS Sector'].unique()
+    sector_list = sectors['sector'].unique()
     colors = ['#4e5d6c','#191970']
     if stock_sector in sector_list:
-        plot_df = data[data['GICS Sector']==stock_sector]
+        plot_df = data[data['sector']==stock_sector]
         if len(plot_df)>10:
             plot_df = plot_df.sort_values(['3m_avg_mkt_cap']).iloc[0:10]
         else:
@@ -275,8 +277,8 @@ def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
         plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
 
     else:
-        stk = data[data['Ticker']==stock_sector.upper()]['GICS Sector'].iloc[0]
-        plot_df = data[data['GICS Sector']==stk]
+        stk = data[data['Ticker']==stock_sector.upper()]['sector'].iloc[0]
+        plot_df = data[data['sector']==stk]
         stock_line = plot_df[plot_df['Ticker']==stock_sector.upper()]
         if len(plot_df)>10:
             plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()].sort_values(['3m_avg_mkt_cap'], ascending = False).iloc[0:9]
@@ -308,8 +310,8 @@ def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
                             paper_bgcolor='white',
                             plot_bgcolor='white',
                             font=dict(color='white'),
-                            title= dict(text='{} Ratio Comparison for {}'.format(metric_title, stock_sector), font = dict(size = 10, color = 'white'), x = 0.5, y = 0.98))
-
+                            title= dict(text='{} Ratio Comparison for <br> {}'.format(metric_title, stock_sector), font = dict(size = 8, color = 'white'), x = 0.5, y = 0.98),
+                            )
     return fig
 
 def mlp_stat_chart(csv_path, stat = 'loss'):

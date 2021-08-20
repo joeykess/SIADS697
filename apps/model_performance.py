@@ -26,7 +26,6 @@ from port_charts import *
 from model_descriptions import *
 from apps import model_stats
 
-
 from sqlalchemy import create_engine
 import psycopg2
 from psycopg2 import connect
