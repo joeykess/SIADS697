@@ -61,7 +61,7 @@ model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2018
               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2018-01-01',
               'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2018-01-01',
               'Random Forest Regressor 7/7': 'RF Reg_target_7_rebal_7_2018-01-01',
-              'Multi Factor Multi-Layer Preceptron': 'MF_MLP',
+              'Multi Factor Multi-Layer Perceptron': 'MF_MLP',
               'CNN Image Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
              }
 model_list = [key for key in model_dict.keys()]
@@ -188,7 +188,7 @@ def model_stat(model_filter):
 
         return model_stats.layout_tyler
 
-    if model_filter == 'Multi Factor Multi-Layer Preceptron':
+    if model_filter == 'Multi Factor Multi-Layer Perceptron':
 
         return model_stats.layout_jeff
 
