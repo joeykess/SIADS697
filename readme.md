@@ -8,7 +8,7 @@
 
 <b>Multiple scripts will be utilized to pull raw data:</b>
 * Data used by the <b>Random Forest Regressor</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`, then data is loaded to postgres using `Creating Technical Features Data.ipynb`
-* Data used by the <b>Multi-Factor MLP</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: 
+* Data used by the <b>Multi-Factor MLP</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`,`data_collection_five_factor.ipynb`, The functions in `data_collection_five_factor.ipynb`, all require subscriptions to Refinitive Eikon or Datastream Web Services as well as a running Eikon terminal. All ready to use features are stored in a postgres database, executing the `run_feature_engine()` function inside the model notebook will pull raw features from the database and go through all feature engineering and preparation steps but will take up to an hour.  
 * Data used by the <b>CNN Image Pattern Recognition</b> model is stored locally and can be grabbed using `short_term_stocks.py` if you have an Alpha Vantage API key. Following the use of `short_term_stocks.py` is the use of `short_chart_creator.py` and then `short_cnn.py` to train the model.
 
 <b>Other Helper Functions:</b>
@@ -21,12 +21,28 @@
 <p>The goal of our Financial Modeling Exploration Dashboard is to allow users to explore stock performance and model predictive power to help make assessments on which stocks they should buy. Our models can be used to build a portfolio autonomously, or used to help users manual select stocks.</p>
 
 <b>Implementation</b>
-<p>Our dashboard runs from python scripts using Plotly Dash. It is hosted on AWS as a containerized Docker image, leveraging AWS Elastic Container Service. It follows a similar structure to common Dash dashboard implementations, in that it uses an app.py file to start the dashboard, but "pages" are created separately and loaded together through python import statements. All pages are in our home directory, but some data and CSS styling files are stored in the assets folder. The dashboard also makes use of a postgres database to greatly simplify cooridnation between teammates, and allow for future iterations that can update data on a regular cadence.</p>
+<p>Our dashboard runs from python scripts using Plotly Dash. It is hosted on AWS as a containerized Docker image, leveraging AWS Elastic Container Service. It follows a similar structure to common Dash dashboard implementations, in that it uses an app.py file to start the dashboard, but "pages" are created separately and loaded together through python import statements. All pages are in our home directory or apps folder, but some data and CSS styling files are stored in the assets folder. The dashboard also makes use of a postgres database to greatly simplify cooridnation between teammates, and allow for future iterations that can update data on a regular cadence.</p>
+
+ <b>This general folder structure is required for all dash apps</b>
+``` 
+app.py (contains boilerplate server code, as well as CSS reference themes)
+index.py (Includes HTML code that structure the top level of the dashboard, including tabs)
+apps Folder:
+ - __init__.py (Empty required file)
+ - portfolio_performance.py (All code required to build the Portfolio Performance tab)
+ - model_performance.py (All code required to build the Model Performance tab)
+ - jupyter.py (All code required to build the Jupyter Notebook tab)
+ - model_stats.py (Not required, but used to display individual HTML Divs for each model)
+ - ind_css.py (Used to store custom styling, removes clutter from .py files)
+assets Folder:
+ - style.css (CSS stylesheet called by the app)
+ - Stores individual image, data, and html files
+```
 
 <b>The Steps to Load the Dashboard Locally are as Follows:<b>
 1. Open the index.py file in a python IDE, such as Atom
 2. Run this file in your IDE or from the terminal directly
-3. Once running, the dashboard will load to a local server (generally http:0.0.0.0:8050)
+3. Once running, the dashboard will load to a local server (generally http:0.0.0.0:8050, but http:0.0.0.0:80 for ours (AWS reasons))
 4. Your terminal may automatically open the dashboard in your browser, otherwise copy the IP address printed out and paste in browser
 5. You can make changes to individual pages directly, and saving will cause the dashboard to hot reload (automatically refresh)
 6. Any errors in the python code that cause the dashboard to fail will need to be fixed, and then index.py needs to be re-run
@@ -45,3 +61,21 @@ python index.py
 <H3>Snapshot of Dashboard Portfolio Tab</H3>
  
 ![alt text](assets/dashboard_portfolio_performance.png)
+ 
+ 
+ 
+ 
+``` 
+app.py (contains boilerplate server code, as well as CSS reference themes)
+index.py (Includes HTML code that structure the top level of the dashboard, including tabs)
+apps Folder:
+ - __init__.py (Empty required file)
+ - portfolio_performance.py (All code required to build the Portfolio Performance tab)
+ - model_performance.py (All code required to build the Model Performance tab)
+ - jupyter.py (All code required to build the Jupyter Notebook tab)
+ - model_stats.py (Not required, but used to display individual HTML Divs for each model)
+ - ind_css.py (Used to store custom styling, removes clutter from .py files)
+assets Folder:
+ - style.css (CSS stylesheet called by the app)
+ - Stores individual image, data, and html files
+```
