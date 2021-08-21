@@ -33,9 +33,9 @@ def html_filter(model_filter):
         return html.H1('Random Forest Regressor',
                             style={'color':'white','textAlign':'center'})
 
-    if model_filter == 'Multi Factor Multi-Layer Preceptron':
+    if model_filter == 'Multi Factor Multi-Layer Perceptron':
 
-        return html.H1('Multi Factor Multi-Layer Preceptron',
+        return html.H1('Multi Factor Multi-Layer Perceptron',
                             style={'color':'white','textAlign':'center'})
 
     if model_filter == 'CNN Image Pattern Recognition':
@@ -54,7 +54,7 @@ def html_filter(model_filter):
                                 style={'width':'100%','height':1000,'display':'flex'})
                             ])
 
-    if model_filter == 'Multi Factor Multi-Layer Preceptron':
+    if model_filter == 'Multi Factor Multi-Layer Perceptron':
 
         return html.Div([html.Iframe(src='assets/mf_mlp.html',
                                 style={'width':'100%','height':1000,'display':'flex'})

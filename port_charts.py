@@ -90,8 +90,8 @@ def risk_adjusted_metrics(tr, BM):
     port = [port_sharpe, port_sort, port_trey, port_dd, port_calm ]
     sp = [spy_sharpe, spy_sort, spy_trey, spy_dd, spy_calm]
     fig_2 = go.Figure(data = [
-        go.Bar(name = 'Model', x = metrics,  y = port, marker_color =color_codes[2]),
-        go.Bar(name = '{}_daily'.format(BM), x = metrics,  y = sp,  marker_color =color_codes[4]),
+        go.Bar(name = 'Model', x=metrics, y=port, text=['{:.2f}'.format(i) for i in port], marker_color=color_codes[2]),
+        go.Bar(name = '{}_daily'.format(BM), x=metrics, y=sp, text=['{:.2f}'.format(i) for i in sp], marker_color=color_codes[4]),
     ])
 
     fig_2.update_layout( #width = 950, height = 400,
@@ -103,7 +103,7 @@ def risk_adjusted_metrics(tr, BM):
                         yaxis_tickformat = '.0f',
                         yaxis_title="Ratio",
                         title= dict(text='Risk Adjusted Metrics', font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96))
-    fig_2.update_yaxes(range=[-3, 15])
+    fig_2.update_yaxes(range=[-3, 20])
 
     return fig_2
 
@@ -169,10 +169,10 @@ def sector_plot(snap_port, snap_cash, date):
     :param date: the date of the desired allocation breakdown
     '''
     color_codes = ["#FFCB05", "#00274C", "#9A3324", "#D86018", "#75988d", "#A5A508", "#00B2A9", "#2F65A7", "#702082"]
-    sectors = pd.read_csv("assets/fundamentals/sectors.csv", index_col = 0)
-    sectors = sectors.rename(columns = {"Instrument": "Ticker"})
+    sectors = pd.read_csv("assets/fundamentals/ms_sectors.csv", index_col = 0)
+    sectors = sectors.rename(columns = {"ticker": "Ticker"})
     snap_port = snap_port.merge(sectors, on = 'Ticker', how= 'inner')
-    snap_port = snap_port.groupby("GICS Sector").sum().filter(["Current Value"])
+    snap_port = snap_port.groupby("sector").sum().filter(["Current Value"])
     snap_port['% of Portfolio'] = snap_port["Current Value"]/(snap_port["Current Value"].sum() + snap_cash)
     gics = "Cash"
     pr_of_port = 1-snap_port["% of Portfolio"].sum()

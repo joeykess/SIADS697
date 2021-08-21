@@ -168,4 +168,4 @@ def filter_model(value):
     return {'model_to_filter': value}
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0',port=80,debug=True)
+    app.run_server(host='0.0.0.0',port=80,debug=False)
