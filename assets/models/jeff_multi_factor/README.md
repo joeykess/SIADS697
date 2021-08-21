@@ -24,7 +24,7 @@
 
 #### Model
 
-<p> Below is a step by step guide to the model found in `Multi_factor_mlp.ipynb` file</p>
+Below is a step by step guide to the model found in `Multi_factor_mlp.ipynb` file
 
 ##### Data Preperation
 
