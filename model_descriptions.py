@@ -94,7 +94,7 @@ desc_dict = {'Random Forest Regressor 120/30':
                                             15 minutes.
                                             """,style={'color':'white','fontSize':12,'lineHeight':1.2})
                                         ],
-                'Multi Factor Multi-Layer Preceptron':
+                'Multi Factor Multi-Layer Perceptron':
                                 [html.H4('Multi Factor MLP',style={'color':'white','fontWeight':'bold'}),
                                     html.P('Description:',style={'color':'white','fontWeight':'bold','fontSize':14}),
                                         html.P("""
