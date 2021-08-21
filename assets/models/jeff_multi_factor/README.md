@@ -24,6 +24,8 @@
 
 #### Model
 
+Below is a step by step guide to the model found in `Multi_factor_mlp.ipynb` file
+
 ##### Data Preperation
 
 1. __Data Preprocessing and cleaning:__ The data comes from multiple sources as raw numerical values recorded on a given day for a given asset. Missing data is discarded to minimize errors. Numerous features are engineered by combining two features (for example P/E ratios are calculated by normalizing daily prices by the most recent trailing 12 month EPS)  
