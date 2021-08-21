@@ -2,6 +2,9 @@
 **<h3>Tyler Drumheller, Jeff Garden, Joseph Kessler</h3>**
 
 <b>Goal:</b> Gathering NYSE historical data and utilizing it to create various portfolio management strategies. Our team employed three different models to test portfolio performance for common strategies.
+
+You can find our blog post describing the work on [Medium](https://medium.com/@tyler.drumheller/predict-or-classify-machine-learning-approaches-to-stock-selection-44740040e830)
+
 * <b>Random Forest Regressor</b>: This method utilizes short to medium term (7 to 120 day) technical analysis to predict prices over those terms using a Random Forest Regressor model. More documentation can be found [here](https://github.com/joeykess/SIADS697/tree/main/assets/models/tyler_rf_daily_update)
 * <b>Multi-Factor Multilayer Perceptron (MLP)</b>: This method utilizes Fundamental features as inputs into a binary classification model design to answer one simple question, "Will the future one-year total return on this stock be in the top 50% of all S&P 500 stocks or not?" More documentation can be found [here](https://github.com/joeykess/SIADS697/tree/main/assets/models/jeff_multi_factor)
 * <b>CNN Image Pattern Recognition</b>: This method utilizes Convolutional Neural Network to recognize patterns in images to predict how the market will perform within the upcoming few minutes. More documentation can be found [here](https://github.com/joeykess/SIADS697/tree/main/assets/models/joey_cnn_intraday)
