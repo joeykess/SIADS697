@@ -102,6 +102,10 @@ app.layout = html.Div([dcc.Store(id='memory-output',storage_type='local'),
                     dbc.ModalBody("""The content of this site is for informational purposes only.
                     There is risk in trading in securities of any kind, and we will not be held responsible for any losses that occur.
                     """,style={'color':'white'}),
+                    html.Div(['Visit Github for Dashboard Code',
+                            html.A(children='here',href='https://github.com/joeykess/SIADS697',target='_blank'
+                                            ,style={'color':'#0645AD','paddingLeft':'4px','fontFamily':'poppins','fontSize':'15px'})
+                                            ],style={'color':'white','paddingLeft':'15px'}),
                     dbc.ModalFooter(
                         dbc.Button("Close", id="close", className="ml-auto", n_clicks=0))
                   ],id="modal",centered=True,is_open=False)
