@@ -5,6 +5,14 @@
 This modeling process was meant to evaluate [candlestick charts](https://www.investopedia.com/trading/candlestick-charting-what-is-it/) and utilize CNNs to read and interpret the chart to know if the price will go up or down in the following <i>x</i> minutes.
 </p>
 
+### Hardware Specs Necessary:
+All of the code ran for the CNN training and back-testing was done on the following machine:
+- AMD 5950x 16 core processor
+- 64GB RAM
+- Nvidia RTX 3090 24GB VRAM
+
+For any of this code running on lower specs it is entirely possible to run out of GPU or GPU memory and for the training to fail. I did not run into this instance, however the batch size can be decreased if this is the case.
+
 #### Hypothesis:
 <p>
 Day traders typically monitor the markets every minute that the exchanges are open. To decrease risk, trading outside of opening hour is done in this model. I believe that we can model and predict the near future market price using a model to interpret candlesticks faster than humans can to achieve (hopefully) high returns trading.
