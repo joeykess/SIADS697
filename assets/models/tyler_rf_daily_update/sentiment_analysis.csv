@@ -1,0 +1,263 @@
+Ticker,Sentiment,Mentions,Trend,ticker,sector
+LEG,very good,761,down,LEG,Consumer Cyclical
+K,very good,659,down,K,Consumer Defensive
+AIG,good,549,down,AIG,Financial Services
+NWSA,good,430,down,NWSA,Communication Services
+HBAN,good,416,down,HBAN,Financial Services
+AEE,very good,411,down,AEE,Utilities
+KEY,very good,388,down,KEY,Financial Services
+MCD,good,383,down,MCD,Consumer Cyclical
+MGM,very good,381,down,MGM,Consumer Cyclical
+JCI,good,378,down,JCI,Industrials
+KIM,good,378,down,KIM,Real Estate
+HST,very good,374,down,HST,Real Estate
+DRI,good,371,down,DRI,Consumer Cyclical
+NRG,very good,366,down,NRG,Utilities
+PLD,very good,364,down,PLD,Real Estate
+HON,very good,364,down,HON,Industrials
+JNPR,good,357,down,JNPR,Technology
+TAP,very good,356,down,TAP,Consumer Defensive
+SRE,good,356,down,SRE,Utilities
+SCHW,good,356,down,SCHW,Financial Services
+AMAT,very good,354,down,AMAT,Technology
+CMG,good,354,down,CMG,Consumer Cyclical
+APD,very good,353,down,APD,Basic Materials
+PWR,good,352,down,PWR,Industrials
+NOV,very good,351,down,NOV,Energy
+HES,poor,349,down,HES,Energy
+CVX,good,349,down,CVX,Energy
+SPG,very good,348,down,SPG,Real Estate
+UA,good,348,down,UA,Consumer Cyclical
+EBAY,very good,347,down,EBAY,Consumer Cyclical
+BAX,very good,346,down,BAX,Healthcare
+RHI,very good,346,down,RHI,Industrials
+CNP,very good,346,down,CNP,Utilities
+HAS,good,346,down,HAS,Consumer Cyclical
+CI,good,346,down,CI,Healthcare
+D,good,346,down,D,Utilities
+MMC,very good,345,down,MMC,Financial Services
+TXN,very good,345,down,TXN,Technology
+CRM,good,345,down,CRM,Technology
+MCK,very good,344,down,MCK,Healthcare
+PHM,very good,343,down,PHM,Consumer Cyclical
+MDLZ,poor,343,down,MDLZ,Consumer Defensive
+NTAP,good,343,down,NTAP,Technology
+JNJ,very poor,342,down,JNJ,Healthcare
+ADBE,very good,342,down,ADBE,Technology
+AMZN,very good,342,down,AMZN,Consumer Cyclical
+KO,poor,342,down,KO,Consumer Defensive
+EIX,good,342,down,EIX,Utilities
+VZ,good,340,down,VZ,Communication Services
+MET,very good,339,down,MET,Financial Services
+AXP,very good,339,down,AXP,Financial Services
+GWW,very good,339,down,GWW,Industrials
+FFIV,good,339,down,FFIV,Technology
+EXC,very good,338,down,EXC,Utilities
+AON,very good,337,down,AON,Financial Services
+EW,very good,337,down,EW,Healthcare
+SBUX,poor,336,down,SBUX,Consumer Cyclical
+AMGN,very good,335,down,AMGN,Healthcare
+XOM,very good,335,down,XOM,Energy
+DLTR,very good,335,down,DLTR,Consumer Defensive
+IVZ,very good,335,down,IVZ,Financial Services
+HAL,good,335,down,HAL,Energy
+ABC,good,335,down,ABC,Healthcare
+CSX,good,335,down,CSX,Industrials
+VLO,very good,334,down,VLO,Energy
+WMT,very good,334,down,WMT,Consumer Defensive
+UNH,very good,334,down,UNH,Healthcare
+AIZ,good,334,down,AIZ,Financial Services
+CMS,good,334,down,CMS,Utilities
+LLY,good,334,down,LLY,Healthcare
+ROK,good,334,down,ROK,Industrials
+DUK,very good,333,down,DUK,Utilities
+BMY,good,333,down,BMY,Healthcare
+DG,good,333,down,DG,Consumer Defensive
+WDC,very good,332,down,WDC,Technology
+MDT,good,332,down,MDT,Healthcare
+AFL,very good,331,down,AFL,Financial Services
+KMI,good,331,down,KMI,Energy
+NEE,very good,330,down,NEE,Utilities
+PXD,very good,330,down,PXD,Energy
+GLW,good,330,down,GLW,Technology
+BLL,very good,329,down,BLL,Consumer Cyclical
+DGX,very good,329,down,DGX,Healthcare
+EMN,very good,329,down,EMN,Basic Materials
+LEN,very good,329,down,LEN,Consumer Cyclical
+NUE,very good,328,down,NUE,Basic Materials
+MPC,very good,328,down,MPC,Energy
+L,good,328,down,L,Financial Services
+SWK,good,328,down,SWK,Industrials
+CF,good,328,down,CF,Basic Materials
+MAS,very good,327,down,MAS,Industrials
+MA,very good,327,down,MA,Financial Services
+MKC,very good,327,down,MKC,Consumer Defensive
+LYB,very good,327,down,LYB,Basic Materials
+CVS,good,327,down,CVS,Healthcare
+NSC,very good,326,down,NSC,Industrials
+SO,very good,325,down,SO,Utilities
+ECL,very good,325,down,ECL,Basic Materials
+DE,very good,325,down,DE,Industrials
+PPL,very good,325,down,PPL,Utilities
+YUM,poor,325,down,YUM,Consumer Cyclical
+F,poor,325,down,F,Consumer Cyclical
+ABT,good,325,down,ABT,Healthcare
+FMC,very good,324,down,FMC,Basic Materials
+LH,very good,324,down,LH,Healthcare
+ROST,very good,324,down,ROST,Consumer Cyclical
+UNP,very good,324,down,UNP,Industrials
+GS,very good,324,down,GS,Financial Services
+ADI,very good,324,down,ADI,Technology
+XLNX,very good,324,down,XLNX,Technology
+EMR,very good,324,down,EMR,Industrials
+LRCX,very good,324,down,LRCX,Technology
+COP,good,324,down,COP,Energy
+XRAY,good,324,down,XRAY,Healthcare
+COST,good,324,down,COST,Consumer Defensive
+WU,good,324,down,WU,Financial Services
+C,good,324,down,C,Financial Services
+COF,good,324,down,COF,Financial Services
+DHI,good,324,down,DHI,Consumer Cyclical
+DISCA,very good,323,down,DISCA,Communication Services
+TGT,very good,323,down,TGT,Consumer Defensive
+TMO,very good,323,down,TMO,Healthcare
+MTB,poor,323,down,MTB,Financial Services
+BK,good,323,down,BK,Financial Services
+MCHP,good,323,down,MCHP,Technology
+EFX,very good,322,down,EFX,Industrials
+DVN,very good,322,down,DVN,Energy
+LOW,very good,322,down,LOW,Consumer Cyclical
+TWTR,very good,322,down,TWTR,Communication Services
+ETN,very good,322,down,ETN,Industrials
+AMD,very good,322,down,AMD,Technology
+PFE,very good,322,down,PFE,Healthcare
+DTE,good,322,down,DTE,Utilities
+TSLA,good,322,down,TSLA,Consumer Cyclical
+HSY,good,322,down,HSY,Consumer Defensive
+AMP,good,322,down,AMP,Financial Services
+INTC,good,322,down,INTC,Technology
+CTSH,very good,321,down,CTSH,Technology
+MSI,very good,321,down,MSI,Technology
+CERN,very good,321,down,CERN,Healthcare
+KLAC,very good,321,down,KLAC,Technology
+ABBV,very good,321,down,ABBV,Healthcare
+STZ,good,321,down,STZ,Consumer Defensive
+FITB,good,321,down,FITB,Financial Services
+STT,good,321,down,STT,Financial Services
+APA,good,321,down,APA,Energy
+SYK,good,321,down,SYK,Healthcare
+PRU,very good,320,down,PRU,Financial Services
+FDX,very good,320,down,FDX,Industrials
+CTXS,very good,320,down,CTXS,Technology
+PM,very good,320,down,PM,Consumer Defensive
+KMB,very good,320,down,KMB,Consumer Defensive
+RF,very good,320,down,RF,Financial Services
+NWL,very good,320,down,NWL,Consumer Defensive
+MSFT,good,320,down,MSFT,Technology
+MRO,good,320,down,MRO,Energy
+KR,very good,319,down,KR,Consumer Defensive
+SLB,very good,319,down,SLB,Energy
+AMT,very good,319,down,AMT,Real Estate
+ACN,very good,319,down,ACN,Technology
+CMI,very good,319,down,CMI,Industrials
+PGR,very good,319,down,PGR,Financial Services
+LNC,very good,319,down,LNC,Financial Services
+HD,very good,319,down,HD,Consumer Cyclical
+BLK,poor,319,down,BLK,Financial Services
+FB,poor,319,down,FB,Communication Services
+BRK-B,good,319,down,BRK-B,Financial Services
+TJX,good,319,down,TJX,Consumer Cyclical
+DOV,good,319,down,DOV,Industrials
+BIIB,good,319,down,BIIB,Healthcare
+STX,good,319,down,STX,Technology
+CME,good,319,down,CME,Financial Services
+NKE,good,319,down,NKE,Consumer Cyclical
+GRMN,very good,318,down,GRMN,Technology
+MO,very good,318,down,MO,Consumer Defensive
+CAG,very good,318,down,CAG,Consumer Defensive
+AES,very good,318,down,AES,Utilities
+PSX,very good,318,down,PSX,Energy
+NTRS,very good,318,down,NTRS,Financial Services
+GE,very good,318,down,GE,Industrials
+TSN,very good,318,down,TSN,Consumer Defensive
+TROW,very good,318,down,TROW,Financial Services
+ISRG,very good,318,down,ISRG,Healthcare
+GD,poor,318,down,GD,Industrials
+FCX,good,318,down,FCX,Basic Materials
+DVA,good,318,down,DVA,Healthcare
+BA,good,318,down,BA,Industrials
+CL,good,318,down,CL,Consumer Defensive
+CAT,good,318,down,CAT,Industrials
+T,good,318,down,T,Communication Services
+BEN,very good,317,down,BEN,Financial Services
+IBM,very good,317,down,IBM,Technology
+NEM,very good,317,down,NEM,Basic Materials
+V,very good,317,down,V,Financial Services
+GM,very good,317,down,GM,Consumer Cyclical
+WYNN,very good,317,down,WYNN,Consumer Cyclical
+CSCO,very good,317,down,CSCO,Technology
+RSG,good,317,down,RSG,Industrials
+HUM,good,317,down,HUM,Healthcare
+MU,good,317,down,MU,Technology
+BSX,good,317,down,BSX,Healthcare
+MCO,good,317,down,MCO,Financial Services
+NFLX,very poor,316,down,NFLX,Communication Services
+FE,very good,316,down,FE,Utilities
+A,very good,316,down,A,Healthcare
+HRL,very good,316,down,HRL,Consumer Defensive
+OXY,very good,316,down,OXY,Energy
+BBY,very good,316,down,BBY,Consumer Cyclical
+ATVI,very good,316,down,ATVI,Communication Services
+PEP,very good,316,down,PEP,Consumer Defensive
+GIS,very good,316,down,GIS,Consumer Defensive
+MAR,very good,316,down,MAR,Consumer Cyclical
+NOC,very good,316,down,NOC,Industrials
+SHW,very good,316,down,SHW,Basic Materials
+AEP,very good,316,down,AEP,Utilities
+PG,very good,316,down,PG,Consumer Defensive
+DIS,very good,316,down,DIS,Communication Services
+BAC,poor,316,down,BAC,Financial Services
+DOW,good,316,down,DOW,Basic Materials
+LUV,good,316,down,LUV,Industrials
+EXPE,good,316,down,EXPE,Consumer Cyclical
+ALXN,good,316,down,ALXN,Healthcare
+ROP,good,316,down,ROP,Industrials
+DAL,good,316,down,DAL,Industrials
+ALL,good,316,down,ALL,Financial Services
+DHR,good,316,down,DHR,Healthcare
+WM,good,316,down,WM,Industrials
+QCOM,good,316,down,QCOM,Technology
+KMX,good,316,down,KMX,Consumer Cyclical
+CMCSA,good,316,down,CMCSA,Communication Services
+PPG,good,316,down,PPG,Basic Materials
+GILD,good,316,down,GILD,Healthcare
+ORCL,good,316,down,ORCL,Technology
+EOG,very good,315,down,EOG,Energy
+PRGO,very good,315,down,PRGO,Healthcare
+RL,very good,315,down,RL,Consumer Cyclical
+DD,very good,315,down,DD,Basic Materials
+ETR,very good,315,down,ETR,Utilities
+PEG,very good,315,down,PEG,Utilities
+MNST,very good,315,down,MNST,Consumer Defensive
+DFS,very good,315,down,DFS,Financial Services
+EA,very good,315,down,EA,Communication Services
+AKAM,very good,315,down,AKAM,Technology
+HPQ,very good,315,down,HPQ,Technology
+WFC,poor,315,down,WFC,Financial Services
+JPM,poor,315,down,JPM,Financial Services
+MS,good,315,down,MS,Financial Services
+LMT,good,315,down,LMT,Industrials
+PSA,good,315,down,PSA,Real Estate
+CB,good,315,down,CB,Financial Services
+AAPL,good,315,down,AAPL,Technology
+MRK,good,315,down,MRK,Healthcare
+NVDA,good,315,down,NVDA,Technology
+ADSK,good,315,down,ADSK,Technology
+GPS,good,315,down,GPS,Consumer Cyclical
+CCL,good,315,down,CCL,Consumer Cyclical
+WMB,good,315,down,WMB,Energy
+TXT,good,315,down,TXT,Industrials
+VTR,very good,270,down,VTR,Real Estate
+PNC,good,227,down,PNC,Financial Services
+BWA,very good,208,down,BWA,Consumer Cyclical
+NDAQ,good,24,down,NDAQ,Financial Services
