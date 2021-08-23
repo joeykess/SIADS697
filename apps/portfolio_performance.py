@@ -194,7 +194,12 @@ def update_ticker(ticker_filter,ticker,btn1,btn2,btn3,btn4,ma_filters):
                         mode="lines",
                         name='Closing Price'))
 
-    fig.update_layout(title=dict(text=f'{ticker} Closing Price',font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96),
+    if ticker_filter == 'Ticker':
+        title_text = 'Closing Price'
+    else:
+        title_text = 'Average Closing Price'
+
+    fig.update_layout(title=dict(text=f'{ticker} {title_text}',font = dict(size = 20, color = 'white'), x = 0.5, y = 0.96),
                          plot_bgcolor="#A9A9A9",font=dict(size=10,color='white'),xaxis_showgrid=False,
                          paper_bgcolor='rgba(0,0,0,0)',
                          yaxis_title="Closing Price",margin={"r": 20, "t": 35, "l": 20, "b": 10},
