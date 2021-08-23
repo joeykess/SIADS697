@@ -49,31 +49,11 @@ def main(ticker, num_index):
     df['ema12'] = df['close'].ewm(span=12).mean()
     df = df[(df.index < '2020-07-19')]
     df = df.iloc[11:]
-    # doing every 30m intervals
     for start in range(0, df.shape[0], 6):
         data = df.iloc[start:start + num_index].copy()
         # when a quarter the data is filled in skip for training purpose
         last_point = data[['open', 'high', 'low', 'close']].iloc[0].mean()
         next_points = [last_point]
-        # checks within next 2 hours if going up or down (if no volume present)
-        # for index, row in df.iloc[start + 1:start + 24].iterrows():
-        #     if row['volume'] > 0.0 and len(next_points) <= 3:
-        #         next_points.append(row[['open', 'high', 'low', 'close']].mean())
-        # result = []
-        # for ind, j in enumerate(next_points[:-1]):
-        #     n = next_points[ind + 1]
-        #     if n > j:
-        #         result.append('up')
-        #     elif j == n:
-        #         result.append('same')
-        #     else:
-        #         result.append('down')
-        #
-        # if result.count('up') >= 1 and result.count('down') <= 1:
-        #     folder = 'buy'
-        # else:
-        #     folder = 'hold'
-
         # checks if next point has volume then creates chart
         next_row = df.iloc[start+1]
         same_day = next_row.name.hour > 4

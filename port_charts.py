@@ -338,7 +338,7 @@ def mlp_stat_chart(csv_path, stat = 'loss'):
     if len(filts) > 1:
         fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
                                      y = list(df[filts[1]]),
-                                     name = 'Train',
+                                     name = 'Test',
                                      mode = 'lines+markers',
                                      marker = {'color':'#002D9C'}))
 
