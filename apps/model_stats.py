@@ -21,13 +21,6 @@ from dash.exceptions import PreventUpdate
 from app import app
 from port_charts import *
 
-# model_dict = {'Random Forest Regressor 120/30': 'RF Reg_target_120_rebal_30_2017-01-01',
-#               'Random Forest Regressor 120/60': 'RF Reg_target_120_rebal_60_2017-01-01'
-#               # 'Random Forest Regressor 60/30': 'RF Reg_target_60_rebal_30_2017-01-01'
-#               # 'CNN Visual Pattern Recognition': '75percent_confidence_no_holding_15m_cnn'
-#              }
-# model_list = [key for key in model_dict.keys()]
-
 # Loading model stat files for Tyler
 r2_df = pd.read_csv('assets/models/tyler_rf_daily_update/r2_df.csv',index_col=0)
 feat_df = pd.read_csv('assets/models/tyler_rf_daily_update/feature_importance.csv',index_col=0)
@@ -54,9 +47,10 @@ layout_jeff = html.Div([
 
 # Creating layout for Joey's model metrics
 layout_joey = html.Div([
-                dcc.Graph(id='model-metrics-joey',style={'width':'100%','height':'80%','marginBottom':'5px'})
+                dcc.Graph(id='model-metrics-joey',style={'width':'100%','height':'45%','marginBottom':'5px'}),
+                dcc.Graph(id='model-metrics-joey2',style={'width':'100%','height':'45%','marginBottom':'5px'})
 
-                ],style={'width':'100%','height':350,'overflowY':'auto','verticalAlign':'center','paddingLeft':'5px','paddingTop':'10px'})
+                ],style={'width':'100%','height':350,'overflowY':'auto','paddingLeft':'5px','paddingBottom':'5px'})
 
 
 @app.callback(dash.dependencies.Output('model-metrics','figure'),
@@ -152,11 +146,23 @@ def model_metrics_jeff(model_filter):
     [dash.dependencies.Input('model_filter','value')])
 def model_metrics_joey(model_filter):
 
-    fig = mlp_stat_chart(csv_path2, stat = 'Precision')
+    fig = mlp_stat_chart(csv_path2, stat = 'loss')
 
     fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='#A9A9A9')
     fig.update_yaxes(showgrid=False)
-    fig.update_xaxes(showgrid=False,range=[0, 100])
-    fig.update_layout(title = dict(text = 'CNN Image Pattern Recognition {} Results'.format('Precision'), x = 0.5, y = .99, font = {'size': 10,'color':'white'}))
+    fig.update_xaxes(showgrid=False,range=[0, 105])
+
+    return fig
+
+# Creating figure for Joey's model
+@app.callback(dash.dependencies.Output('model-metrics-joey2','figure'),
+    [dash.dependencies.Input('model_filter','value')])
+def model_metrics_joey(model_filter):
+
+    fig = mlp_stat_chart(csv_path2, stat = 'binary_accuracy')
+
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='#A9A9A9')
+    fig.update_yaxes(showgrid=False)
+    fig.update_xaxes(showgrid=False,range=[0, 105])
 
     return fig

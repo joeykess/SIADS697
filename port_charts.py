@@ -268,20 +268,41 @@ def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
     data = data.merge(sectors, on = 'Ticker')
     sector_list = sectors['sector'].unique()
     colors = ['#4e5d6c','#191970']
+
+    # Create ticker data and set to sector if doesn't exist
+    stk = data[data['Ticker']==stock_sector.upper()]['sector']
+    if len(stk) == 0:
+        stock_sector = sectors[sectors['Ticker']=='cpri'.upper()].sector.values[0]
+    else:
+        stk = stk.iloc[0]
+
     if stock_sector in sector_list:
         plot_df = data[data['sector']==stock_sector]
         if len(plot_df)>10:
+            dat_mean = plot_df['{}'.format(metric)].mean()
+            dat_vol = plot_df['{}'.format(metric)].std()
+            conf_plus = (dat_mean+(2*dat_vol))
+            conf_min = (dat_mean-(2*dat_vol))
+            plot_df = plot_df[plot_df['{}'.format(metric)]<=conf_plus]
+            plot_df = plot_df[plot_df['{}'.format(metric)]>=conf_min]
             plot_df = plot_df.sort_values(['3m_avg_mkt_cap']).iloc[0:10]
         else:
             plot_df = plot_df.sort_values(['3m_avg_mkt_cap'])
         plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
 
     else:
-        stk = data[data['Ticker']==stock_sector.upper()]['sector'].iloc[0]
+        # stk = data[data['Ticker']==stock_sector.upper()]['sector'].iloc[0]
         plot_df = data[data['sector']==stk]
         stock_line = plot_df[plot_df['Ticker']==stock_sector.upper()]
         if len(plot_df)>10:
-            plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()].sort_values(['3m_avg_mkt_cap'], ascending = False).iloc[0:9]
+            plot_df = plot_df[plot_df['Ticker']!=stock_sector.upper()]
+            dat_mean = plot_df['{}'.format(metric)].mean()
+            dat_vol = plot_df['{}'.format(metric)].std()
+            conf_plus = (dat_mean+(2*dat_vol))
+            conf_min = (dat_mean-(2*dat_vol))
+            plot_df = plot_df[plot_df['{}'.format(metric)]<=conf_plus]
+            plot_df = plot_df[plot_df['{}'.format(metric)]>=conf_min]
+            plot_df = plot_df.sort_values(['3m_avg_mkt_cap'], ascending = False).iloc[0:9]
             plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
             stock_line['color'] = colors[1]
             plot_df = pd.concat([plot_df, stock_line])
@@ -328,13 +349,7 @@ def mlp_stat_chart(csv_path, stat = 'loss'):
                                  y = list(df[filts[0]]),
                                  name = 'Train',
                                  line = {'color':'#1192e8'}))
-    # fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
-    #                              y = list(df[filts[1]]),
-    #                              name = 'Train',
-    #                              mode = 'lines+markers',
-    #                              marker = {'color':'#002d9c'}))
 
-    # Adding IF statement to handle Jeff and Joey's different vizzes
     if len(filts) > 1:
         fig.add_trace(go.Scatter(x = [i for i in range(0, len(df))],
                                      y = list(df[filts[1]]),
