@@ -111,7 +111,7 @@ desc_dict = {'Random Forest Regressor 120/30':
                                             Within Volatility the model uses rolling standard deviations of a stock over various time frames.
                                             Within Momentum - The model uses exponentially weighted moving averages for a stock price over multiple timeframes as well as historic returns over multiple time frames.
                                             The Size factor - is represented average market cap.
-                                            """,style={'color':'white','fontSize':12})
+                                            """,style={'color':'white','fontSize':12,'lineHeight':1.2})
                                         ]
 
                 }
