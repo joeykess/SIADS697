@@ -9,6 +9,14 @@ You can find our blog post describing the work on [Medium](https://medium.com/@t
 * <b>Multi-Factor Multilayer Perceptron (MLP)</b>: This method utilizes Fundamental features as inputs into a binary classification model design to answer one simple question, "Will the future one-year total return on this stock be in the top 50% of all S&P 500 stocks or not?" More documentation can be found [here](https://github.com/joeykess/SIADS697/tree/main/assets/models/jeff_multi_factor)
 * <b>CNN Image Pattern Recognition</b>: This method utilizes Convolutional Neural Network to recognize patterns in images to predict how the market will perform within the upcoming few minutes. More documentation can be found [here](https://github.com/joeykess/SIADS697/tree/main/assets/models/joey_cnn_intraday)
 
+Please create a [virtual environment](https://docs.python.org/3/library/venv.html) and run below to re-create model analyses
+ ```bash
+python -m venv venv
+source venv/bin/activate  # Windows: \venv\scripts\activate
+pip install -r requirements.txt
+```
+**Note: Does not currenty work for M1 Macs due to dependency issues
+
 <b>Multiple scripts will be utilized to pull raw data:</b>
 * Data used by the <b>Random Forest Regressor</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`, then data is loaded to postgres using `Creating Technical Features Data.ipynb`
 * Data used by the <b>Multi-Factor MLP</b> model is stored in an AWS hosted postgres database. Files used to create the data and store it in the database are as follows: `historical_stocks.py`, `feature_creation.py`,`data_collection_five_factor.ipynb`, The functions in `data_collection_five_factor.ipynb`, all require subscriptions to Refinitive Eikon or Datastream Web Services as well as a running Eikon terminal. All ready to use features are stored in a postgres database, executing the `run_feature_engine()` function inside the model notebook will pull raw features from the database and go through all feature engineering and preparation steps but will take up to an hour.  
@@ -54,7 +62,7 @@ assets Folder:
  ```bash
 python -m venv venv
 source venv/bin/activate  # Windows: \venv\scripts\activate
-pip install -r requirements2.txt
+pip install -r requirements-docker.txt
 ```
 then run the app:
 ```bash
@@ -65,20 +73,3 @@ python index.py
  
 ![alt text](assets/dashboard_portfolio_performance.png)
  
- 
- 
- 
-``` 
-app.py (Contains boilerplate server code, as well as CSS reference themes)
-index.py (Includes HTML code that structures the top level of the dashboard, including tabs)
-apps Folder:
- - __init__.py (Empty required file)
- - portfolio_performance.py (All code required to build the Portfolio Performance tab)
- - model_performance.py (All code required to build the Model Performance tab)
- - jupyter.py (All code required to build the Jupyter Notebook tab)
- - model_stats.py (Not required, but used to display individual HTML Divs for each model)
- - ind_css.py (Used to store custom styling, removes clutter from .py files)
-assets Folder:
- - style.css (CSS stylesheet called by the app)
- - Stores individual images, data, and html files
-```
