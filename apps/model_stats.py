@@ -50,13 +50,13 @@ layout_jeff = html.Div([
                 dcc.Graph(id='model-metrics-jeff',style={'width':'100%','height':'45%','marginBottom':'5px'}),
                 dcc.Graph(id='model-metrics-jeff2',style={'width':'100%','height':'45%','marginBottom':'5px'})
 
-                ],style={'width':'100%','height':'350','overflowY':'auto','paddingLeft':'5px','paddingBottom':'5px'})
+                ],style={'width':'100%','height':350,'overflowY':'auto','paddingLeft':'5px','paddingBottom':'5px'})
 
 # Creating layout for Joey's model metrics
 layout_joey = html.Div([
                 dcc.Graph(id='model-metrics-joey',style={'width':'100%','height':'80%','marginBottom':'5px'})
 
-                ],style={'width':'100%','height':'350','verticalAlign':'center','paddingLeft':'5px','paddingTop':'10px'})
+                ],style={'width':'100%','height':350,'overflowY':'auto','verticalAlign':'center','paddingLeft':'5px','paddingTop':'10px'})
 
 
 @app.callback(dash.dependencies.Output('model-metrics','figure'),
