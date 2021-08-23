@@ -33,3 +33,4 @@ keras-tuner==1.0.3
 kaleido==0.2.1
 chart-studio==1.1.0
 split-folders==0.4.3
+ta==0.7.0
