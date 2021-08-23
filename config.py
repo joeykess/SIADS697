@@ -6,15 +6,15 @@
 
 #eikon
 def ek_key ():
-    eikon_key='b4229eae2c644ec8a0aab0bb0fb83b13a38eb2c7'
+    eikon_key='********'
     return eikon_key
 
 def username_ds():
-    username_ds = 'JGarden1@lidoadvisors.com'
+    username_ds = '******'
     return username_ds
 
 def pw_ds():
-    pw_ds = 'Welcome2'
+    pw_ds = '*****'
     return pw_ds
 
 if __name__ == "__main__":
