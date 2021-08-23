@@ -271,10 +271,8 @@ def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
 
     # Create ticker data and set to sector if doesn't exist
     stk = data[data['Ticker']==stock_sector.upper()]['sector']
-    if len(stk) == 0:
-        stock_sector = sectors[sectors['Ticker']=='cpri'.upper()].sector.values[0]
-    else:
-        stk = stk.iloc[0]
+    if (len(stk) == 0) and (stock_sector not in sector_list):
+        stock_sector = sectors[sectors['Ticker']==stock_sector.upper()].sector.values[0]
 
     if stock_sector in sector_list:
         plot_df = data[data['sector']==stock_sector]
@@ -291,7 +289,7 @@ def fundamental_chart(metric, stock_sector, date = '2021-06-30'):
         plot_df['color'] = [colors[0] for i in range(0, len(plot_df))]
 
     else:
-        # stk = data[data['Ticker']==stock_sector.upper()]['sector'].iloc[0]
+        stk = stk.iloc[0]
         plot_df = data[data['sector']==stk]
         stock_line = plot_df[plot_df['Ticker']==stock_sector.upper()]
         if len(plot_df)>10:
