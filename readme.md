@@ -69,8 +69,8 @@ python index.py
  
  
 ``` 
-app.py (contains boilerplate server code, as well as CSS reference themes)
-index.py (Includes HTML code that structure the top level of the dashboard, including tabs)
+app.py (Contains boilerplate server code, as well as CSS reference themes)
+index.py (Includes HTML code that structures the top level of the dashboard, including tabs)
 apps Folder:
  - __init__.py (Empty required file)
  - portfolio_performance.py (All code required to build the Portfolio Performance tab)
@@ -80,5 +80,5 @@ apps Folder:
  - ind_css.py (Used to store custom styling, removes clutter from .py files)
 assets Folder:
  - style.css (CSS stylesheet called by the app)
- - Stores individual image, data, and html files
+ - Stores individual images, data, and html files
 ```
